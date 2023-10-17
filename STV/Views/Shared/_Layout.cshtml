@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+
+    <link rel="stylesheet" href="~/Image/fontawesome-free-6.4.2-web/css/regular.css">
+    <link rel="stylesheet" href="~/Image/fontawesome-free-6.4.2-web/css/solid.css">
+    <link rel="stylesheet" href="~/Image/fontawesome-free-6.4.2-web/css/v5-font-face.css">
+    <link rel="stylesheet" href="~/Image/fontawesome-free-6.4.2-web/css/fontawesome.css">
+    <link rel="stylesheet" href="~/Content/all.css">
+    <link rel="stylesheet" href="~/Content/min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Theme.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Vip.css">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
+    <style type="text/css">
+        .fa-download {
+            min-width: 30px;
+            font-size: 30px;
+        }
+
+        .cgcolor {
+            font-size: 15px;
+            line-height: 1.2;
+            width: 25px;
+            text-align: center;
+        }
+
+        .noti {
+            padding: 0 6px;
+            height: 60px;
+            border: 1px solid #dddddd;
+            margin-top: -1px;
+        }
+
+            .noti h6 {
+                margin: 6px 0 0 0;
+                font-size: 14px;
+            }
+
+        #searchbox {
+            line-height: 2;
+        }
+
+        #commentportion .sec-bot {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .blk-item2 {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
+        }
+
+            .blk-item2 i {
+                font-size: 30px;
+            }
+
+        .col-3 {
+            padding: 0;
+        }
+
+        .blk-item2 i:after {
+            content: "";
+            display: block;
+        }
+
+        .nip {
+            border: none;
+            background-color: #eee;
+            outline: none;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+        .nip {
+            border: none;
+            width: 100%;
+            background: #eee;
+            padding: 6px;
+            border-radius: 6px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light" id="mainbar">
+        <div id="tm-nav-search-top" class="container" style="display:block;line-height: 50px;">
+            <a href="/"><img alt="Logo sangtacviet" id="tm-nav-search-logo" src="~/Image/favicon.png"></a>
+            <div id="tm-nav-search-top-right" style="float: right;">
+                <button type="button" class="btn" id="notifmarker" onclick="notification()">
+                    <i class="fa-solid fa-exclamation" ></i>
+                </button>
+                <img id="tm-user-avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/user250.jpeg?t=1630150096" onclick="usermenu()">
+                <span id="usermenupos" style="position: relative;height: 30px;display: inline-block;">
+                    <div id="menunavigator2" style="display: none;">
+                        <ul style="list-style-type: none;padding: 6px;white-space: nowrap;display: block;">
+                            <span style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</span>
+                            <hr>
+                            <li><a onclick="ui.swiftload(this)" href="/user/0/">Thông tin cá nhân</a></li>
+                            <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
+                            <li><a onclick="ui.swiftload(this)" href="/the-luc/">Thế lực</a></li>
+                            <li><a onclick="logout();">Đăng xuất</a></li>
+                            <hr hidden="">
+                            <li><a href="/donate/" style="color: #DD0000">Donate</a></li>
+                            <hr>
+                            <li><a onclick="ui.swiftload(this,'inner')" href="/mybook/">Truyện đánh dấu</a></li>
+                            <li><a onclick="ui.swiftload(this,'inner')" href="/readed/">Truyện đã đọc</a></li>
+                            <li><a onclick="ui.swiftload(this,'inner')" href="/following/">Truyện theo dõi</a></li>
+                            <li><a onclick="ui.swiftload(this,'inner')" href="/de-cu/">Truyện đề cử</a></li>
+                            <li><a onclick="ui.swiftload(this,'inner')" href="/nhunger/">Truyện tôi thầu</a></li>
+                            <hr>
+                            <li><a href="/uploader/" style="color: #DD0000">Đăng truyện</a></li>
+                            <li><a href="/writer.php">Khu tác giả</a></li>
+                            <li><a href="/langer.php">[PC-Only]Khu dịch giả</a></li>
+
+                        </ul>
+                    </div>
+                    <script type="text/javascript">
+                        function closeusermenu() {
+                            g("menunavigator2").style.display = "none";
+                            ismenu2show = false;
+                        }
+                        var ismenu2show = false;
+                        function usermenu() {
+                            var a = g("usermenupos");
+                            if (ismenu2show) {
+                                a.children[0].style.display = "none";
+                                ismenu2show = false;
+                            } else {
+                                a.children[0].style.display = "block";
+                                ismenu2show = true;
+                            }
+
+                        }
+                        function logout() {
+                            if (!confirm("Xác nhận thoát tài khoản?")) {
+                                return;
+                            }
+                            var params = "ajax=logout&ngmar=logout";
+                            var http = new XMLHttpRequest();
+                            var url = '/index.php';
+                            http.open('POST', url, true);
+                            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                            http.onreadystatechange = function () {
+                                if (http.readyState == 4 && http.status == 200) {
+                                    if (http.responseText == "success") document.location.href = "/";
+                                }
+                            }
+                            http.send(params);
+                        }
+                    </script>
+                </span>
+            </div>
+            <form class="" style="width:auto;margin: 0">
+                <div class="input-group">
+                    <input id="id" autocomplete="off" class="form-control col-auto" onkeydown="if(event.keyCode==13){event.preventDefault();goto();}" onfocus="ui.scriptmanager.load('/stv.host.js?v=030');" type="text" name="id" placeholder="Link truyện/Tìm kiếm">
+                    <button id="tm-btn-goto" aria-label="Nút tìm kiếm" type="button" class="my-0 my-lg-0 fa-solid fa-arrow-right" onclick="goto()"></button>
+                    <button id="tm-btn-rescan" aria-label="Nút tải lại" type="button" class="my-0 my-lg-0 fa-solid fa-redo" onclick="gotox()"></button>
+                    <span id="tm-nav-search-popup" style="display: block;">
+                        <div id="searchbox">
+                        </div>
+                    </span>
+
+                </div>
+                <script type="text/javascript">
+                    var _c = "_gac", _d = "_gid", c = getCookie, _h = "charCodeAt";
+                </script>
+            </form>
+        </div>
+    </nav>
+    <div id="tm-bot-nav" class="bg-dark">
+        <div id="naviga" class="container">
+            <a onclick="ui.swiftload(this)" href="/"><i class="fa-solid fa-house"></i> Trang chủ</a>
+            <a onclick="ui.swiftload(this)" href="/truyen-ngon/"><i class="fa-solid fa-comment"></i> Thế giới</a>
+            <a onclick="ui.swiftload(this)" href="/search/">Tìm Truyện</a>
+            <a href="/day-sach/">Đẩy Sách</a>
+            <a hidden="" href="//forum.sangtacviet.com">Diễn Đàn</a>
+            <a href="/surf.php">Dịch trang web</a>
+            <a onclick="ui.swiftload(this)" href="/trans/">Dịch</a>
+
+        </div>
+    </div>
+    <div id="tm-credit-section" class="container-fluid bg-dark">
+        <div class="container">
+            <div id="credit" class="row" style="font-size:12px;">
+                <center id="tm-credit-text" style="clear:both;width: 100%;color: white;padding: 24px;">
+                    <a href="/">
+                        <div style="display: inline-block;margin-right: -165px;width: 158px;border-radius: 6px;color: white;height: 56px;background: whitesmoke"></div>
+                        <img alt="Logo sangtacviet" loading="lazy" src="~/Image/favicon.png" style="width: 160px;margin-top: -48px">
+                    </a><br>
+                    sangtacviet.com là trang web cung cấp dịch vụ dịch tự động dịch truyện chữ trung. <br>
+                    <div style="margin-bottom: 6px;">
+                        <a href="/manhtan.pdf">Hướng dẫn tân thủ</a>
+                        <a href="/0">Bài viết</a>
+                        <a href="/~app-doc-truyen-phien-ban-thu-nghiem-101">App</a>
+                        <a href="/~extension-dich-thuat-tu-dong-tieng-trung-v150">Extension</a>
+                    </div>
+
+                    <span style="border-radius: 6px;background: #eee;display: inline-block;padding: 6px;">
+                        <!-- BEGIN: Powered by Supercounters.com -->
+                        <script async="" onload="sc_online_t(1546820, ' Online', '170ddb');" defer="" type="text/javascript" src="//widget.supercounters.com/ssl/online_t.js"></script><a href="//www.supercounters.com/stats/1546820" title="Real-time web tracking from supercounters" target="_blank"><font color="170ddb">3669  Online</font></a>
+                        <script type="text/javascript"></script>
+                        <br>
+                        <noscript><a href="https://my.ipaddress.is/">What is my ip address</a></noscript>
+                        <!-- END: Powered by Supercounters.com -->
+
+                    </span><br>
+                    <a hidden="" href="//www.dmca.com/Protection/Status.aspx?ID=86c08fad-8058-44e7-a411-4e384995c6d5" title="DMCA.com Protection Status" class="dmca-badge"> <img src="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=86c08fad-8058-44e7-a411-4e384995c6d5" alt="DMCA.com Protection Status"></a>  <scripts src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </scripts>
+                </center>
+                <br>
+
+            </div>
+        </div>
+    </div>
+    @RenderBody();
+</body>
+</html>
