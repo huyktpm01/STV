@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/LoginLogout.cshtml";
+}
+<style>
+    tr{
+        height:40px;
+    }
+    Gender{
+        width:70px;
+    }
+</style>
+<h4 style="color:red;text-align:center;">@ViewBag.ThongBao</h4>
+<table align="center">
+    <h2 style="text-align:center">ĐĂNG KÝ THÀNH VIÊN</h2>
+    @using (Html.BeginForm("DangKy", "Member", FormMethod.Post, new
+    {
+        @enctype =
+"multipart/form-data"
+    }))
+    {
+        @Html.AntiForgeryToken()
+        <tr>
+            <td>UserName:</td>
+            <td>@Html.TextBox("UserName") @ViewData["err1"]</td>
+        </tr>
+        <tr>
+            <td>PassWord:</td>
+            <td>@Html.TextBox("Pass") @ViewData["err2"]</td>
+        </tr>
+        <tr>
+            <td>Mật Khẩu Nhập lại:</td>
+            <td>@Html.TextBox("PassNL") @ViewData["err4"]</td>
+        </tr>
+        <tr>
+            <td><label class="control-label col-md-2">Ảnh bìa:</label></td>
+            <td>
+                <div class="col-md-10">
+                    <input type="file" name="fFileUpload" />
+                    @*Thông báo lỗi yêu cầu phải chọn ảnh bìa*@
+                    @ViewBag.ThongBao
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>@Html.TextBox("Email") @ViewData["err5"]</td>
+        </tr>
+        <tr>
+            <td>Birth:</td>
+            <td><input type="date" name="Birth" /></td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td style="width :70px">
+                Male:
+                <input checked="checked"
+                       id="Gender"
+                       name="Gender"
+                       type="radio"
+                       value="Male" />
+                Female:
+                <input id="Gender"
+                       name="Gender"
+                       type="radio"
+                       value="Female" />
+                Khac:
+                <input id="Gender"
+                       name="Gender"
+                       type="radio"
+                       value="Khac" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Đăng ký" /> <input type="reset" value="Xóa Thông Tin" />
+            </td>
+        </tr>
+    }
+
+</table>
+

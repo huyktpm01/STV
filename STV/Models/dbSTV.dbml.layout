@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17, 22.625" name="dbSTV">
+  <DataContextMoniker Name="/dbSTVDataContext" />
+  <nestedChildShapes>
+    <classShape Id="6a6d6c0b-999e-4533-a9bd-730545e08d2a" absoluteBounds="3.5, 12.875, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/dbSTVDataContext/Admin" />
+      <nestedChildShapes>
+        <elementListCompartment Id="983edeec-5930-4ff5-af65-7e6236880e96" absoluteBounds="3.515, 13.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="323d09ba-7374-4657-8a10-db6f34c2a88d" absoluteBounds="3.5, 9.75, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/dbSTVDataContext/Author" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b8ab8eae-3c4e-4187-95e1-571efa696b0f" absoluteBounds="3.515, 10.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1c13d6af-5090-4dc1-8494-0e68601620ea" absoluteBounds="6.25, 6.875, 2, 1.7708968098958335">
+      <DataClassMoniker Name="/dbSTVDataContext/AuthorR" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f0c05830-6c52-4417-95de-68e95e6a8d3e" absoluteBounds="6.265, 7.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7c42fe71-2dc1-48fa-878b-169fd53b0cdb" absoluteBounds="0.75, 9, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbSTVDataContext/AuthorVIP" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fcdc042a-ed53-4776-b84d-2a97038dc720" absoluteBounds="0.765, 9.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f4ba043c-6a30-49f6-ad94-d5acb45ea1ba" absoluteBounds="6.5, 3.625, 2, 2.347801106770834">
+      <DataClassMoniker Name="/dbSTVDataContext/category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a443929a-e06f-4739-b72d-1ccf51786d9a" absoluteBounds="6.515, 4.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3dc94d33-3465-45c5-bef9-e86190e1df5d" absoluteBounds="6.25, 17.875, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/dbSTVDataContext/Comment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dc269905-08af-4a59-95f8-8e8af44d17e4" absoluteBounds="6.265, 18.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9d3a8235-dd87-4535-ac6a-afef2d570a17" absoluteBounds="12, 10.125, 2, 3.5016097005208309">
+      <DataClassMoniker Name="/dbSTVDataContext/Chapter" />
+      <nestedChildShapes>
+        <elementListCompartment Id="21686c78-e2e7-43c2-a2b7-8af664024cb8" absoluteBounds="12.015, 10.585, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a0d47779-a581-49cb-acf9-ce8bb7268919" absoluteBounds="6.25, 13.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbSTVDataContext/Follow" />
+      <nestedChildShapes>
+        <elementListCompartment Id="35528fe7-f3d7-4ba2-9748-c8c4ca3d57d7" absoluteBounds="6.265, 13.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="43558fd3-a7c6-46b9-8d8e-04ce289fe4b6" absoluteBounds="14.75, 13.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbSTVDataContext/History" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4a386479-274e-4218-8b51-b884eb0e9484" absoluteBounds="14.765, 13.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6ff76bea-64e8-4e5f-80d1-42da0339b2ad" absoluteBounds="14.75, 16, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/dbSTVDataContext/HistoryBuy" />
+      <nestedChildShapes>
+        <elementListCompartment Id="781cf032-2142-4932-9a16-a60aedaff308" absoluteBounds="14.765, 16.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b71793e5-7b12-420a-a6fb-7aa870f8d9b1" absoluteBounds="0.75, 12.25, 2, 2.9247054036458309">
+      <DataClassMoniker Name="/dbSTVDataContext/Member" />
+      <nestedChildShapes>
+        <elementListCompartment Id="37ad61f6-acdb-45c5-a21e-cd5dee498d6c" absoluteBounds="0.765, 12.71, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9a314720-f351-40fe-b6b6-50e2d21b3cfb" absoluteBounds="6.25, 20.375, 2, 1.9631982421875023">
+      <DataClassMoniker Name="/dbSTVDataContext/ReaderConfig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="66dc74fa-ed65-4864-9251-54df946e4869" absoluteBounds="6.265, 20.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" absoluteBounds="3.5, 15.75, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/dbSTVDataContext/Reader" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ade07c08-cff4-4036-a77b-7c4b2ed695f4" absoluteBounds="3.515, 16.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="288a90c4-e16a-4866-b9a7-c6113b1d0829" absoluteBounds="0.75, 17, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbSTVDataContext/ReaderVIP" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d3b234f1-22df-4973-8dfb-3f553bee694a" absoluteBounds="0.765, 17.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="eb5594af-25ad-4eef-8be5-ea3856163750" absoluteBounds="9.25, 9, 2, 3.5016097005208309">
+      <DataClassMoniker Name="/dbSTVDataContext/Story" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d84dda51-51cc-41b6-99f8-3a237acad1e1" absoluteBounds="9.265, 9.46, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b9a8fb83-fff6-404f-942c-9c0840ceace2" absoluteBounds="6.25, 15.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbSTVDataContext/Recharge" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bd4bd871-89d6-4e2f-824c-d2b106d870d2" absoluteBounds="6.265, 15.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="75b6590f-ff4a-4cc4-bea5-7ee9de932478" absoluteBounds="9, 16.75, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/dbSTVDataContext/Reply" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a1c8e1c7-4094-4c98-b566-adbdb5edc8eb" absoluteBounds="9.015, 17.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a04fcfb1-d688-44aa-a3bf-433a6b9c863c" absoluteBounds="6.25, 10, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbSTVDataContext/Withdraw" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48d2d38a-84b0-4cd8-97b0-15c75fd9a3e5" absoluteBounds="6.265, 10.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d5e970e0-871d-4f76-9e80-f93ba44fd158" absoluteBounds="12, 7.875, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/dbSTVDataContext/story_posting_schedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b69911fd-a543-4ade-ae79-d9f3be63020d" absoluteBounds="12.015, 8.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.5 : 9.75); (4.5 : 7.76044840494792); (6.25 : 7.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Author/Author_AuthorR" />
+      <nodes>
+        <classShapeMoniker Id="323d09ba-7374-4657-8a10-db6f34c2a88d" />
+        <classShapeMoniker Id="1c13d6af-5090-4dc1-8494-0e68601620ea" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 10.1642976888021); (3.5 : 10.1642976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/AuthorVIP/AuthorVIP_Author" />
+      <nodes>
+        <classShapeMoniker Id="7c42fe71-2dc1-48fa-878b-169fd53b0cdb" />
+        <classShapeMoniker Id="323d09ba-7374-4657-8a10-db6f34c2a88d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(14 : 13.3758048502604); (14.75 : 13.3758048502604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Chapter/Chapter_History" />
+      <nodes>
+        <classShapeMoniker Id="9d3a8235-dd87-4535-ac6a-afef2d570a17" />
+        <classShapeMoniker Id="43558fd3-a7c6-46b9-8d8e-04ce289fe4b6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13 : 13.6266097005208); (13 : 16.8854484049479); (14.75 : 16.8854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Chapter/Chapter_HistoryBuy" />
+      <nodes>
+        <classShapeMoniker Id="9d3a8235-dd87-4535-ac6a-afef2d570a17" />
+        <classShapeMoniker Id="6ff76bea-64e8-4e5f-80d1-42da0339b2ad" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 13.7604484049479); (3.5 : 13.7604484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Member/Member_Admin" />
+      <nodes>
+        <classShapeMoniker Id="b71793e5-7b12-420a-a6fb-7aa870f8d9b1" />
+        <classShapeMoniker Id="6a6d6c0b-999e-4533-a9bd-730545e08d2a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 12.2515374615385); (3.125 : 11.8765374615385); (3.125 : 12.0881982421875); (3.5 : 11.7131982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbSTVDataContext/Member/Member_Author" />
+      <nodes>
+        <classShapeMoniker Id="b71793e5-7b12-420a-a6fb-7aa870f8d9b1" />
+        <classShapeMoniker Id="323d09ba-7374-4657-8a10-db6f34c2a88d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 17.7131982421875); (4.5 : 18.7604484049479); (4.94791916666667 : 18.7604484049479 : JumpStart); (5.11458583333333 : 18.7604484049479 : JumpEnd); (6.25 : 18.7604484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_Comment" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="3dc94d33-3465-45c5-bef9-e86190e1df5d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 15.7802020498798); (5.9375 : 15.3427020498798); (5.9375 : 13.9142976888021); (6.25 : 13.9142976888021)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_Follow" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="a0d47779-a581-49cb-acf9-ce8bb7268919" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 15.7832223548678); (6.125 : 15.1582223548678); (6.125 : 15.0785953776042); (12.9166666666667 : 15.0785953776042 : JumpStart); (13.0833333333333 : 15.0785953776042 : JumpEnd); (14.375 : 15.0785953776042); (14.75 : 14.7035953776042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_History" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="43558fd3-a7c6-46b9-8d8e-04ce289fe4b6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 15.75); (4.5 : 15.5); (5.69686871654647 : 15.5 : JumpStart); (5.86655568820112 : 15.5 : JumpEnd); (6.125 : 15.5); (6.125 : 17.3285953776042); (8.75 : 17.3285953776042); (8.75 : 16.5); (12.9166666666667 : 16.5 : JumpStart); (13.0833333333333 : 16.5 : JumpEnd); (14.375 : 16.5); (14.375 : 16.411472202474); (14.75 : 16.411472202474)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_HistoryBuy" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="6ff76bea-64e8-4e5f-80d1-42da0339b2ad" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.0312525 : 17.7131982421875); (5.0312525 : 21.3565991210938); (6.25 : 21.3565991210938)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_ReaderConfig" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="9a314720-f351-40fe-b6b6-50e2d21b3cfb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 15.1747054036458); (3.125 : 15.5497054036458); (3.125 : 15.375); (3.5 : 15.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dbSTVDataContext/Member/Member_Reader" />
+      <nodes>
+        <classShapeMoniker Id="b71793e5-7b12-420a-a6fb-7aa870f8d9b1" />
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 17.3565991210938); (3.5 : 17.3565991210938)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/ReaderVIP/ReaderVIP_Reader" />
+      <nodes>
+        <classShapeMoniker Id="288a90c4-e16a-4866-b9a7-c6113b1d0829" />
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.25 : 9); (10.25 : 7.76044840494792); (8.48958333333333 : 7.76044840494792 : JumpStart); (8.32291666666667 : 7.76044840494792 : JumpEnd); (8.25 : 7.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Story/Story_AuthorR" />
+      <nodes>
+        <classShapeMoniker Id="eb5594af-25ad-4eef-8be5-ea3856163750" />
+        <classShapeMoniker Id="1c13d6af-5090-4dc1-8494-0e68601620ea" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.25 : 11.3133048502604); (12 : 11.3133048502604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Story/Story_Chapter" />
+      <nodes>
+        <classShapeMoniker Id="eb5594af-25ad-4eef-8be5-ea3856163750" />
+        <classShapeMoniker Id="9d3a8235-dd87-4535-ac6a-afef2d570a17" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 9.84375); (8.32291666666667 : 9.84375 : JumpStart); (8.48958333333333 : 9.84375 : JumpEnd); (9.25 : 9.84375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Author/Author_Story" />
+      <nodes>
+        <classShapeMoniker Id="323d09ba-7374-4657-8a10-db6f34c2a88d" />
+        <classShapeMoniker Id="eb5594af-25ad-4eef-8be5-ea3856163750" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.40625 : 5.97280110677083); (8.40625 : 12.0713525390625); (9.25 : 12.0713525390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/category/category_Story" />
+      <nodes>
+        <classShapeMoniker Id="f4ba043c-6a30-49f6-ad94-d5acb45ea1ba" />
+        <classShapeMoniker Id="eb5594af-25ad-4eef-8be5-ea3856163750" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 16.462161366236); (6.04166666666667 : 16.462161366236 : JumpStart); (6.20833333333333 : 16.462161366236 : JumpEnd); (6.25 : 16.462161366236)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_Recharge" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="b9a8fb83-fff6-404f-942c-9c0840ceace2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 18.1979484049479); (9 : 18.1979484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Comment/Comment_Reply" />
+      <nodes>
+        <classShapeMoniker Id="3dc94d33-3465-45c5-bef9-e86190e1df5d" />
+        <classShapeMoniker Id="75b6590f-ff4a-4cc4-bea5-7ee9de932478" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 17.5833968098958); (9 : 17.5833968098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_Reply" />
+      <nodes>
+        <classShapeMoniker Id="2a11f4e5-0ab8-4af9-be67-2df48dfacaff" />
+        <classShapeMoniker Id="75b6590f-ff4a-4cc4-bea5-7ee9de932478" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 10.7892976888021); (6.25 : 10.7892976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Author/Author_Withdraw" />
+      <nodes>
+        <classShapeMoniker Id="323d09ba-7374-4657-8a10-db6f34c2a88d" />
+        <classShapeMoniker Id="a04fcfb1-d688-44aa-a3bf-433a6b9c863c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.7812525 : 9); (10.7812525 : 8.4062475); (12 : 8.4062475)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Story/Story_story_posting_schedule" />
+      <nodes>
+        <classShapeMoniker Id="eb5594af-25ad-4eef-8be5-ea3856163750" />
+        <classShapeMoniker Id="d5e970e0-871d-4f76-9e80-f93ba44fd158" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

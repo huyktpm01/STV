@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/LoginLogout.cshtml";
+}
+
+<style type="text/css">
+    td {
+        height: 40px;
+    }
+</style>
+<h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
+<h2 style="text-align:center;">ĐĂNG NHẬP</h2>
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr>
+            <td>UserName: </td>
+            <td>
+                @Html.TextBox("UserName")
+                @ViewData["Err1"]
+            </td>
+        </tr>
+        <tr>
+            <td>Pass: </td>
+            <td>
+                @Html.Password("Pass")
+                @ViewBag.Err2
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Đăng nhập" />
+                <a href="@Url.Action("DangKy","Member", new { url = Request.Url.AbsolutePath.ToString()})">DangKy</a>
+            </td>
+        </tr>
+    }
+</table>
+
+
+

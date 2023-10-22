@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Nhom6" Class="dbSTVDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Admin" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="AdminID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Biography" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CatID" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Member_Admin" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Author" Member="Authors">
+    <Type Name="Author">
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Pen_Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Biography" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="N_O_St" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VIPID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Author_AuthorR" Member="AuthorRs" ThisKey="AuthorID" OtherKey="AuthorID" Type="AuthorR" />
+      <Association Name="Author_Story" Member="Stories" ThisKey="AuthorID" OtherKey="AuthorID" Type="Story" />
+      <Association Name="Author_Withdraw" Member="Withdraws" ThisKey="AuthorID" OtherKey="AuthorID" Type="Withdraw" />
+      <Association Name="AuthorVIP_Author" Member="AuthorVIP" ThisKey="VIPID" OtherKey="VIPID" Type="AuthorVIP" IsForeignKey="true" />
+      <Association Name="Member_Author" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AuthorR" Member="AuthorRs">
+    <Type Name="AuthorR">
+      <Column Name="AuthorRID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Money" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="DayUpdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Author_AuthorR" Member="Author" ThisKey="AuthorID" OtherKey="AuthorID" Type="Author" IsForeignKey="true" />
+      <Association Name="Story_AuthorR" Member="Story" ThisKey="StoryID" OtherKey="StoryID" Type="Story" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AuthorVIP" Member="AuthorVIPs">
+    <Type Name="AuthorVIP">
+      <Column Name="VIPID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Sale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AuthorVIP_Author" Member="Authors" ThisKey="VIPID" OtherKey="VIPID" Type="Author" />
+    </Type>
+  </Table>
+  <Table Name="dbo.category" Member="categories">
+    <Type Name="category">
+      <Column Name="CatID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CatName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Number_of_cat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Hot" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreateAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="LastUpdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="category_Story" Member="Stories" ThisKey="CatID" OtherKey="CatID" Type="Story" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PublishDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Comment_Reply" Member="Replies" ThisKey="CommentID" OtherKey="CommentID" Type="Reply" />
+      <Association Name="Reader_Comment" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Chapter" Member="Chapters">
+    <Type Name="Chapter">
+      <Column Name="ChapterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Chapter_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="N_O_W" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="[View]" Member="View" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Pushlishdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastUpdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Vip" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Money" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="sold" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Chapter_History" Member="Histories" ThisKey="ChapterID" OtherKey="ChapterID" Type="History" />
+      <Association Name="Chapter_HistoryBuy" Member="HistoryBuys" ThisKey="ChapterID" OtherKey="ChapterID" Type="HistoryBuy" />
+      <Association Name="Story_Chapter" Member="Story" ThisKey="StoryID" OtherKey="StoryID" Type="Story" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Follow" Member="Follows">
+    <Type Name="Follow">
+      <Column Name="FollowID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FollowDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Reader_Follow" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.History" Member="Histories">
+    <Type Name="History">
+      <Column Name="HistoryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChapterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="E_Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Chapter_History" Member="Chapter" ThisKey="ChapterID" OtherKey="ChapterID" Type="Chapter" IsForeignKey="true" />
+      <Association Name="Reader_History" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HistoryBuy" Member="HistoryBuys">
+    <Type Name="HistoryBuy">
+      <Column Name="ChuongVIPID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BuyDay" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Money" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="ChapterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Chapter_HistoryBuy" Member="Chapter" ThisKey="ChapterID" OtherKey="ChapterID" Type="Chapter" IsForeignKey="true" />
+      <Association Name="Reader_HistoryBuy" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Member" Member="Members">
+    <Type Name="Member">
+      <Column Name="MemberID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Birth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Joindate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="A_Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Money" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Avatar" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Member_Admin" Member="Admins" ThisKey="MemberID" OtherKey="MemberID" Type="Admin" />
+      <Association Name="Member_Author" Member="Authors" ThisKey="MemberID" OtherKey="MemberID" Type="Author" />
+      <Association Name="Member_Reader" Member="Readers" ThisKey="MemberID" OtherKey="MemberID" Type="Reader" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReaderConfig" Member="ReaderConfigs">
+    <Type Name="ReaderConfig">
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color_Theme" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Color_Word" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Style_Word" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Size_Word" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Line" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Association Name="Reader_ReaderConfig" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reader" Member="Readers">
+    <Type Name="Reader">
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Biography" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="N_O_St" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VIPID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Reader_Comment" Member="Comments" ThisKey="ReaderID" OtherKey="ReaderID" Type="Comment" />
+      <Association Name="Reader_Follow" Member="Follows" ThisKey="ReaderID" OtherKey="ReaderID" Type="Follow" />
+      <Association Name="Reader_History" Member="Histories" ThisKey="ReaderID" OtherKey="ReaderID" Type="History" />
+      <Association Name="Reader_HistoryBuy" Member="HistoryBuys" ThisKey="ReaderID" OtherKey="ReaderID" Type="HistoryBuy" />
+      <Association Name="Reader_ReaderConfig" Member="ReaderConfigs" ThisKey="ReaderID" OtherKey="ReaderID" Type="ReaderConfig" />
+      <Association Name="Reader_Recharge" Member="Recharges" ThisKey="ReaderID" OtherKey="ReaderID" Type="Recharge" />
+      <Association Name="Reader_Reply" Member="Replies" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reply" />
+      <Association Name="Member_Reader" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
+      <Association Name="ReaderVIP_Reader" Member="ReaderVIP" ThisKey="VIPID" OtherKey="VIPID" Type="ReaderVIP" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReaderVIP" Member="ReaderVIPs">
+    <Type Name="ReaderVIP">
+      <Column Name="VIPID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Sale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ReaderVIP_Reader" Member="Readers" ThisKey="VIPID" OtherKey="VIPID" Type="Reader" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Story" Member="Stories">
+    <Type Name="Story">
+      <Column Name="StoryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CatID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="N_O_Chapter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[View]" Member="View" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Publishdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cover_Img" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="LastUpdate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Vip" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="hot" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Story_AuthorR" Member="AuthorRs" ThisKey="StoryID" OtherKey="StoryID" Type="AuthorR" />
+      <Association Name="Story_Chapter" Member="Chapters" ThisKey="StoryID" OtherKey="StoryID" Type="Chapter" />
+      <Association Name="Story_story_posting_schedule" Member="story_posting_schedules" ThisKey="StoryID" OtherKey="StoryID" Type="story_posting_schedule" />
+      <Association Name="Author_Story" Member="Author" ThisKey="AuthorID" OtherKey="AuthorID" Type="Author" IsForeignKey="true" />
+      <Association Name="category_Story" Member="category" ThisKey="CatID" OtherKey="CatID" Type="category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recharge" Member="Recharges">
+    <Type Name="Recharge">
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Money" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deposit_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contend" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Reader_Recharge" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Replies" Member="Replies">
+    <Type Name="Reply">
+      <Column Name="CommentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PublishDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="RepliesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Comment_Reply" Member="Comment" ThisKey="CommentID" OtherKey="CommentID" Type="Comment" IsForeignKey="true" />
+      <Association Name="Reader_Reply" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Withdraw" Member="Withdraws">
+    <Type Name="Withdraw">
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Money" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Withdrawaldate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contend" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Author_Withdraw" Member="Author" ThisKey="AuthorID" OtherKey="AuthorID" Type="Author" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.story_posting_schedule" Member="story_posting_schedules">
+    <Type Name="story_posting_schedule">
+      <Column Name="StoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="N_O_C" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Story_story_posting_schedule" Member="Story" ThisKey="StoryID" OtherKey="StoryID" Type="Story" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
