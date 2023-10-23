@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Theme.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Vip.css">
-
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
     <style type="text/css">
@@ -108,13 +107,13 @@
             {
                 <div id="tm-nav-search-top-right" style="float: right;">
                     <button type="button" class="btn" id="notifmarker" onclick="notification()" havenotif="2">
-                        <i class="fas"></i>
+                        <i class="fa-solid fa-exclamation"></i>
                     </button>
                     <img id="tm-user-avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/user250.jpeg?t=1630150096" onclick="usermenu()">
                     <span id="usermenupos" style="position: relative;height: 30px;display: inline-block;">
-                        <div id="menunavigator2" style="display: block;">
+                        <div id="menunavigator2" style="display:block;">
                             <ul style="list-style-type: none;padding: 6px;white-space: nowrap;display: block;">
-                                <span style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</span>
+                                <li style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</li>
                                 <hr>
                                 <li><a onclick="ui.swiftload(this)" href="/user/0/">Thông tin cá nhân</a></li>
                                 <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
@@ -137,36 +136,18 @@
                         </div>
                         <script type="text/javascript">
                             function closeusermenu() {
-                                g("menunavigator2").style.display = "none";
+                                document.getElementById("menunavigator2").style.display = "none";
                                 ismenu2show = false;
                             }
                             var ismenu2show = false;
                             function usermenu() {
-                                var a = g("usermenupos");
                                 if (ismenu2show) {
-                                    a.children[0].style.display = "none";
+                                    document.getElementById("menunavigator2").style.display = "none";
                                     ismenu2show = false;
                                 } else {
-                                    a.children[0].style.display = "block";
+                                    document.getElementById("menunavigator2").style.display = "block";
                                     ismenu2show = true;
                                 }
-
-                            }
-                            function logout() {
-                                if (!confirm("Xác nhận thoát tài khoản?")) {
-                                    return;
-                                }
-                                var params = "ajax=logout&ngmar=logout";
-                                var http = new XMLHttpRequest();
-                                var url = '/index.php';
-                                http.open('POST', url, true);
-                                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                                http.onreadystatechange = function () {
-                                    if (http.readyState == 4 && http.status == 200) {
-                                        if (http.responseText == "success") document.location.href = "/";
-                                    }
-                                }
-                                http.send(params);
                             }
                         </script>
                     </span>

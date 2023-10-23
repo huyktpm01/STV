@@ -36,6 +36,7 @@ namespace STV.Controllers
             var A_Level = collection["A_Level"];
             var Avatar = sFileName;
             var Email = collection["Email"];
+ 
             var Money = 0;
             var Status = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
             var Joindate = String.Format("{0:dd/MM/yyyy}", DateTime.Now);
@@ -80,15 +81,29 @@ namespace STV.Controllers
                 kh.Email = Email;
                 kh.Birth = DateTime.Parse(Birth);
                 kh.Joindate = DateTime.Parse(Joindate);
-                kh.A_Level = 1;
+                kh.A_Level = int.Parse(A_Level);
                 kh.Status = 1;
                 kh.Money = Money;
                 db.Members.InsertOnSubmit(kh);
                 db.SubmitChanges();
-                Reader reader = new Reader();
-                var n =  db.Members.SingleOrDefault(a => a.UserName == UserName);
-                reader.MemberID = n.MemberID;
-                reader.Name = n.UserName;
+                if(kh.A_Level == 1)
+                {
+                    Reader reader = new Reader();
+                    var n = db.Members.SingleOrDefault(a => a.UserName == UserName);
+                    reader.MemberID = n.MemberID;
+                    reader.Name = n.UserName;
+                    db.Readers.InsertOnSubmit(reader);
+                    db.SubmitChanges();
+                }
+                else if(kh.A_Level == 2)
+                {
+                    Author Author = new Author();
+                    var n = db.Members.SingleOrDefault(a => a.UserName == UserName);
+                    Author.MemberID = n.MemberID;
+                    Author.Pen_Name = n.UserName;
+                    db.Authors.InsertOnSubmit(Author);
+                    db.SubmitChanges();
+                }
                 return RedirectToAction("Login");
             }
             return this.DangKy();

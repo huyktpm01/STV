@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "addBook";
+    Layout = "~/Views/Shared/LoginLogout.cshtml";
+}
+<div class="container shadow p-2 bg-light">
+    <div class="breadcum p-1">
+        <a href="/Author/list/">Danh sách</a> /  Tạo truyện
+    </div>
+    <div class="menu bg-light p-1">
+        <div style="clear: both;"></div>
+    </div>
+    <div class="main" id="formaddbook">
+        @using (Html.BeginForm("addBook", "Author", FormMethod.Post, new
+        {
+            @enctype =
+"multipart/form-data"
+        }))
+        {
+            @Html.AntiForgeryToken()
+            <form id="formtmp">
+                <div class="form-group">
+                    <label for="ip-name">Tên truyện</label>
+                    <input type="text" class="form-control" id="ip-name" placeholder="Tên truyện" value=""> @ViewData["err1"]
+                </div>
+                <div class="form-group">
+                    <label for="ip-author">Tác giả/Bút danh</label>
+                    <input type="text" class="form-control" id="ip-author" placeholder="Tác giả/Bút danh" value="">@ViewData["err2"]
+                </div>
+                <div class="form-group">
+                    <label for="ip-category">Thể loại</label>
+                    @Html.DropDownList("CatID")
+                </div>
+                <div class="form-group">
+                    <label for="ip-thumb">Ảnh bìa</label>
+                    <div class="input-group">
+                        <input type="file" name="uploadFile" required />@ViewData["err4"]
+                    </div>
+                    <div style="text-align:right;">
+                        <img id="previewthumb" style="max-width: 320px;max-height: 540px;">@ViewData["err5"]
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ip-description">Giới thiệu</label>
+                    <textarea style="min-height: 400px" class="form-control" id="ip-description" placeholder="Giới thiệu tóm tắt"></textarea>
+                </div>
+                <div class="text-center"><button type="button" class="btn btn-primary" onclick="createBook()">Tạo truyện</button></div>
+
+            </form>
+        }
+    </div>
+    <div style="padding: 10px;">
+        Ghi chú: <br>
+        - Tên truyện tối thiểu 2 cụm từ.<br>
+        - Truyện sáng tác mặc định được bật mã hóa, sẽ không bị copy.<br>
+        - Ảnh bìa là link hình ảnh có đuôi .jpg,.png,.gif.<br>
+        - Truyện sau khi xuất bản, hệ thống sẽ định trước mỗi 2h sẽ có 1 lần đẩy vào hệ thống tìm kiếm, trước khi đó sẽ chỉ có thể truy cập khi có liên kết.<br>
+        - Giới thiệu tóm tắt có thể sử dụng những code dưới đây<br>
+        + [url=liên kết]Tên liên kết[/]: tạo liên kết đến trang web khác.<br>
+        + [banquyen=liên kết đến truyện]: Đánh dấu cấp phép bản quyền, nếu truyện đã được đăng ở web khác.<br>
+        + [color=màu]văn bản[/]: Một đoạn chữ có màu;<br>
+    </div>
+</div>
+
+

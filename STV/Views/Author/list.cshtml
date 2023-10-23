@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "list";
+    Layout = "~/Views/Shared/LoginLogout.cshtml";
+}
+    <div class="container shadow p-2 bg-light">
+        <div class="breadcum p-1">
+            <a href="/Author/list/">Danh sách truyện</a>
+        </div>
+        <div class="menu bg-light p-1">
+            <button class="btn btn-primary" style="float: right;" onclick="location.href='/Author/addBook/'">Thêm Truyện</button>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="main">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Loại</th>
+                        <th scope="col">Số chương</th>
+                        <th hidden="" scope="col">Vip</th>
+                        <th hidden="" scope="col">Đã bán</th>
+                        <th scope="col">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div style="width:100%;text-align:center;">
+                <nav style="display:inline-block;">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/Author/list/?pagenum=0">|&lt;</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/Authorlist/?pagenum=0">1</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="/Author/list/?pagenum=0">&gt;|</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/Author/uploader.js"></script>
+    <scripts type="text/javascript" src="/Author/uploader-man.js"></scripts>
+    <script>
+		function showMenu(id){
+			var sel = ui.select("Tùy chọn");
+			sel.proc = function(val){
+				if(window[val+"book"]){
+					window[val+"book"](id);
+				}
+				sel.hide();
+			}
+			sel.option("edit","Sửa thông tin");
+			sel.option("export","Xuất bản");
+			sel.option("listchap","Danh sách chương");
+			//sel.option("download","Tải xuống");
+			sel.option("delete","Xóa truyện");
+			sel.show();
+		}
+		function editbook(id){
+			location.href="/uploader/edit-book/"+id;
+		}
+		function exportbook(id){
+			ajax("minrt=langer&ajax=extractbook&isexport=true&bid="+id,function(down){
+				if(down){
+					alert(down);
+				}else{
+					alert("Xuất bản thành công.");
+				}
+			});
+		}
+		function listchapbook(id){
+			location.href='/uploader/list-chapter/'+id;
+		}
+		function downloadbook(id){
+
+		}
+		function deletebook(id){
+			if(confirm("Xóa truyện này? Thao tác này rất nguy hiểm? Truyện đã xuất bản sẽ không bị xóa? Hệ thống sẽ gỡ tài khoản của bạn khỏi truyện và vẫn giữ dữ liệu, bạn có thể yêu cầu lấy lại bất cứ lúc nào.")){
+				ajax("minrt=writer&ajax=unownbook&bid="+id,function(){
+					location.reload();
+				});
+			}
+		}
+    </script>
+
