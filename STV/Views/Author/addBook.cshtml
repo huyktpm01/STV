@@ -21,11 +21,11 @@
             <form id="formtmp">
                 <div class="form-group">
                     <label for="ip-name">Tên truyện</label>
-                    <input type="text" class="form-control" id="ip-name" placeholder="Tên truyện" value=""> @ViewData["err1"]
+                    <input type="text" class="form-control" id="ip-name" name="ip-name" placeholder="Tên truyện" value=""> @ViewData["err1"]
                 </div>
                 <div class="form-group">
                     <label for="ip-author">Tác giả/Bút danh</label>
-                    <input type="text" class="form-control" id="ip-author" placeholder="Tác giả/Bút danh" value="">@ViewData["err2"]
+                    <input type="text" class="form-control" id="ip-author" name="ip-author" placeholder="Tác giả/Bút danh" value="">@ViewData["err2"]
                 </div>
                 <div class="form-group">
                     <label for="ip-category">Thể loại</label>
@@ -34,17 +34,15 @@
                 <div class="form-group">
                     <label for="ip-thumb">Ảnh bìa</label>
                     <div class="input-group">
-                        <input type="file" name="uploadFile" required />@ViewData["err4"]
+                        <input type="file" name="fFileUpload" />@ViewBag.thongbao;
                     </div>
-                    <div style="text-align:right;">
-                        <img id="previewthumb" style="max-width: 320px;max-height: 540px;">@ViewData["err5"]
-                    </div>
+             
                 </div>
                 <div class="form-group">
-                    <label for="ip-description">Giới thiệu</label>
-                    <textarea style="min-height: 400px" class="form-control" id="ip-description" placeholder="Giới thiệu tóm tắt"></textarea>
+                    <label for="ip-description">Giới thiệu</label>@ViewData["err3"]
+                    <textarea style="min-height: 400px" class="form-control" id="ip-description" name="ip-description" placeholder="Giới thiệu tóm tắt"></textarea>
                 </div>
-                <div class="text-center"><button type="button" class="btn btn-primary" onclick="createBook()">Tạo truyện</button></div>
+                <div class="text-center"><button type="submit" class="btn btn-primary">Tạo truyện</button></div>
 
             </form>
         }
