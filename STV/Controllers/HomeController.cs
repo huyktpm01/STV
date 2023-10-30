@@ -24,7 +24,16 @@ namespace STV.Controllers
 
             return PartialView(db.Stories.OrderByDescending(a => a.Publishdate).Take(12).ToList());
         }
+        public ActionResult TopBook()
+        {
 
+            return PartialView(db.Stories.OrderByDescending(a => a.Rating).Take(12).ToList());
+        }
+        public ActionResult NewUpdate()
+        {
+
+            return PartialView(db.Stories.OrderByDescending(a => a.LastUpdate).Take(12).ToList());
+        }
 
 
     }

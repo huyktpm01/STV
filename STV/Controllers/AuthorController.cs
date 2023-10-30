@@ -21,6 +21,7 @@ namespace STV.Controllers
             
             
             ViewBag.AuthorID = MemberID;
+            ViewBag.Page = page;
             int iSize = 6;
             int iPageNum = (page ?? 1);
             var sach = from s in db.Stories where s.Author.MemberID == MemberID select s;
