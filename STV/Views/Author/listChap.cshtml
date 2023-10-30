@@ -1,0 +1,186 @@
+﻿@using STV.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<STV.Models.Chapter>
+
+@{
+    ViewBag.Title = "listChap";
+    ViewBag.s = Session["StoryID"];
+    Layout = "~/Views/Shared/LoginLogout.cshtml";
+}
+<head>
+    <style type="text/css">
+        table {
+            table-layout: auto;
+        }
+
+        .table td, .table th {
+            padding: 4px;
+        }
+
+        input[type=checkbox], input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+            -webkit-appearance: checkbox;
+        }
+
+        tr:hover {
+            background: #eeeeee;
+        }
+
+        th {
+            position: sticky;
+            top: -1px;
+            background: lightblue;
+        }
+
+        .d-grid {
+            display: grid;
+        }
+    </style>
+</head>
+<div class="container shadow p-2 bg-light">
+    <div class="breadcum p-1">
+        <a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })">Danh sách</a> / <a href=@Url.Action("listChap","Author",new { StoryID = Session["StoryID"] })>@ViewBag.TenSach</a>
+    </div>
+    <div class="menu bg-light p-1">
+        <span hidden style="float: right;" class="d-md-none">
+            <button class="btn btn-primary" data-toggle="collapse" data-target=".collapse"><i class="fas fa-bars"></i></button>
+        </span>
+        <span style="float: right;flex-direction: column;" class="d-grid d-md-block">
+            <button class="btn btn-primary" onclick="addChapter(@ViewBag.s)">Thêm Chương</button>
+            <button class="btn btn-primary" onclick="setChapEncrypt()">Bật/Tắt Mã hóa</button>
+            <button class="btn btn-warning" onclick="setChapOpen()">Xuất bản</button>
+            <button hidden class="btn btn-warning" onclick="openVipSetter()">Set vip</button>
+            <button hidden class="btn btn-warning" onclick="setChapUnVip()">Bỏ vip</button>
+            <button class="btn btn-danger" onclick="deleteChapter()">Xóa chương</button>
+            <button class="btn btn-info" onclick="rebuildchaplist()">Lưu Danh sách chương</button>
+        </span>
+
+        <div style="clear: both;"></div>
+    </div>
+    <div class="main">
+        <table class="table">
+            <thead id="thead">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Số</th>
+                    <th scope="col">Số phụ</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Mở</th>
+                    <th scope="col">Mã hóa</th>
+                    <th scope="col">Độ dài</th>
+                    <th scope="col">Lượt đọc</th>
+                    <th hidden scope="col">Vip</th>
+                    <th hidden scope="col">Giá</th>
+                    <th hidden scope="col">Unvip</th>
+                    <th hidden scope="col">Đã bán</th>
+                    <th scope="col">Ngày đăng</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sach in Model)
+                {
+
+                    <tr class="crow" id="1245311">
+                    <td><input type="checkbox" selector="" name=""></td>
+                    <td edit="num" contenteditable="true">@sach.ChapterID</td>
+                    <td edit="altnum" contenteditable="true">@sach.Chapter_Number</td>
+                    <td edit="name" contenteditable="true">@sach.Title</td>
+                    <td><input edit="open" type="checkbox" name=""></td>
+                    <td><input edit="encrypt" type="checkbox" name=""></td>
+                    <td>@sach.N_O_W</td>
+                    <td>@sach.View</td>
+                    <td hidden=""><input edit="isvip" type="checkbox" name=""></td>
+                    <td hidden="" edit="price" contenteditable="true">@sach.sold</td>
+                    <td hidden="" edit="autounvip" contenteditable="true">0</td>
+                    <td hidden="">@sach.Pushlishdate</td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="location.href='/truyen/sangtac/1/16979/1/'"><i class="fa-solid fa-eye"></i></button>
+                        <button type="button" class="btn btn-success" onclick="editChapter(1245311)"><i class="fa-solid fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger" onclick="deletechapter(1245311)"><i class="fa-solid fa-trash-alt"></i></button>
+                    </td>
+            </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="menu bg-light p-1">
+        <span style="float: right;flex-direction: column;" class="d-grid d-md-block">
+            <button class="btn btn-primary" onclick="addChapter(@ViewBag.s)">Thêm Chương</button>
+            <button class="btn btn-primary" onclick="setChapEncrypt()">Bật/Tắt Mã hóa</button>
+            <button class="btn btn-warning" onclick="setChapOpen()">Xuất bản</button>
+            <button hidden class="btn btn-warning" onclick="openVipSetter()">Set vip</button>
+            <button hidden class="btn btn-warning" onclick="setChapUnVip()">Bỏ vip</button>
+            <button class="btn btn-danger" onclick="deleteChapter()">Xóa chương</button>
+            <button class="btn btn-info" onclick="rebuildchaplist()">Lưu Danh sách chương</button>
+        </span>
+
+        <div style="clear: both;"></div>
+    </div>
+    <div style="padding: 10px;">
+        Ghi chú: <br>
+        - Số: số chương, được tự động ghép với tên chương, tự động gia tăng theo lượng chương đã tạo. Số này không thể trùng nhau.<br>
+        - Số phụ: nếu có số phụ sẽ thay thế số chính.<br>
+        - Mở: tình trạng xuất bản.<br>
+        - Mã hóa: mã hóa nội dung chương, không có khả năng bị sao chép. Sẽ không thể edit name nếu là truyện dịch đăng tải bằng txt gốc.<br>
+        <!-- Unvip: tự động unvip sau khi đạt mốc này. Tạo thiện cảm cho người đọc.<br>-->
+        Tips: Máy tính có thể bấm shift để chọn hàng loạt.<br>
+        Tips: Điều chỉnh số chương để các chương tạo sau này tự động nối liền kề, thuận tiện cho việc lấp hố, viết tiếp truyện người khác...<br>
+        Để khôi phục các chương đã xóa: <a href="/uploader/list-chapter-deleted/16979">Bấm vào đây</a>...<br>
+    </div>
+</div>
+<script type="text/javascript" src="/uploader/uploader.js?v21"></script>
+<script>
+    function showMenu(id) {
+        var sel = ui.select("Tùy chọn");
+        sel.proc = function (val) {
+            if (window[val + "book"]) {
+                window[val + "book"](id);
+            }
+            sel.hide();
+        }
+        sel.option("edit", "Sửa thông tin");
+        sel.option("export", "Xuất bản");
+        sel.option("listchap", "Danh sách chương");
+        //sel.option("download","Tải xuống");
+        sel.option("delete", "Xóa truyện");
+        sel.show();
+    }
+    function addChapter(id) {
+        location.href = "/Author/addChapter/" + id;
+    }
+    function exportbook(id) {
+        ajax("minrt=langer&ajax=extractbook&isexport=true&bid=" + id, function (down) {
+            if (down) {
+                alert(down);
+            } else {
+                alert("Xuất bản thành công.");
+            }
+        });
+    }
+    function downloadbook(id) {
+
+    }
+    function deletebook(id) {
+        if (confirm("Xóa truyện này? Thao tác này rất nguy hiểm? Truyện đã xuất bản sẽ không bị xóa? Hệ thống sẽ gỡ tài khoản của bạn khỏi truyện và vẫn giữ dữ liệu, bạn có thể yêu cầu lấy lại bất cứ lúc nào.")) {
+            ajax("minrt=writer&ajax=unownbook&bid=" + id, function () {
+                location.reload();
+            });
+        }
+    }
+</script>>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("listChap", new
+{
+    StoryID = Session["StoryID"],
+    page = page
+}))
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>

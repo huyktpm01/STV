@@ -1,0 +1,15 @@
+﻿@model IEnumerable<STV.Models.Story>
+<div class="tmc-home-section" style="color:black;font-size:14px;padding:0 15px;width: 100%;background: #d8effe;">
+    <div style="font-size:20px;margin:20px 0;">Được nhiều Like &gt;<a href="/?find=&amp;minc=0&amp;sort=upvote&amp;tag=" style="display: inline-block;color: gray;font-size:12px;float:right;margin-top: 10px;">xem thêm...</a></div>
+    @foreach (var s in Model)
+    {
+        <div class="row book-grid">
+            <a onclick="ui.swiftload(this)" class="col-lg-2 col-md-3 col-sm-3 col-4 cap" href="@Url.Action("Truyen", "Story", new { StoryID = s.StoryID})">
+                <div class="bookthumb">
+                    <img loading="lazy" referrerpolicy="no-referrer" src="@s.image" onerror="this.src=&quot;/nothumb.jpg&quot;">
+                </div>
+                <b style="line-height:1.5;display:block;margin:8px 0"> @s.Title </b>
+            </a>
+        </div>
+    }
+</div>

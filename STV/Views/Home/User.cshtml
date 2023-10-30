@@ -1,0 +1,61 @@
+﻿@if (Session["TaiKhoan"] == null) //Giao diện Login
+{
+
+
+    <div id="tm-nav-search-top-right" style="float: right;">
+  
+        <a href="@Url.Action("Login","Member", new { url = Request.Url.AbsolutePath.ToString()})">Đăng nhập </a>
+    </div>
+
+
+}
+else
+{
+    <div id="tm-nav-search-top-right" style="float: right;">
+        <button type="button" class="btn" id="notifmarker" onclick="notification()" havenotif="2">
+            <i class="fa-solid fa-exclamation"></i>
+        </button>
+        <img id="tm-user-avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/user250.jpeg?t=1630150096" onclick="usermenu()">
+        <span id="usermenupos" style="position: relative;height: 30px;display: inline-block;">
+            <div id="menunavigator2" style="display:block;">
+                <ul style="list-style-type: none;padding: 6px;white-space: nowrap;display: block;">
+                    <li style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</li>
+                    <hr>
+                    <li><a onclick="ui.swiftload(this)" href="/user/0/">Thông tin cá nhân</a></li>
+                    <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
+                    <li><a onclick="ui.swiftload(this)" href="/the-luc/">Thế lực</a></li>
+                    <li><a onclick="logout();">Đăng xuất</a></li>
+                    <hr hidden="">
+                    <li><a href="/donate/" style="color: #DD0000">Donate</a></li>
+                    <hr>
+                    <li><a onclick="ui.swiftload(this,'inner')" href="/mybook/">Truyện đánh dấu</a></li>
+                    <li><a onclick="ui.swiftload(this,'inner')" href="/readed/">Truyện đã đọc</a></li>
+                    <li><a onclick="ui.swiftload(this,'inner')" href="/following/">Truyện theo dõi</a></li>
+                    <li><a onclick="ui.swiftload(this,'inner')" href="/de-cu/">Truyện đề cử</a></li>
+                    <li><a onclick="ui.swiftload(this,'inner')" href="/nhunger/">Truyện tôi thầu</a></li>
+                    <hr>
+                    <li><a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })" style="color: #DD0000">Đăng truyện</a></li>
+                    <li><a href="/writer.php">Khu tác giả</a></li>
+                    <li><a href="/langer.php">[PC-Only]Khu dịch giả</a></li>
+
+                </ul>
+            </div>
+            <script type="text/javascript">
+                function closeusermenu() {
+                    document.getElementById("menunavigator2").style.display = "none";
+                    ismenu2show = false;
+                }
+                var ismenu2show = false;
+                function usermenu() {
+                    if (ismenu2show) {
+                        document.getElementById("menunavigator2").style.display = "none";
+                        ismenu2show = false;
+                    } else {
+                        document.getElementById("menunavigator2").style.display = "block";
+                        ismenu2show = true;
+                    }
+                }
+            </script>
+        </span>
+    </div>
+}

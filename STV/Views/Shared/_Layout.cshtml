@@ -11,12 +11,76 @@
     <link rel="stylesheet" href="~/Image/fontawesome-free-6.4.2-web/css/fontawesome.css">
     <link rel="stylesheet" href="~/Content/all.css">
     <link rel="stylesheet" href="~/Content/min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Theme.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Vip.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
     <style type="text/css">
+
+        .bookthumb {
+            border: 2px solid #008800;
+            width: 100%;
+            padding-top: 125%;
+            position: relative;
+            margin: 0;
+        }
+
+            .bookthumb img {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+            }
+
+        .bookthumb2[vf="3"]:before {
+            content: "Key Siêu Cấp";
+            position: absolute;
+            padding: 0 20px;
+            top: 25px;
+            left: -25px;
+            z-index: 10;
+            background-color: gold;
+            color: black;
+            transform: rotate(315deg);
+        }
+
+        .bookthumb[vf="3"] {
+            overflow: hidden
+        }
+
+        .cap {
+            padding: 4px;
+        }
+
+        .tusachsearcher {
+            border: 1px solid #e8e8e8;
+            width: 100%;
+            font-size: 14px;
+            padding: 6px;
+            margin-top: 12px;
+        }
+
+        .book-grid {
+            padding: 4px;
+        }
+
+        .book-list-item {
+            padding: 4px;
+            background-color: #defadd;
+            margin: 4px 0;
+            border-radius: 6px;
+        }
+
+            .book-list-item img {
+                width: 50px;
+                height: 50px;
+                float: left;
+                border-radius: 4px;
+                margin-right: 5px;
+            }
+
         .fa-download {
             min-width: 30px;
             font-size: 30px;
@@ -87,72 +151,17 @@
             border-radius: 6px;
             outline: none;
         }
+        .col-lg-2 col-md-3 col-sm-3 col-4 cap{
+            float:left;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-light" id="mainbar">
         <div id="tm-nav-search-top" class="container" style="display:block;line-height: 50px;">
             <a href="/"><img alt="Logo sangtacviet" id="tm-nav-search-logo" src="~/Image/favicon.png"></a>
-            @if (Session["TaiKhoan"] == null) //Giao diện Login
-            {
+            @Html.Action("User", "Home")
 
-
-                <div id="tm-nav-search-top-right" style="float: right;">
-                    <a href="@Url.Action("Login","Member", new { url = Request.Url.AbsolutePath.ToString()})">Đăng nhập</a>
-                </div>
-                
-
-            }
-            else
-            {
-                <div id="tm-nav-search-top-right" style="float: right;">
-                    <button type="button" class="btn" id="notifmarker" onclick="notification()" havenotif="2">
-                        <i class="fa-solid fa-exclamation"></i>
-                    </button>
-                    <img id="tm-user-avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/user250.jpeg?t=1630150096" onclick="usermenu()">
-                    <span id="usermenupos" style="position: relative;height: 30px;display: inline-block;">
-                        <div id="menunavigator2" style="display:block;">
-                            <ul style="list-style-type: none;padding: 6px;white-space: nowrap;display: block;">
-                                <li style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</li>
-                                <hr>
-                                <li><a onclick="ui.swiftload(this)" href="/user/0/">Thông tin cá nhân</a></li>
-                                <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
-                                <li><a onclick="ui.swiftload(this)" href="/the-luc/">Thế lực</a></li>
-                                <li><a onclick="logout();">Đăng xuất</a></li>
-                                <hr hidden="">
-                                <li><a href="/donate/" style="color: #DD0000">Donate</a></li>
-                                <hr>
-                                <li><a onclick="ui.swiftload(this,'inner')" href="/mybook/">Truyện đánh dấu</a></li>
-                                <li><a onclick="ui.swiftload(this,'inner')" href="/readed/">Truyện đã đọc</a></li>
-                                <li><a onclick="ui.swiftload(this,'inner')" href="/following/">Truyện theo dõi</a></li>
-                                <li><a onclick="ui.swiftload(this,'inner')" href="/de-cu/">Truyện đề cử</a></li>
-                                <li><a onclick="ui.swiftload(this,'inner')" href="/nhunger/">Truyện tôi thầu</a></li>
-                                <hr>
-                                <li><a href="/uploader/" style="color: #DD0000">Đăng truyện</a></li>
-                                <li><a href="/writer.php">Khu tác giả</a></li>
-                                <li><a href="/langer.php">[PC-Only]Khu dịch giả</a></li>
-
-                            </ul>
-                        </div>
-                        <script type="text/javascript">
-                            function closeusermenu() {
-                                document.getElementById("menunavigator2").style.display = "none";
-                                ismenu2show = false;
-                            }
-                            var ismenu2show = false;
-                            function usermenu() {
-                                if (ismenu2show) {
-                                    document.getElementById("menunavigator2").style.display = "none";
-                                    ismenu2show = false;
-                                } else {
-                                    document.getElementById("menunavigator2").style.display = "block";
-                                    ismenu2show = true;
-                                }
-                            }
-                        </script>
-                    </span>
-                </div>
-            }
 
             <form class="" style="width:auto;margin: 0">
                 <div class="input-group">
@@ -203,6 +212,7 @@
             </div>
         </div>
     </div>
+    @Html.Action("NewBook", "Home")
     @RenderBody();
     <div id="tm-credit-section" class="container-fluid bg-dark">
         <div class="container">

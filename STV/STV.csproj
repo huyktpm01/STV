@@ -128,8 +128,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\StoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2327,9 +2329,17 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Author\list.cshtml" />
     <Content Include="Views\Author\addBook.cshtml" />
+    <Content Include="Views\Home\User.cshtml" />
+    <Content Include="Views\Author\EditBook.cshtml" />
+    <Content Include="Views\Author\listChap.cshtml" />
+    <Content Include="Views\Author\addChapter.cshtml" />
+    <Content Include="Views\Story\Truyen.cshtml" />
+    <Content Include="Views\Story\DSChap.cshtml" />
+    <Content Include="Views\Home\NewBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Chapter\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

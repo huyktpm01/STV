@@ -1,0 +1,18 @@
+﻿@model IEnumerable<STV.Models.Chapter>
+<script>
+    $(document).ready(function () {
+        var chapters = @Model; // Danh sách chương
+        var chunkSize = 3; // Số chương trên mỗi hàng
+        var chapterList = $("#chaptercontainer");
+
+        for (var i = 0; i < 10; i += chunkSize) {
+            var chapterRow = $("<div class='chapter-row'></div>");
+            for (var j = 0; j < chunkSize; j++) {
+                if (i + j < chapters.length) {
+                    chapterRow.append("<a class='listchapitem chapreaded' title = 'chapters[i + j].Title'>" + chapters[i + j].Title + "</a>");
+                }
+            }
+            chapterList.append(chapterRow);
+        }
+    });
+</script>

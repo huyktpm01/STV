@@ -1,0 +1,290 @@
+﻿@model STV.Models.Story
+@{
+    ViewBag.Title = "Truyen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Session["Story"] = Model.StoryID;
+}
+<head>
+    <style type="text/css">
+        .blk-top {
+            font-size: 14px;
+            padding: 4px;
+            font-weight: 600;
+        }
+
+        .blk-body {
+            font-size: 14px;
+            padding: 4px 12px;
+            color: #555555;
+        }
+
+        .blk-item {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .col-3 {
+            padding: 0;
+        }
+
+        .blk-item i:after {
+            content: "";
+            display: block;
+        }
+
+        .vip:before {
+            content: "";
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            margin-right: 4px;
+            background: url('/asset/locker.png');
+            background-size: 16px 16px;
+        }
+
+        .unvip:before {
+            content: "";
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            margin-right: 4px;
+            background: url('/asset/unlocked.png');
+            background-size: 16px 16px;
+        }
+
+        .chapreaded {
+            color: gray;
+        }
+
+        .chaplastreaded {
+            background: #b0b0b0;
+            color: white;
+        }
+
+        .pushpointsel {
+            display: inline-grid;
+        }
+
+        .blk > div:last-child {
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .contextmenu {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+            .contextmenu .contextmenuitem {
+                padding: 12px 18px;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+
+        #ctxoverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.219);
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+            #ctxoverlay:empty {
+                display: none;
+                opacity: 0;
+            }
+    </style>
+</head>
+<div id="inner">
+    <br>
+    <div class="container px-md-4 px-sm-0 px-0" style="background: #f2f2f2;">
+        <div style="position: relative">
+            <div id="thumb-lay" style="background: url(@Model.image);background-size: cover;height: 450px;filter: blur(8px);position: absolute;width: 100%">
+            </div>
+        </div>
+        <div class="container" style="padding-top: 70px">
+            <div class="row">
+                <div class="col" style="width: 100%;min-width: 240px;padding: 0"><center><img alt="@Model.Title" referrerpolicy="no-referrer" style="width:240px;height:360px;box-shadow: 0 0 24px grey;" src="@Model.image" onerror="coverrepair(this)"></center></div>
+                <div class="col-xl-12" style="padding: 12px">
+
+                    <br>
+                    <center>
+                        <h1 id="book_name2" class="cap" style="font-size:32px;color:#007a2b;text-shadow: 0 0 8px gray;font-weight: 400;display: inline-block;margin:6px;">@Model.Title</h1>
+                        <br>
+                        <i class="fa-solid fa-user"></i><h2 style="display: inline-block;font-size: 16px;margin: 0 0 0 4px;font-weight: 400;">@Model.Author.Pen_Name</h2></i>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        <div class="blk" style="margin-top: 40px;">
+            <div class="blk-body">
+                <div class="row justify-content-md-center" style="margin: 0">
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" title="4711 33"><i class="fa-solid fa-eye"></i><br>@Model.View</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="promote();"><i class="fa-solid fa-thumbs-up"></i><br><span id="decu">@Model.Rating</span>Điểm</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        @if (Model.Status == 1)
+                        {
+                            <span class="blk-item" id="bookstatus"><i class="fa-solid fa-star-half-alt"></i><br>Còn tiếp</span>
+                        }
+                        else if (Model.Status == 2)
+                        {
+                            <span class="blk-item" id="bookstatus"><i class="fa-solid fa-star-half-alt"></i><br>Tạm Dừng</span>
+                        }
+                        else if (Model.Status == 3)
+                        {
+                            <span class="blk-item" id="bookstatus"><i class="fa-solid fa-star-half-alt"></i><br>Hoàn Thành</span>
+                        }
+
+                    </div>
+
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item"><i class="fa-solid fa-bookmark"></i><br>135 Tủ</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="followthisbook()"><i class="fa-solid fa-rss"></i><br>97 Theo dõi</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="blk">
+            <div class="blk-top"><i class="fas fa-water"></i> Tóm tắt truyện</div>
+            <div id="book-sumary" style="font-size: 16px" class="blk-body">
+                <p style="margin:0px">
+                    @Model.Description
+                </p>
+            </div>
+        </div>
+        <div class="blk">
+            <div class="blk-top"><i class="fa-solid fa-info-circle"></i> Thông tin</div>
+            <div class="blk-body">Tên: <span id="oriname">@Model.Title</span> <a href="https://www.google.com/search?q=Ng%C6%B0%E1%BB%9Di+t%E1%BA%A1i+Tokyo+%3A+Ta+c%C3%B3+m%E1%BB%99t+c%C3%A1i+xuy%C3%AAn+gi%E1%BB%9Bi+m%C3%B4n+%21&amp;oq=j" target="_blank"><i class="fas fa-search"></i></a></div>
+            <div class="blk-body">Tác giả:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Model.Author.Pen_Name</div>
+            <div class="blk-body">Thể loại:&nbsp;&nbsp;&nbsp;&nbsp; @Model.category.CatName</div>		
+            <div class="blk-body">Nhập thời:&nbsp;&nbsp;&nbsp; @Model.Publishdate</div>
+        </div>
+
+        <div class="blk">
+            <div class="blk-top"><i class="fa-solid fa-dot-circle"></i> Thao tác</div>
+            <div class="blk-body">
+                <div class="row justify-content-md-left" style="margin: 0">
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" id="readnowbtn" onclick="readnow()"><i class="fa-solid fa-external-link-alt"></i><br>Đọc tiếp</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="promote();"><i class="fa-solid fa-thumbs-up"></i><br>Thích</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="updateTusach()"><i class="fa-solid fa-bookmark"></i><br>Đánh dấu</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="followthisbook()"><i class="fa-solid fa-plus"></i><br>Theo dõi</span>
+                    </div>
+
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="writetruyenngon()"><i class="fa-solid fa-edit"></i><br>Preview</span>
+                    </div>
+
+                    <div hidden="" class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="managetag()"><i class="fa-solid fa-tags"></i><br>Dán nhãn</span>
+                    </div>
+                    <div hidden="" class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="markthisbook()"><i class="fa-solid exclamation-triangle"></i><br>Báo cáo</span>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <span class="blk-item" onclick="showpushbook()"><i class="fa-solid fa-arrow-up"></i><br>Đẩy sách</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="blk">
+            <div id="author-block" class="blk-top"><i class="fa-solid fa-user"></i> Tác giả</div>
+            <div class="blk-body">
+                <a href="/user/20670/"><img src="https://staticvn.sangtacvietcdn.xyz/img/useravatar120/user20670.jpg?t=1639473751" alt="Avatar 20670" onerror="this.src='/default.png'" style="border-radius: 50%;box-shadow: 0 0 16px gray;height:50px;width:50px;margin:6px;"><span style="font-size:16px;margin-left:8px;color:gray;font-weight:500">@Model.Author.Pen_Name</span></a>
+            </div>
+        </div>
+        <div class="blk" id="chapterlist">
+            <div class="blk-top">
+                <i class="fa-solid fa-list"></i> Mục lục
+                <span style="float: right;color: gray" onclick="renewchapter(true)">
+                    <i class="fa-solid fa-retweet"></i> Cập nhật
+                </span>
+                <span style="float: right;color: gray;margin-right: 8px" onclick="$('html, body')
+					 .animate({scrollTop: $('#clicktoexp')
+					 .offset().top - 200}, 1000);">
+                    <i class="fa-solid fa-chevron-down"></i> Xuống
+                </span>
+            </div>
+            <div class="blk-body">
+                <div class="flex">
+                    <span>Nguồn:</span>
+                    <div style="width: 100%;overflow-x: auto;overflow-y: hidden;white-space: nowrap">
+                        <span style="border-bottom: 2px solid green">sangtac <span id="noofchapter">33</span> chương</span>
+                    </div>
+                </div>
+            </div>
+            <div class="blk-body">
+                <div id="chaptercontainer" style="overflow: hidden; max-height: 240px; ">
+                     
+                    @Html.Action("DSChap","Story",new {StoryID = Model.StoryID})
+                </div>
+            </div>
+            <div class="blk-bot p-0">
+                <div id="clicktoexp" onclick="expandchapterlist()" style="background: #eeeeee;text-align: center;padding: 10px;">Mở rộng <i class="fas fa-chevron-down"></i></div>
+                <center>Chương mới: <span class="timeelap" id="lastupdatetime">1 ngày trước</span></center>			<div onclick="renewchapter(true);" style="background: #eeeeee;text-align: center;padding: 10px;">Cập nhật chương mới <i class="fas fa-sync-alt"></i></div>
+            </div>
+        </div>
+    </div>
+    <div id="ctxoverlay"></div>
+    <div>
+        <div class="container">
+            <span id="hiddenid" hidden="">16370;0;sangtac</span><div class="row" id="commentportion" onkeydown="event.stopPropagation();" style="background-color:white;overflow:hidden;padding:14px;font-size:24px;min-height:360px;color:black">
+
+                <div class="w-100">
+                    BÌNH LUẬN
+
+                    <span id="livecomment" style="float:right;padding:0 0 0 20px;" onclick="followPush();"><i class="fas fa-rss"></i></span>
+
+                    <span id="hideavatar" style="float: right; padding: 0px 20px; filter: none;" onclick="togglehideavatar(true);"><i class="fas fa-images"></i></span>
+                </div>
+
+                <br><hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+
+                <div class="container">
+                    <div class="row">
+                        <form class="form-inline w-100 m-0">
+                            <div class="input-group w-100">
+                                <textarea onfocus="followPush();" class="form-control" id="cmtx" style="font-size:14px" placeholder="Nhập bình luận. Cảnh báo: nghiêm cấm vô não chửi bậy, chửi liên quan đến thể loại truyện, mô típ của truyện, bối cảnh của truyện. Nghiêm cấm bình luận chống lại nhà nước, danh nhân lịch sử, người vi phạm sẽ bị khóa tài khoản tùy mức độ."></textarea>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-info" style="max-height:60px;font-size:16px;" onclick="sendcmt()">Gửi</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div id="replycmtwd" style="display:none">
+                    <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
+                </div>
+                
+</div>
+

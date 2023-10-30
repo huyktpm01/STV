@@ -1,15 +1,11 @@
-﻿
+﻿@model STV.Models.Story
 @{
-    ViewBag.Title = "addBook";
+    ViewBag.Title = "EditBook";
     Layout = "~/Views/Shared/LoginLogout.cshtml";
 }
+
+<h2>EditBook</h2>
 <div class="container shadow p-2 bg-light">
-    <div class="breadcum p-1">
-        <a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })">Danh sách</a> /  Tạo truyện
-    </div>
-    <div class="menu bg-light p-1">
-        <div style="clear: both;"></div>
-    </div>
     <div class="main" id="formaddbook">
         @using (Html.BeginForm("addBook", "Author", FormMethod.Post, new
         {
@@ -21,11 +17,11 @@
             <form id="formtmp">
                 <div class="form-group">
                     <label for="ip-name">Tên truyện</label>
-                    <input type="text" class="form-control" id="ip-name" name="ip-name" placeholder="Tên truyện" value=""> @ViewData["err1"]
+                    <input type="text" class="form-control" id="ip-name" name="ip-name"  placeholder="Tên truyện" value="@Model.Title"> @ViewData["err1"]
                 </div>
                 <div class="form-group">
                     <label for="ip-author">Tác giả/Bút danh</label>
-                    <input type="text" class="form-control" id="ip-author" name="ip-author" placeholder="Tác giả/Bút danh" value="">@ViewData["err2"]
+                    <input type="text" class="form-control" id="ip-author" name="ip-author" placeholder="Tác giả/Bút danh" value="@Model.Author.Pen_Name">@ViewData["err2"]
                 </div>
                 <div class="form-group">
                     <label for="ip-category">Thể loại</label>
@@ -33,14 +29,15 @@
                 </div>
                 <div class="form-group">
                     <label for="ip-thumb">Ảnh bìa</label>
+                    <img src="@Model.image"/>
                     <div class="input-group">
                         <input type="file" name="fFileUpload" />@ViewBag.thongbao;
                     </div>
-             
+
                 </div>
                 <div class="form-group">
-                    <label for="ip-description">Giới thiệu</label>@ViewData["err3"]
-                    <textarea style="min-height: 400px" class="form-control" id="ip-description" name="ip-description" placeholder="Giới thiệu tóm tắt"></textarea>
+                   @ViewData["err3"]
+                    <textarea style="min-height: 400px" class="form-control" id="ip-description" name="ip-description" placeholder="">@Model.Description</textarea>
                 </div>
                 <div class="text-center"><button type="submit" class="btn btn-primary">Tạo truyện</button></div>
 

@@ -134,6 +134,7 @@ namespace STV.Controllers
                 {
                     ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";
                     Session["TaiKhoan"] = kh;
+                    Session["MemberID"] = kh.MemberID;
                     return Redirect(@Url.Action("Index", "Home"));
                 }
                 else

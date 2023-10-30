@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.IO;
 using System.Web.UI.WebControls;
 using System.Runtime.Serialization.Formatters.Binary;
+using PagedList;
+using Microsoft.Ajax.Utilities;
 
 namespace STV.Controllers
 {
@@ -14,17 +16,70 @@ namespace STV.Controllers
     {
         dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
         // GET: Author
-        public ActionResult list(int AuthorID, int ? page)
+        public ActionResult list(int MemberID, int ? page)
         {
-            ViewBag.AuthorID = AuthorID;
+            
+            
+            ViewBag.AuthorID = MemberID;
             int iSize = 6;
             int iPageNum = (page ?? 1);
-            var sach = from s in db.Stories where s.AuthorID == AuthorID select s;
-            return View();
+            var sach = from s in db.Stories where s.Author.MemberID == MemberID select s;
+            return View(sach.ToPagedList(MemberID,iSize));
+        }
+        public ActionResult listChap(int StoryID, int? page)
+        {
+            Session["StoryID"] = StoryID;
+            var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
+            ViewBag.TenSach = sach.Title; 
+            int iSize = 50;
+            int iPageNum = (page ?? 1);
+            var chuong = db.Chapters.Where(n => n.StoryID == StoryID).ToList();
+            return View(chuong.ToPagedList(iPageNum,iSize));
+        }
+        [HttpGet]
+        public ActionResult EditBook(int StoryID)
+        {
+            var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
+            if (sach == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            ViewBag.CatID = new SelectList(db.categories.ToList().OrderBy(s => s.CatName), "CatID", "CatName", sach.CatID);
+
+            return View(sach);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditBook(FormCollection collection, HttpPostedFileBase fFileUpload)
+        {
+            var sach = db.Stories.SingleOrDefault(n => n.StoryID == int.Parse(collection["StoryID"]));
+            ViewBag.CatID = new SelectList(db.categories.ToList().OrderBy(s => s.CatName), "CatID", "CatName", int.Parse(collection["CatID"]));
+
+            if (ModelState.IsValid)
+            {
+                var sFileName = Path.GetFileName(fFileUpload.FileName);
+                var path = Path.Combine(Server.MapPath("~/Image"), sFileName);
+                if (!System.IO.File.Exists(path))
+                {
+                    fFileUpload.SaveAs(path);
+                }
+                sach.Title = collection["ip-name"];
+                var ttg = collection["ip-author"];
+                var n = db.Authors.SingleOrDefault(a => a.Pen_Name == ttg);
+                sach.AuthorID = n.AuthorID;
+                sach.Description = collection["ip-description"];
+                sach.image = path;
+                sach.Status = 0;
+                sach.LastUpdate = DateTime.Now;     
+                db.SubmitChanges();
+            }
+            return View(sach);
         }
         [HttpGet] 
         public ActionResult addBook() 
         {
+            
             ViewBag.CatID = new SelectList(db.categories.ToList().OrderBy(n => n.CatName), "CatID", "CatName");
             return View();
         }
@@ -45,6 +100,10 @@ namespace STV.Controllers
                 if (String.IsNullOrEmpty(Name))
                 {
                     ViewData["err1"] = "Tên truyện không được rỗng";
+                }
+                else if (String.IsNullOrEmpty(mtg.ToString()))
+                {
+                    ViewData["err2"] = "tác giả không được để rỗng";
                 }
                 else if (String.IsNullOrEmpty(ttg))
                 {
@@ -72,12 +131,57 @@ namespace STV.Controllers
                     kh.AuthorID = n.AuthorID;
                     kh.Description = collection["ip-description"];
                     kh.image = path;
+                    kh.N_O_Chapter = 0;
+                    kh.View = 0;
+                    kh.Rating = 10;
+                    kh.Status = 0;
+                    kh.Vip = false;
+                    kh.hot = false;
+                    kh.Publishdate = DateTime.Now;
+                    kh.LastUpdate   = DateTime.Now;
                     db.Stories.InsertOnSubmit(kh);
                     db.SubmitChanges();
-                    return RedirectToAction("list","Author");
+                    return RedirectToAction("list", "Author", new { MemberID = Session["MemberID"] });
                 }
                 return View();
             }
+        }
+        [HttpGet]
+        public ActionResult addChapter(int id)
+        {
+            Session["StoryID"] = id;
+            var sach = db.Stories.SingleOrDefault(n => n.StoryID == id);
+            ViewBag.Max = db.Chapters.Max(c => c.ChapterID) + 1 ;
+            ViewBag.TenSach = sach.Title;
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult addChapter(FormCollection collection, Chapter kh)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                kh.Title = collection["ip-name"];
+                kh.StoryID = int.Parse(Session["StoryID"].ToString());
+                kh.Chapter_Number = int.Parse(collection["ip-altnum"]);
+                kh.Content = collection["ip-content"];
+                kh.N_O_W = collection["ip-content"].Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length.ToString();
+                kh.View = 0;
+                kh.Rating = 0;
+                kh.Pushlishdate = DateTime.Now;
+                kh.status = 0;
+                kh.LastUpdate = DateTime.Now;
+                kh.Vip = bool.Parse("False");
+                kh.Money = 1000;
+                kh.sold = 0;
+                db.Chapters.InsertOnSubmit(kh);
+                db.SubmitChanges();
+                return RedirectToAction("listChap", "Author", new { StoryID = Session["StoryID"] });
+                }
+                return View();
+            
         }
     }
 }

@@ -77,3 +77,7 @@ C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\obj\Debug\STV.csproj.CoreCompileInput
 C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\obj\Debug\STV.csproj.CopyComplete
 C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\obj\Debug\STV.dll
 C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\obj\Debug\STV.pdb
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\PagedList.dll
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\PagedList.Mvc.dll
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\PagedList.xml
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\PagedList.Mvc.xml
