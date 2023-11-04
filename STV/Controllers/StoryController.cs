@@ -15,13 +15,22 @@ namespace STV.Controllers
         [Route("Story/Truyen/{StoryID}")]
         public ActionResult Truyen(int StoryID)
         {
+                Session["StoryID"] = StoryID;
                 ViewBag.AuthorID = StoryID;
                 var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
                 return View(sach);
         }
+        [Route("Story/Truyen/{StoryID}/{ChapterID}")]
+        public ActionResult Chapter(int ChapterID)
+        {
+            ViewBag.ChapterID = ChapterID;
+            var chap = db.Chapters.SingleOrDefault(n => n.ChapterID == ChapterID);
+            return View(chap);
+        }
         public ActionResult DSChap(int StoryID)
         {
-            var ds = from s in db.Chapters where s.StoryID == StoryID && s.status == 2 select s;
+            var ds = from s in db.Chapters where s.StoryID == StoryID  select s;
+            Session["StoryID"] = StoryID;
             ViewBag.SC = ds.Count();
             return PartialView(ds);
         }

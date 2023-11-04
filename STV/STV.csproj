@@ -2338,6 +2338,7 @@
     <Content Include="Views\Home\NewBook.cshtml" />
     <Content Include="Views\Home\TopBook.cshtml" />
     <Content Include="Views\Home\NewUpdate.cshtml" />
+    <Content Include="Views\Story\Chapter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
