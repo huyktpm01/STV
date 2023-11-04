@@ -178,7 +178,7 @@
             <div class="blk-top"><i class="fa-solid fa-info-circle"></i> Thông tin</div>
             <div class="blk-body">Tên: <span id="oriname">@Model.Title</span> <a href="https://www.google.com/search?q=Ng%C6%B0%E1%BB%9Di+t%E1%BA%A1i+Tokyo+%3A+Ta+c%C3%B3+m%E1%BB%99t+c%C3%A1i+xuy%C3%AAn+gi%E1%BB%9Bi+m%C3%B4n+%21&amp;oq=j" target="_blank"><i class="fas fa-search"></i></a></div>
             <div class="blk-body">Tác giả:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Model.Author.Pen_Name</div>
-            <div class="blk-body">Thể loại:&nbsp;&nbsp;&nbsp;&nbsp; @Model.category.CatName</div>		
+            <div class="blk-body">Thể loại:&nbsp;&nbsp;&nbsp;&nbsp; @Model.category.CatName</div>
             <div class="blk-body">Nhập thời:&nbsp;&nbsp;&nbsp; @Model.Publishdate</div>
         </div>
 
@@ -196,7 +196,7 @@
                         <span class="blk-item" onclick="updateTusach()"><i class="fa-solid fa-bookmark"></i><br>Đánh dấu</span>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <span class="blk-item" onclick="followthisbook()"><i class="fa-solid fa-plus"></i><br>Theo dõi</span>
+                        <span class="blk-item" id="TheoDoi" ><i class="fa-solid fa-plus"></i><br>Theo dõi</span>
                     </div>
 
                     <div class="col-3 col-lg-2">
@@ -210,7 +210,7 @@
                         <span class="blk-item" onclick="markthisbook()"><i class="fa-solid exclamation-triangle"></i><br>Báo cáo</span>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <span class="blk-item" onclick="showpushbook()"><i class="fa-solid fa-arrow-up"></i><br>Đẩy sách</span>
+                        <span class="blk-item" onclick="myFunction()"><i class="fa-solid fa-arrow-up"></i><br>Đẩy sách</span>
                     </div>
                 </div>
             </div>
@@ -244,7 +244,7 @@
             </div>
             <div class="blk-body">
                 <div id="chaptercontainer" style="overflow: hidden; max-height: 240px; ">
-                    @Html.Action("DSChap","Story",new {StoryID = Model.StoryID})
+                    @Html.Action("DSChap", "Story", new { StoryID = Model.StoryID })
                 </div>
             </div>
             <div class="blk-bot p-0">
@@ -284,6 +284,27 @@
                 <div id="replycmtwd" style="display:none">
                     <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
                 </div>
-                
+
+            </div>
+        </div>
+    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#TheoDoi").click(function () {
+            $.ajax({
+                type: "POST", // Hoặc "GET" tùy theo action của bạn
+                url: "@Url.Action("Follow", "Story", new { storyId = Model.StoryID })",
+                success: function (data) {
+                    // Xử lý kết quả trả về (nếu cần)
+                    alert("Truyện đã được theo dõi!");
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi theo dõi truyện.");
+                }
+            });
+        });
+    });
+</script>
 

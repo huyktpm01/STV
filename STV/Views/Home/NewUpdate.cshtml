@@ -12,9 +12,9 @@
                         DateTime now = DateTime.Now;
                         DateTime lastUpdate = DateTime.Parse(sach.LastUpdate.ToString()); // Giả sử sách có một thuộc tính LastUpdate kiểu DateTime.
                         TimeSpan timeDifference = now - lastUpdate;
-                        int minutesDifference = int.Parse(timeDifference.TotalMinutes.ToString());
-                        int hoursDifference = int.Parse(timeDifference.TotalHours.ToString());
-                        int daysDifference = int.Parse(timeDifference.TotalDays.ToString());
+                        int minutesDifference = Convert.ToInt32(timeDifference.TotalMinutes);
+                        int hoursDifference = Convert.ToInt32(timeDifference.TotalHours);
+                        int daysDifference = Convert.ToInt32(timeDifference.TotalDays);
                     }
                 <i style="float:right">
                     @if (minutesDifference < 60)

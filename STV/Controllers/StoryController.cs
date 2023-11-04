@@ -20,6 +20,36 @@ namespace STV.Controllers
                 var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
                 return View(sach);
         }
+        [HttpPost]
+        public ActionResult Follow(int storyId)
+        {
+            var userId = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString())); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
+
+            // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
+            var existingRecord = db.Follows
+                .FirstOrDefault(r => r.ReaderID == userId.ReaderID && r.StoryID == storyId);
+
+            if (existingRecord == null)
+            {
+
+                // Nếu chưa có lịch sử đọc cho chapter này, thêm một bản ghi mới.
+                db.Follows.InsertOnSubmit(new Follow
+                {
+                    ReaderID = userId.ReaderID,
+                    StoryID = storyId,
+                    FollowDate = DateTime.Now
+   
+                });
+            }
+            else
+            {
+                // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
+                db.Follows.DeleteOnSubmit(existingRecord);
+            }
+
+            db.SubmitChanges();
+            return null;
+        }
         [Route("Story/Truyen/{StoryID}/{ChapterID}")]
         [HttpGet]
         public ActionResult Chapter(int ChapterID)
@@ -32,11 +62,11 @@ namespace STV.Controllers
         [HttpPost]
         private void RecordReadingHistory(int storyId, int chapterId)
         {
-            var userId = int.Parse(Session["MemberID"].ToString()); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
+            var userId = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString())) ; // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
 
             // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
             var existingRecord = db.Histories
-                .FirstOrDefault(r => r.ReaderID == userId && r.Chapter.StoryID == storyId && r.ChapterID == chapterId);
+                .FirstOrDefault(r => r.ReaderID == userId.ReaderID && r.Chapter.StoryID == storyId && r.ChapterID == chapterId);
 
             if (existingRecord == null)
             {
@@ -44,7 +74,7 @@ namespace STV.Controllers
                 // Nếu chưa có lịch sử đọc cho chapter này, thêm một bản ghi mới.
                 db.Histories.InsertOnSubmit(new History
                 {
-                    ReaderID = userId,
+                    ReaderID = userId.ReaderID,
                     ChapterID = chapterId,
                     Chapter = db.Chapters.FirstOrDefault(r => r.StoryID == storyId && r.ChapterID == chapterId),
                     E_Time = DateTime.Now
