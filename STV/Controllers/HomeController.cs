@@ -32,7 +32,7 @@ namespace STV.Controllers
         public ActionResult NewUpdate()
         {
 
-            return PartialView(db.Stories.OrderByDescending(a => a.LastUpdate).Take(12).ToList());
+            return PartialView(db.Stories.OrderByDescending(a => a.LastUpdate).Take(20).ToList());
         }
 
 
