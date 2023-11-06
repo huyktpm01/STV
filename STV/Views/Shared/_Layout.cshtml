@@ -163,16 +163,15 @@
 
             <form class="" style="width:auto;margin: 0">
                 <div class="input-group">
-                    @using (Html.BeginForm("timkiem", "Story", FormMethod.Post))
-                    {
+                 
                         <input id="id" autocomplete="off" class="form-control col-auto" type="text" name="id" placeholder="Link truyện/Tìm kiếm">
-                        <a><button id="tm-btn-goto" aria-label="Nút tìm kiếm" type="button" class="my-0 my-lg-0 fa-solid fa-arrow-right" value="Submit"></button></a>
+                        <input id="tm-btn-goto" aria-label="Nút tìm kiếm" type="submit" class="my-0 my-lg-0 fa-solid fa-arrow-right">
                         <button id="tm-btn-rescan" aria-label="Nút tải lại" type="reset" class="my-0 my-lg-0 fa-solid fa-redo"></button>
                         <span id="tm-nav-search-popup" style="display: block;">
                             <div id="searchbox">
                             </div>
                         </span>
-                    }
+                    
                     </div>
                 <script type="text/javascript">
                     var _c = "_gac", _d = "_gid", c = getCookie, _h = "charCodeAt";
@@ -248,4 +247,3 @@
     </div>
 
 </body>
-

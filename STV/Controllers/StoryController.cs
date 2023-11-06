@@ -60,15 +60,12 @@ namespace STV.Controllers
             RecordReadingHistory(int.Parse(chap.StoryID.ToString()),chap.ChapterID);
             return View(chap);
         }
-
         public ActionResult timkiem(string myInput)
         {
             // Lấy giá trị từ trường nhập
           
-            var ds = db.Stories
-            .Where(b => b.Title.Contains(myInput) || b.Description.Contains(myInput))
-            .ToList();
-            return View(ds);
+            var ds = db.Stories.Where(b => b.Title.Contains(myInput) || b.Author.Pen_Name.Contains(myInput)).ToList(); ;
+            return View("timkiem",ds);
         }
         [HttpPost]
         private void RecordReadingHistory(int storyId, int chapterId)
@@ -94,7 +91,7 @@ namespace STV.Controllers
             else
             {
                 existingRecord.ChapterID = chapterId;
-                existingRecord.Chapter = db.Chapters.FirstOrDefault(r => r.StoryID == storyId && r.ChapterID == chapterId),
+                existingRecord.Chapter = db.Chapters.FirstOrDefault(r => r.StoryID == storyId && r.ChapterID == chapterId);
                 existingRecord.E_Time = DateTime.Now;
             }
 
