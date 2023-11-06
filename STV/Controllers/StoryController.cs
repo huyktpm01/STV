@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Razor.Tokenizer.Symbols;
 
 namespace STV.Controllers
 {
@@ -59,6 +60,16 @@ namespace STV.Controllers
             RecordReadingHistory(int.Parse(chap.StoryID.ToString()),chap.ChapterID);
             return View(chap);
         }
+
+        public ActionResult timkiem(string myInput)
+        {
+            // Lấy giá trị từ trường nhập
+          
+            var ds = db.Stories
+            .Where(b => b.Title.Contains(myInput) || b.Description.Contains(myInput))
+            .ToList();
+            return View(ds);
+        }
         [HttpPost]
         private void RecordReadingHistory(int storyId, int chapterId)
         {
@@ -82,7 +93,8 @@ namespace STV.Controllers
             }
             else
             {
-                // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
+                existingRecord.ChapterID = chapterId;
+                existingRecord.Chapter = db.Chapters.FirstOrDefault(r => r.StoryID == storyId && r.ChapterID == chapterId),
                 existingRecord.E_Time = DateTime.Now;
             }
 

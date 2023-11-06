@@ -37,7 +37,7 @@ namespace STV.Controllers
         }
         public ActionResult History()
         {
-            var b = db.Histories.SingleOrDefault(n => n.Reader.MemberID == Convert.ToInt16(Session["MemberID"]));
+            var b = db.Readers.SingleOrDefault(n => n.MemberID == Convert.ToInt16(Session["MemberID"]));
             if(b == null)
             {
                 return PartialView(null);
