@@ -1,0 +1,53 @@
+﻿@model IEnumerable<STV.Models.History>
+@if (Model == null)
+{
+
+
+    <div style="font-size:12px;width: 100%;margin-bottom: 8px">
+        <div style="font-size:22px;margin-top:20px;">Truyện&nbsp;vừa&nbsp;đọc</div>
+        <div id="tusach" style="max-height: 270px;height: auto;overflow-y: auto; border: 1px solid rgb(232, 232, 232); visibility: visible;">
+            <div class="roundblock">
+                </div>
+            </div>
+            </div>
+            }
+            else
+            {
+            <div style="font-size:12px;width: 100%;margin-bottom: 8px">
+                <div style="font-size:22px;margin-top:20px;">Truyện&nbsp;vừa&nbsp;đọc</div>
+                <div id="tusach" style="max-height: 270px;height: auto;overflow-y: auto; border: 1px solid rgb(232, 232, 232); visibility: visible;">
+                    @foreach (var s in Model)
+                    {
+                        <div class="roundblock">
+                            @{
+                                ViewBag.HisID = s.HistoryID;
+                            }
+                            <a onclick="ui.swiftload(this)" name="lstruyen" class="col-lg-2 col-md-3 col-sm-3 col-4 cap" style=" width: 50%; flex: 0 0 100%; max-width: 85%; line-height: 40px;" href="@Url.Action("Truyen", "Story", new { StoryID = s.Chapter.StoryID})">
+                                @s.Chapter.Story.Title
+                                @s.Chapter.Title
+                            </a><div class="btngroup"  ><button class="btn" onclick="document.location='@Url.Action("Truyen", "Story", new { StoryID = s.Chapter.StoryID})/@s.ChapterID'">…</button><button class="btn" id="btn">✕</button></div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            }
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+    $(document).ready(function () {
+        $("#bth").click(function () {
+
+            $.ajax({
+                type: "POST", // Hoặc "GET" tùy theo action của bạn
+                url: "@Url.Action("XoaLS", "Story", new { chapterID = Convert.ToInt32(ViewBag.HisID) })",
+                success: function (data) {
+                    // Xử lý kết quả trả về (nếu cần)
+                    alert("ls đã xóa");
+                },
+                error: function () {
+                    alert("ko");
+                }
+            });
+        });
+    });
+            </script>

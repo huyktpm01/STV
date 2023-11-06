@@ -30,7 +30,7 @@ else
                     <hr>
                     <li><a onclick="ui.swiftload(this,'inner')" href="/mybook/">Truyện đánh dấu</a></li>
                     <li><a onclick="ui.swiftload(this,'inner')" href="/readed/">Truyện đã đọc</a></li>
-                    <li><a onclick="ui.swiftload(this,'inner')" href="/following/">Truyện theo dõi</a></li>
+                    <li><a onclick="ui.swiftload(this,'inner')" href="@Url.Action("Follow","Member",new { id = Session["MemberID"] })">Truyện theo dõi</a></li>
                     <li><a onclick="ui.swiftload(this,'inner')" href="/de-cu/">Truyện đề cử</a></li>
                     <li><a onclick="ui.swiftload(this,'inner')" href="/nhunger/">Truyện tôi thầu</a></li>
                     <hr>

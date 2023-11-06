@@ -3,7 +3,19 @@
 }
 
 <main>
-    @Html.Action("NewBook", "Home")
-    @Html.Action("TopBook", "Home")
-   @Html.Action("NewUpdate","Home")
+    <div class="container">
+        <div class="row">
+            @Html.Action("History", "Home")
+        </div>
+        <div class="row">
+            @Html.Action("NewBook", "Home")
+        </div>
+        <div class="row">
+            @Html.Action("TopBook", "Home")
+        </div>
+        <div class="row">
+            @Html.Action("NewUpdate", "Home")
+        </div>
+    </div>
+
 </main>

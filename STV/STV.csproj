@@ -2339,6 +2339,9 @@
     <Content Include="Views\Home\TopBook.cshtml" />
     <Content Include="Views\Home\NewUpdate.cshtml" />
     <Content Include="Views\Story\Chapter.cshtml" />
+    <Content Include="Views\Home\History.cshtml" />
+    <Content Include="Views\Member\Follow.cshtml" />
+    <Content Include="Views\Member\truyenfollow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

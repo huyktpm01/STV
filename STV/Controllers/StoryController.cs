@@ -88,6 +88,18 @@ namespace STV.Controllers
 
             db.SubmitChanges();
         }
+        [HttpPost]
+        public ActionResult XoaLS(int hisID)
+        {
+            var his = db.Histories.FirstOrDefault(r => r.HistoryID == hisID); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
+
+            // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
+           
+                // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
+                db.Histories.DeleteOnSubmit(his);
+                db.SubmitChanges();
+            return null;
+        }
         public ActionResult DSChap(int StoryID)
         {
             var ds = from s in db.Chapters where s.StoryID == StoryID  select s;

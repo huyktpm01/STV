@@ -1,39 +1,39 @@
 ﻿@model IEnumerable<STV.Models.Story>
-    <div class="tmc-home-section" style="color:black;font-size:14px;padding:15px; background: #f4ffe3;">
-        <div style="font-size:20px;margin-bottom:20px;">Mới cập nhật &gt;<a href="/?find=&amp;minc=0&amp;sort=update&amp;tag=" style="display: inline-block;color: gray;font-size:12px;float:right;margin-top: 10px;">xem thêm...</a></div>
-        @foreach (var sach in Model)
-            {
-                <div class="book-list-item">
-                    <img referrerpolicy="no-referrer" loading="lazy" src="~/Image/@sach.image" onerror="this.src=&quot;/nothumb.jpg&quot;">
-                    <a  class="cap" href="@Url.Action("Truyen", "Story", new { StoryID = sach.StoryID})"><b> @sach.Title </b></a>
-                    <br>
-                    <span class="cap" style="color:gray;font-size:10px;"> @sach.Author.Pen_Name </span>
-                    @{ 
-                        DateTime now = DateTime.Now;
-                        DateTime lastUpdate = DateTime.Parse(sach.LastUpdate.ToString()); // Giả sử sách có một thuộc tính LastUpdate kiểu DateTime.
-                        TimeSpan timeDifference = now - lastUpdate;
-                        int minutesDifference = Convert.ToInt32(timeDifference.TotalMinutes);
-                        int hoursDifference = Convert.ToInt32(timeDifference.TotalHours);
-                        int daysDifference = Convert.ToInt32(timeDifference.TotalDays);
-                    }
-                <i style="float:right">
-                    @if (minutesDifference < 60)
-                    {
-                        <p>Sách được cập nhật cách đây @minutesDifference phút trước.</p>
-                    }
-                    else if (hoursDifference < 24)
-                    {
-                        <p>Sách được cập nhật cách đây @hoursDifference giờ  trước.</p>
-                    }
-                    else
-                    {
-                        <p>Sách được cập nhật cách đây @daysDifference ngày  trước.</p>
-                    }
-                </i>
-                    <div class="clear">
-                    </div>
-                </div>
+<div class="tmc-home-section" style="color: black; font-size: 14px; padding: 0 15px; width: 100%; background: #f4ffe3"  >
+    <div style="font-size:20px;margin-bottom:20px;">Mới cập nhật &gt;<a href="/?find=&amp;minc=0&amp;sort=update&amp;tag=" style="display: inline-block;color: gray;font-size:12px;float:right;margin-top: 10px;">xem thêm...</a></div>
+    @foreach (var sach in Model)
+    {
+        <div class="book-list-item">
+            <img referrerpolicy="no-referrer" loading="lazy" src="~/Image/@sach.image" onerror="this.src=&quot;/nothumb.jpg&quot;">
+            <a class="cap" href="@Url.Action("Truyen", "Story", new { StoryID = sach.StoryID})"><b> @sach.Title </b></a>
+            <br>
+            <span class="cap" style="color:gray;font-size:10px;"> @sach.Author.Pen_Name </span>
+            @{
+                DateTime now = DateTime.Now;
+                DateTime lastUpdate = DateTime.Parse(sach.LastUpdate.ToString()); // Giả sử sách có một thuộc tính LastUpdate kiểu DateTime.
+                TimeSpan timeDifference = now - lastUpdate;
+                int minutesDifference = Convert.ToInt32(timeDifference.TotalMinutes);
+                int hoursDifference = Convert.ToInt32(timeDifference.TotalHours);
+                int daysDifference = Convert.ToInt32(timeDifference.TotalDays);
             }
-    </div>
+            <i style="float:right">
+                @if (minutesDifference < 60)
+                {
+                    <p>Sách được cập nhật cách đây @minutesDifference phút trước.</p>
+                }
+                else if (hoursDifference < 24)
+                {
+                    <p>Sách được cập nhật cách đây @hoursDifference giờ  trước.</p>
+                }
+                else
+                {
+                    <p>Sách được cập nhật cách đây @daysDifference ngày  trước.</p>
+                }
+            </i>
+            <div class="clear">
+            </div>
+        </div>
+    }
+</div>
 
     

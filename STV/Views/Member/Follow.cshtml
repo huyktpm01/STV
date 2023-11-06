@@ -1,0 +1,62 @@
+﻿@model IEnumerable<STV.Models.Follow>
+@{
+    ViewBag.Title = "Follow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="inner">
+    <style type="text/css">
+        .im {
+            width: 60px;
+            height: 80px;
+        }
+
+        .bkl {
+            width: 84px;
+            padding: 12px;
+        }
+
+        .bkr {
+            color: black;
+            padding: 6px;
+            font-size: 12px;
+        }
+
+            .bkr b {
+                text-transform: capitalize;
+                font-size: 16px;
+            }
+
+        .nowr {
+            flex-wrap: nowrap;
+        }
+
+            .nowr:hover {
+                background: #eeeeee;
+            }
+
+        .btnbl {
+            border: 1px solid gray;
+            border-radius: 0;
+            padding: 4px 12px;
+            background: none;
+        }
+
+        .filter {
+            width: 100%;
+            border-radius: 8px;
+            background-color: #eee;
+            padding: 4px;
+            font-size: 16px;
+            outline: none;
+            border: none;
+            margin-top: 12px;
+            padding-left: 12px;
+        }
+    </style>
+    <div class="container" id="tusach" style="padding: 24px;">
+        @foreach(var i in Model)
+            {
+                @Html.Action("truyenfollow", "Member",new { id = i.StoryID })
+            }
+        
+    </div>

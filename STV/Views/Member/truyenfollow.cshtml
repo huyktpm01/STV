@@ -1,0 +1,35 @@
+﻿@model STV.Models.Story
+<a href="@Url.Action("Truyen", "Story", new { StoryID = Model.StoryID})">
+
+    <div class="row nowr">
+        <div class="bkl">
+            <img src="~/Image/@Model.image" class="im">
+        </div>
+        <div class="bkr">
+            <b> @Model.Title</b><br>
+            Tác giả @Model.Author.Pen_Name<br>
+            Số chương: @Model.N_O_Chapter<br>
+            Cập nhật: @Model.LastUpdate<br>
+            <button class="btnbl" id="btnbl"@Model.StoryID > Bỏ theo dõi </button>
+        </div>
+    </div>
+</a>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btnbl"+@Model.StoryID).click(function () {
+            $.ajax({
+                type: "POST", // Hoặc "GET" tùy theo action của bạn
+                url: "@Url.Action("Follow", "Story", new { storyId = Model.StoryID })",
+                success: function (data) {
+                    // Xử lý kết quả trả về (nếu cần)
+                    alert("Truyện bo theo dõi!");
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi theo dõi truyện.");
+                }
+            });
+        });
+    });
+</script>
+

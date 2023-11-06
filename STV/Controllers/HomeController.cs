@@ -12,6 +12,7 @@ namespace STV.Controllers
         dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
         public ActionResult Index()
         {
+            
             return View();
         }
         public ActionResult User() 
@@ -33,6 +34,20 @@ namespace STV.Controllers
         {
 
             return PartialView(db.Stories.OrderByDescending(a => a.LastUpdate).Take(20).ToList());
+        }
+        public ActionResult History()
+        {
+            var b = db.Histories.SingleOrDefault(n => n.Reader.MemberID == Convert.ToInt16(Session["MemberID"]));
+            if(b == null)
+            {
+                return PartialView(null);
+            }
+            else
+            {
+                return PartialView(db.Histories.Where(a => a.ReaderID == b.ReaderID).OrderByDescending(a => a.E_Time).Take(20).ToList());
+            }
+           
+           
         }
 
 

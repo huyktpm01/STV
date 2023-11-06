@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.IO;
 using System.Web.UI.WebControls;
 using System.Runtime.Serialization.Formatters.Binary;
+using Antlr.Runtime.Tree;
 
 namespace STV.Controllers
 {
@@ -19,6 +20,17 @@ namespace STV.Controllers
         public ActionResult DangKy()
         {
             return View();
+        }
+        public ActionResult Follow(int id)
+        {
+            var tr = db.Readers.SingleOrDefault(n => n.MemberID == id);
+            var ds = from s in db.Follows where s.ReaderID == tr.ReaderID select s;
+            return View(ds);
+        }
+        public ActionResult truyenfollow(int id)
+        {
+            var tr = db.Stories.SingleOrDefault(n => n.StoryID == id);
+            return PartialView(tr);
         }
         [HttpPost]
         public ActionResult DangKy(FormCollection collection, Member kh, HttpPostedFileBase fFileUpload)
