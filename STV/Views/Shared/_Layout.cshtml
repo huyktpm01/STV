@@ -160,24 +160,27 @@
             <a href="/"><img alt="Logo sangtacviet" id="tm-nav-search-logo" src="~/Image/favicon.png"></a>
             @Html.Action("User", "Home")
 
+            @using (Html.BeginForm("Search", "Story", FormMethod.Post, new
+            {
+                @enctype =
+    "multipart/form-data"
+            }))
+            {
+                <form class="" style="width:auto;margin: 0">
+                    <div class="input-group">
 
-            <form class="" style="width:auto;margin: 0">
-                <div class="input-group">
-                 
+
                         <input id="id" autocomplete="off" class="form-control col-auto" type="text" name="id" placeholder="Link truyện/Tìm kiếm">
-                        <input id="tm-btn-goto" aria-label="Nút tìm kiếm" type="submit" class="my-0 my-lg-0 fa-solid fa-arrow-right">
+                        <button id="tm-btn-goto" aria-label="Nút tìm kiếm" type="submit" class="my-0 my-lg-0 fa-solid fa-arrow-right"></button>
                         <button id="tm-btn-rescan" aria-label="Nút tải lại" type="reset" class="my-0 my-lg-0 fa-solid fa-redo"></button>
-                        <span id="tm-nav-search-popup" style="display: block;">
-                            <div id="searchbox">
-                            </div>
-                        </span>
-                    
+                        }
                     </div>
-                <script type="text/javascript">
-                    var _c = "_gac", _d = "_gid", c = getCookie, _h = "charCodeAt";
-                </script>
-            </form>
-        </div>
+                    <script type="text/javascript">
+                        var _c = "_gac", _d = "_gid", c = getCookie, _h = "charCodeAt";
+                    </script>
+                </form>
+            }
+            </div>
     </nav>
     <div id="tm-bot-nav" class="bg-dark">
         <div id="naviga" class="container">

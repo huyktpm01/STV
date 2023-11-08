@@ -3,6 +3,7 @@ using STV.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Razor.Tokenizer.Symbols;
@@ -60,12 +61,46 @@ namespace STV.Controllers
             RecordReadingHistory(int.Parse(chap.StoryID.ToString()),chap.ChapterID);
             return View(chap);
         }
-        public ActionResult timkiem(string myInput)
+        [Route("Story/Search")]
+        public ActionResult Search(FormCollection f)
         {
-            // Lấy giá trị từ trường nhập
-          
-            var ds = db.Stories.Where(b => b.Title.Contains(myInput) || b.Author.Pen_Name.Contains(myInput)).ToList(); ;
-            return View("timkiem",ds);
+            String key = f["id"];
+            var ds = db.Stories.Where(b => b.Title.Contains(key) || b.Author.Pen_Name.Contains(key)).ToList();
+            return View(ds);
+        }
+        [Route("Story/Search/find={key}/minc={minc}/cat={cat}/sort={sort}/status={status}")]
+        public ActionResult Search(string key,int minc, string cat, string sort,int status)
+        {
+            var ds = db.Stories.Where(b => (b.Title.Contains(key) || b.Author.Pen_Name.Contains(key))&& b.N_O_Chapter >= minc).ToList();
+            if(cat != "all")
+            {
+                ds = db.Stories.Where(b => b.category.CatName.Contains(cat)).ToList();
+            }
+            if(status != 0)
+            {
+                ds = ds.Where(b => b.Status == status).ToList();
+            }
+            var dsc = ds;
+            if (sort != "no")
+            {
+                if (sort == "new")
+                {
+                    dsc = ds.OrderBy(b => b.Publishdate).ToList();
+                }
+                else if (sort == "update")
+                {
+                    dsc = ds.OrderBy(b => b.LastUpdate).ToList();
+                }
+                else if (sort == "view")
+                {
+                    dsc = ds.OrderBy(b => b.View).ToList();
+                }
+                else if (sort == "like")
+                {
+                    dsc = ds.OrderBy(b => b.Rating).ToList();
+                }
+            }
+            return View(dsc);
         }
         [HttpPost]
         private void RecordReadingHistory(int storyId, int chapterId)

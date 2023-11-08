@@ -1,9 +1,14 @@
-﻿@model IEnumerable<STV.Models.Story>
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<STV.Models.Story>
 @{
     ViewBag.Title = "timkiem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div id="inner" style="">
     <br><div id="searchviewdiv">
         <style type="text/css">
@@ -62,19 +67,12 @@
         <div id="tm-p-search-top" class="bg-light" style="width: 100%;padding: 12px;font-size: 14px">
             <div>
                 <form>
-                    <span hidden="">
-                        Tìm: <input id="findf" class="form-control" onkeydown="if(event.keyCode==13){doquery();event.preventDefault();}"><br>
-                    </span>
                     <div class="input-group mb-3 mt-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text select-title">Tìm từ khóa: </span>
                         </div>
-                        <input tabindex="-1" id="findinname" placeholder=" Tìm trong tên, tên hán việt, tác giả" class="form-control" onkeydown="if(event.keyCode==13){doquery();event.preventDefault();}">
-                        <div style="width: 60px;" class="input-group-append">
-                            <button type="button" style="width: 60px;min-width: 60px" class="input-group-text select-title" onclick="easeSearch();event.preventDefault();">
-                                <i class="far fa-wand-magic"></i>
-                            </button>
-                        </div>
+                        <input tabindex="-1" id="findinname" placeholder=" Tìm trong tên, tên hán việt, tác giả" class="form-control">
+
                     </div>
                     <span class="select-title">Số chương: </span>
                     <span id="minc" class="blk-arr">
@@ -90,20 +88,15 @@
 
                     <span class="select-title">Sắp xếp</span>
                     <span id="sort" class="blk-arr">
-                        <button data-t="" onclick="changeQuery(this)" type="button" class="btn btn-light">Không sắp xếp</button>
+                        <button data-t="no" onclick="changeQuery(this)" type="button" class="btn btn-light selected">Không sắp xếp</button>
                         <button data-t="new" onclick="changeQuery(this)" type="button" class="btn btn-light">Mới nhập kho</button>
                         <button data-t="update" onclick="changeQuery(this)" type="button" class="btn btn-light">Mới cập nhật</button>
                         <button data-t="view" onclick="changeQuery(this)" type="button" class="btn btn-light">Lượt đọc tổng</button>
-                        <button data-t="viewweek" onclick="changeQuery(this)" type="button" class="btn btn-light">Lượt đọc tuần</button>
-                        <button data-t="viewday" onclick="changeQuery(this)" type="button" class="btn btn-light">Lượt đọc ngày</button>
                         <button data-t="like" onclick="changeQuery(this)" type="button" class="btn btn-light">Lượt thích</button>
-                        <button data-t="following" onclick="changeQuery(this)" type="button" class="btn btn-light">Lượt theo dõi</button>
-                        <button data-t="bookmarked" onclick="changeQuery(this)" type="button" class="btn btn-light">Lượt đánh dấu</button>
-                        <button data-t="auto" onclick="changeQuery(this)" type="button" class="btn btn-light">Đề cử</button>
                     </span>
                     <span class="select-title">Thể loại</span>
                     <span id="category" class="blk-arr">
-                        <button data-t="" onclick="changeQuery(this)" type="button" class="btn btn-light">Tất cả</button>
+                        <button data-t="all" onclick="changeQuery(this)" type="button" class="btn btn-light selected">Tất cả</button>
                         <button data-t="hh" onclick="changeQuery(this)" type="button" class="btn btn-light">Huyền huyễn</button>
                         <button data-t="dt" onclick="changeQuery(this)" type="button" class="btn btn-light">Đô thị</button>
                         <button data-t="nt" onclick="changeQuery(this)" type="button" class="btn btn-light">Ngôn tình</button>
@@ -117,33 +110,33 @@
                     </span>
                     <span class="select-title">Trạng thái</span>
                     <span id="bookstatus" class="blk-arr" style="display: block">
-                        <button data-t="" onclick="changeQuery(this)" type="button" class="btn btn-light">Tất cả</button>
+                        <button data-t="0" onclick="changeQuery(this)" type="button" class="btn btn-light selected">Tất cả</button>
                         <button data-t="3" onclick="changeQuery(this)" type="button" class="btn btn-light">Hoàn thành</button>
                         <button data-t="1" onclick="changeQuery(this)" type="button" class="btn btn-light">Còn tiếp</button>
                         <button data-t="2" onclick="changeQuery(this)" type="button" class="btn btn-light">Tạm ngưng</button>
-                        <button data-t="5" onclick="changeQuery(this)" type="button" class="btn btn-light">Không tạm ngưng</button>
                     </span>
 
             </div>
         </div>
         <hr>
-        <button class="btn btn-outline-info" onclick="lineview()"><i class="fas fa-list"></i>/<i class="fas fa-th"></i></button>
-        <button onclick="doquery(true)" id="searchbutton" type="button" class="btn btn-info" style="float:right;"><i class="fas fa-search"></i> Tìm</button>
+        <button class="btn btn-outline-info" onclick="lineview()"><i class="fa-solid fa-list"></i>/<i class="fa-solid fa-th"></i></button>
+        <button onclick="timnc()" id="searchbutton" type="button" class="btn btn-info" style="float:right;"><i class="fa-solid fa-search"></i> Tìm</button>
         <div class="clear"></div>
     </div>
 
-        <div class="row" style="min-height:360px;margin: 0;font-size: 12px;">
-            <center class="w-100 t-20">
-                @if (@Model == null)
-                {
-                    <h1>Không tìm thấy truyện nào</h1>
-                }
-                else
-                {
-                    foreach(var i in Model)
+    <div class="row" style="min-height:360px;margin: 0;font-size: 12px;">
+        <center class="w-100 t-20">
+            @if (Model == null)
+            {
+                <h1>Không tìm thấy truyện nào</h1>
+            }
+            else
+            {
+                <div class="row" style="min-height:360px;margin: 0;font-size: 12px;">
+                    @foreach (var i in Model)
                     {
                         <a onclick="ui.swiftload(this)" class="nb cap col-xl-1 col-lg-2 col-md-3 col-sm-4 col-4 booksearch" href="@Url.Action("Truyen", "Story", new { StoryID = i.StoryID})">
-                        <img referrerpolicy="no-referrer" src="~/Image/@i.image" style="width:100%;height:180px" onerrorr="this.src=&quot;/nothumb.jpg&quot;;this.onerror=&quot;&quot;">
+                            <img referrerpolicy="no-referrer" src="~/Image/@i.image" style="width:100%;height:180px" onerrorr="this.src=&quot;/nothumb.jpg&quot;;this.onerror=&quot;&quot;">
                             <div>
                                 <b class="searchbooktitle">@i.Title</b><span class="searchbookauthor">@i.Author.Pen_Name</span>
                                 <div class="info">
@@ -154,19 +147,59 @@
                                     <span class="lhr">6 <i class="fa-solid fa-rss"></i></span>
                                 </div>
                                 <span class="searchtag">@i.category.CatName</span>@if (i.Status == 1)
-                                { <span class="searchtag" style="background:#f5f5dc;">đang ra</span> }
+                                {<span class="searchtag" style="background:#f5f5dc;">đang ra</span> }
                                 else if (i.Status == 2)
                                 { <span class="searchtag" style="background:#f5f5dc;">Hoàn thành</span> }
-                                else { <span class="searchtag" style="background:#f5f5dc;">Tạm Dừng</span> }
-                                 <br>
+                                else
+                                { <span class="searchtag" style="background:#f5f5dc;">Tạm Dừng</span>}
+                                <br>
                                 <span class="lhr" style="font-size:12px;color:gray;text-transform:none;">
- 
+
                                 </span>
                             </div>
                         </a>
                     }
-                }
-                    </center>
-            
-        </div>
+                </div>
+            }
+        </center>
+
+    </div>
 </div>
+<script>
+    var searchquery = location.search.slice(1).split("&");
+    var minc = "0";
+    var sort = "no";
+    var category = "all";
+    var find = " ";
+    var bstep = "0";
+    function changeQuery(e) {
+        var m = e.parentElement.id;
+        switch (m) {
+            case "minc": {
+                e.parentElement.childNodes.forEach(function (x) { x.className = 'btn btn-light'; });
+                e.className = "btn btn-info selected";
+                minc = e.getAttribute("data-t");
+            } break;
+            case "category": {
+                e.parentElement.childNodes.forEach(function (x) { x.className = 'btn btn-light'; });
+                e.className = "btn btn-info selected";
+                category = e.getAttribute("data-t");
+            } break;
+            case "sort": {
+                e.parentElement.childNodes.forEach(function (x) { x.className = 'btn btn-light'; });
+                e.className = "btn btn-info selected";
+                sort = e.getAttribute("data-t");
+            } break;
+            case "bookstatus": {
+                e.parentElement.childNodes.forEach(function (x) { x.className = 'btn btn-light'; });
+                e.className = "btn btn-info selected";
+                bstep = e.getAttribute("data-t");
+            } break;
+        }
+    }
+    function timnc() {
+        find = document.getElementById("findinname").value;
+        var url = '@Url.Action("Search", "Story")' + "/find=" + find + "/minc=" + minc + "/cat=" + category + "/sort=" + sort + "/status=" + bstep
+        window.location.href = url
+    }
+</script>
