@@ -158,5 +158,10 @@ namespace STV.Controllers
             return View();
 
         }
+        public ActionResult Information(int MemberID)
+        {
+            var memberID = db.Members.SingleOrDefault(n => n.MemberID == MemberID);
+            return View(memberID);
+        }
     }
 }

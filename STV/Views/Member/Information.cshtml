@@ -1,0 +1,376 @@
+﻿@model STV.Models.Member
+<html data-lt-installed="true" class="mdl-js">
+<body>
+    <div id="full" style="overflow: visible;">
+        <div id="tm-top-nav">
+            <div class="container">
+                <a id="tm-top-nav-home" style="color: grey" href="/">Trang chủ</a> |
+                <a hidden="" id="tm-top-nav-forum" href="/forum/" style="color: grey">Diễn đàn</a> |
+                <a id="tm-top-nav-fanpage" href="https://www.facebook.com/105795507712320/" style="color: grey">Fanpage</a>
+            </div>
+        </div>
+        <div class="container">
+            <br>
+            <script type="text/javascript" src="/game.js?v=21"></script>
+            <div style="width:240px;height:240px;margin:120px auto 10px auto;align-content:center;position:relative" class="">
+                <img id="avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/default.png" style="width:240px;height:240px;border:none" class="">
+                <button style="position:absolute;right:0;bottom:0;opacity:0.5;transform:scale(0.75)" onclick="changeavatar()" class="__web-inspector-hide-shortcut__">Đổi</button>
+                <input type="file" style="display:none" hidden="" id="newavatar" onchange="uploadavatar(this);">
+            </div>
+            <style type="text/css">
+                .item[n]:after {
+                    content: attr(n);
+                    position: absolute;
+                    right: 1px;
+                    font-size: 12px;
+                    bottom: -2px;
+                    text-shadow: 2px 2px 2px black;
+                    color: white;
+                }
+
+                .item[hide] {
+                    display: none;
+                }
+
+                .item[style] {
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+
+                .item[b="3000000"] {
+                    background-image: url(/game/asset/item/thu-hon-dan.png);
+                    border: 2px solid red;
+                }
+
+                .item[b="10000"] {
+                    background-image: url(/game/asset/item/tu-linh-tran.jpg);
+                    border: 2px solid red;
+                }
+
+                .item[tag="3"][l="50"] {
+                    background-image: url(/game/asset/item/thon-thien-ma-cong-than-quyen.png);
+                    border: 2px solid red;
+                }
+            </style>
+            <center>
+                <span style="font-size: 32px">
+                    @Html.DisplayFor(model => model.UserName)
+                </span>
+                <br>
+                <span>
+                    <span style="color:crimson; font-size: 24px">Số dư:</span><span style="color:gold; font-size: 24px">@Html.DisplayFor(model => model.Money)đ</span>
+                </span>
+            </center>
+            <div id="infobox" style="background-color: white; border-radius: 12px; width: 100%;">
+                <div style="margin: 4px 0;padding: 0;border: 1px solid #cecece;border-width: 1px 0 1px 0;display: flex;flex-wrap: nowrap;line-height: 2">
+                    <a href="/comment/245279" style="width: 50%;display: block;text-align: center;height: ">Xem bình luận</a>
+                    <a href="/nhunger/0" style="width: 50%;display: block;text-align: center;">Xem truyện nhúng</a>
+                </div>
+                <br>
+                TIỂU SỬ<button style="float:right;font-size:16px;display:inline-block" onclick="saveinfo()">Lưu</button>
+                <hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+<textarea id="tainfo" style="resize:vertical;min-height:120px;width:90%;margin-left:5%;border-radius:8px;background-color:#f9f9f9"> </textarea>
+                <br />
+                Lịch Sử<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+                <div class="d91" style="font-size:16px;">
+                    <span style="color:#d4ac2a">Đã đọc</span><span style="color:#d14bc6;float:right">0 Chương truyện</span>
+                    <hr style="margin:0 0 4px 0;border-top:2px solid #eee">
+                    <span style="color:#d4ac2a">Đã bình luận</span><span style="color:#d14bc6;float:right">0 lần</span>
+                    <hr style="margin:0 0 4px 0;border-top:2px solid #eee">
+                </div>
+                <br>
+                <span style="font-size: 20px; "</span>Email<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+                <span style="font-size:18px;color:gray;">
+                    @Html.DisplayFor(model => model.Email)
+                </span><br>
+                <span style="font-size: 20px; "</span>Giới tính<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+                <span style="font-size:18px;color:gray;">
+                    @Html.DisplayFor(model => model.Gender)
+                </span><br>
+                <span style="font-size: 20px; "</span>Ngày sinh<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+                <span style="font-size:18px;color:gray;">
+                    @Html.DisplayFor(model => model.Birth)
+                </span><br>
+                <span style="font-size: 20px; "</span>Ngày tham gia<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
+                <span style="font-size:18px;color:gray;">
+                    @Html.DisplayFor(model => model.Joindate)
+                </span><br>
+                <script>
+                    if (isMobile) {
+                        g("infobox").style.width = "100%";
+                        g("infobox").style.margin = "";
+                    }
+                    mergekhodo();
+                    sortkhodo();
+
+                    if (typeof vothan != "undefined") {
+                        vothan();
+                    }
+                    function fixactive() {
+                        if (confirm("Xác nhận fix lỗi? fix lỗi sẽ gỡ hết các vật phẩm khỏi đang kích hoạt, bao gồm cả đan được.")) {
+                            ajax("ajax=releaseall", function (down) { if (down == "success") alert("Fix thành công"); });
+                        }
+                    }
+                    var maxusable = 0;
+                    q(".timerdown").forEach(function (e) {
+                        if (maxusable > 1000) return;
+                        maxusable++;
+                        var t = parseInt(e.innerHTML.split(" ")[0]);
+                        setInterval(function () {
+                            t--;
+                            e.innerHTML = t + " phút";
+                            e.style.width = (t / 1.2) + "%";
+                        }, 60000);
+                    });
+                </script>
+                <script></script>
+                <br /><br />
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="namewdf" style="visibility: hidden; height: auto; width: 100%;" onkeydown="event.stopPropagation();" class="namewd">
+        <div id="toolbar">
+
+            <button type="button" class="toolbar" onclick="saveNS()">Lưu lại</button>
+            <button type="button" class="toolbar" onclick="saveNS();excute();">Chạy</button>
+            <button type="button" class="toolbar" onclick="clearNS()">Xóa hết</button>
+            <button type="button" class="toolbar" onclick="getNSOnline()">Tải name</button>
+            <button type="button" class="toolbar" onclick="uploadNS()">Upload</button>
+            <button type="button" class="toolbar" style="float:right" onclick="hideNS()">Ẩn</button>
+
+        </div>
+        <div id="toolbar2" style="display:none;">
+            <button type="button" class="toolbar" onclick="this.parentElement.style.display='none';g('toolbar').style.display='block';g('dlnametb').style.zIndex='-1';"><span class="glyphicon glyphicon-chevron-left"></span>Quay lại</button>
+            <button type="button" class="toolbar" style="float:right" onclick="hideNS()">Ẩn</button>
+        </div>
+        <hr style="margin:0;clear:both">
+        <div id="namewdc" style="position:relative">
+            <textarea id="namewd"></textarea>
+            <div id="dlnametb" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background-color:white;max-height:269px;overflow-y:auto;">
+                <table id="dlnametbcontent"></table>
+            </div>
+
+            <div id="upnamewd" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background-color:white;">
+                <br>
+                <center>
+                    <input class="nip" id="uploaduser" placeholder="Nhập tên của bạn"><br>
+                    <br>
+                    <button class="btn btn-primary" type="button" id="sendnsbt" onclick="this.disabled=true;sendNS()">Gửi</button>&nbsp;<button class="btn btn-secondary" type="button" onclick="this.parentElement.parentElement.style.zIndex='-1'">Hủy</button><br>
+                </center>
+            </div>
+        </div>
+
+        <div hidden="" style="width:100%;border-top:1px solid black">
+            <input id="fastseltext" onpaste="fastCreateN(this)" onkeyup="fastCreateN(this)" style="float:left;width:40%;height:24px;font-size:16px;" type="text"><span style="float:left;">&nbsp;=&nbsp;</span><input style="float:left;width:40%;height:24px;font-size:16px;" id="fastgentext">
+            <button type="button" class="toolbar" style="float:right;margin: 0;padding: 0;" onclick="fastAddNS()">Thêm </button>
+            <div class="clear"></div>
+        </div>
+        <div style="border-top:1px solid gray;" class="row justify-content-md-left m-0">
+            <div class="col-3"><span onclick="excute()" class="blk-item2"><i class="fas fa-play" style="color:green;"></i><br>Chạy</span></div>
+            <div class="col-3"><span onclick="getNSOnline()" class="blk-item2"><i class="fas fa-cloud-download" style="color:green;"></i><br>Tải name được chia sẻ</span></div>
+            <div class="col-3"><span onclick="importName()" class="blk-item2"><i class="fas fa-file-import"></i><br>Nhập dữ liệu name</span></div>
+            <div class="col-3"><span onclick="openinsertvpmodal()" class="blk-item2"><i class="fas fa-file-alt"></i><br>Sử dụng file vp riêng</span></div>
+            <div class="col-3"><span onclick="exportName()" class="blk-item2"><i class="fas fa-file-export"></i><br>Xuất dữ liệu</span></div>
+            <div class="col-3"><span onclick="uploadNS()" class="blk-item2"><i class="fas fa-upload"></i><br>Chia sẻ gói name</span></div>
+            <div class="col-3"><span onclick="var wd=ui.win.createBox('Gói Name Đặc Biệt','namepack').show();" onclicks="$('#customnamebox').modal('toggle')" class="blk-item2"><i class="fas fa-download" style="color:green;"></i><br>Tải name đặc biệt</span></div>
+            <div class="col-3"><span onclick="analyzer.reset();" class="blk-item2"><i class="fas fa-trash-alt" style="color:red;"></i><br>Xóa bộ nhớ Analyzer</span></div>
+            <div class="col-3"><span onclick="ui.win.createBox('Công cụ','tool').show()" class="blk-item2"><i class="fas fa-wrench"></i><br>Công cụ</span></div>
+            <div class="col-3" hidden=""><span onclick="TFCoreTranslatePage()" class="blk-item2"><i class="fas fa-magic"></i><br>Transform</span></div>
+        </div>
+    </div>
+    <div id="configBox" class="bg-light" style="position: fixed;bottom: 75px;right: 65px;border: 1px solid #cccbcb;display: none;">
+        <div>
+            <div id="stylediv" style="line-height:1.5;user-select: none;padding: 5px" onclick="event.stopPropagation();">
+                Màu nền: <input type="color" style="float: right;height: 20px;width:50px;" oninput="this.style.backgroundColor=this.value;changebg(this)">
+                <br>
+                <span class="cgcolor" style="background-color:#eae4d3" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#ffffff" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#000000" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#d0d0d0" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#a3e6a2" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#a7d4e8" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#d7ffff" onclick="changebg(this)">A</span><br>
+                <span class="cgcolor" style="background-color:#8a8a88" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#fbdada" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#6f3333" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#5cbd94" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#c492de" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#127743" onclick="changebg(this)">A</span>
+                <span class="cgcolor" style="background-color:#ececec" onclick="changebg(this)">A</span><br>
+                Màu chữ: <span style="float:right;padding-right:55px;height:20px;">
+                    <span>Bóng:</span>
+                    <input type="checkbox" style="height: 20px;-webkit-appearance: checkbox;" onchange="changetextshadow(this.checked,1)">
+                    <input type="color" style="height: 20px;position:absolute;right:5px;width:50px;" oninput="changetextshadow(this.value,2)">
+
+                </span><br>
+                <span class="cgcolor" style="color:#eae4d3" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#ffffff" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#000000" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#d0d0d0" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#a3e6a2" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#a7d4e8" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#d7ffff" onclick="changebgx(this)">A</span><br>
+                <span class="cgcolor" style="color:#8a8a88" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#fbdada" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#6f3333" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#5cbd94" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#c492de" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#127743" onclick="changebgx(this)">A</span>
+                <span class="cgcolor" style="color:#ececec" onclick="changebgx(this)">A</span><br>
+                <center>
+                    <span style="padding:6px;border-radius:6px;" onclick="decreaseFontsize()"><i class="fas fa-minus"></i> </span><span style="margin-right: -20px;position: relative;">
+                        <img loading="lazy" src="/asset/Aa.png" style="width: 18px;
+    height: 20px;">
+                    </span><input id="changefs" style="max-width:45px;padding: 3px;padding-left:20px;" onchange="changefontsize(this);" value="24"><span style="padding:6px;border-radius:6px;" onclick="increaseFontsize()"><i class="fas fa-plus"></i></span>
+                    <span style="padding:6px;border-radius:6px;" onclick="decreaseLineheight()"><i class="fas fa-minus"></i> </span><span style="margin-right: -15px;position: relative">
+                        <img loading="lazy" src="/asset/lh.png" style="    width: 12px;
+    height: 28px;">
+                    </span><input id="changefs2" style="max-width:45px;padding: 3px;padding-left: 15px;" onchange="changelineheight(this);" value="1.2"><span style="padding:6px;border-radius:6px;" onclick="increaseLineheight()"><i class="fas fa-plus"></i></span>
+                </center>
+                <select id="selfont" value="arial" style="border-radius: 0;background: white;width: 100%;">
+                    <option value="helvetica">Helvetica</option>
+                    <option value="opensans">Open Sans</option>
+                    <option value="stvverdana">Verdana</option>
+                    <option value="roboto">Roboto</option>
+                    <option value="stvarial">Arial</option>
+                    <option value="stvtahoma">Tahoma</option>
+                    <option value="palatinolinotype">Palatino linotype</option>
+                    <option value="nunito">Nunito</option>
+                    <option value="sourceserifpro">Source Serif Pro</option>
+                    <option value="robotoslab">Roboto Slab</option>
+
+                </select>
+                <center style="font-size: 22px">
+                    <span style="display: inline-block;border:1px solid gray;padding: 4px" onclick="decreasepadding()"><i class="fas fa-outdent"></i></span>
+                    <span val="left" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-left"></i></span>
+                    <span val="center" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-center"></i></span>
+                    <span val="justify" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-justify"></i></span>
+                    <span val="right" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-right"></i></span>
+                    <span style="display: inline-block;border:1px solid gray;padding: 4px" onclick="increasepadding()"><i class="fas fa-indent"></i></span>
+                </center>
+                <script>
+                    g("selfont").onchange = function () {
+                        try {
+                            g(contentcontainer).style.fontFamily = this.value;
+                            localStorage.setItem("fontfamily", this.value);
+                        } catch (e) { }
+                    }
+                    function changetextshadow(v, i) {
+                        if (i == 1) {
+                            try {
+                                if (v) {
+                                    var c = event.target.nextElementSibling.value;
+                                    if (c == "#000000") {
+                                        c = "0 0 1px white";
+                                    }
+                                    else { c = "0 0 1px " + c; }
+                                    g(contentcontainer).style.textShadow = c;
+                                    localStorage.setItem("textlshadow", c);
+                                } else {
+                                    g(contentcontainer).style.textShadow = "none";
+                                    localStorage.setItem("textlshadow", "none");
+                                }
+                            } catch (e) { }
+                        } else {
+                            try {
+                                var c = "0 0 1px " + v;
+                                g(contentcontainer).style.textShadow = c;
+                                localStorage.setItem("textlshadow", c);
+                                event.target.previousElementSibling.checked = true;
+                            } catch (e) { }
+                        }
+                    }
+                </script>
+
+            </div>
+        </div>
+        <div class="bg-dark" style="display: flex;">
+            <button type="button" onclick="speaker.readBook()" style="background: none;border:none;color: white;font-size: 16px;padding: 6px;"><i class="fas fa-play"></i> Nghe sách</button>
+            <button type="button" onclick="showNS()" style="background: none;border:none;color: white;font-size: 16px;padding: 6px;"><i class="fas fa-edit"></i> Name</button>
+        </div>
+    </div>
+    <button type="button" id="btnshowns" aria-label="Nút mở cài đặt" class="toolbar showname" style="border-radius: 50%;height: 50px; width: 50px;background: #eaeaea80;bottom:20px;border:none;box-shadow: 0 0 3px gray;padding: 0" onclick="showConfigBox()"><i class="fa-cogs fas" style="font-size: 26px;color: #6564638a;"></i></button>
+    <div id="float-btn" style="width: 50px;position: fixed;right: 14px;bottom: 85px;">
+        <button type="button" id="btnunitymode" style="border-radius: 50%;height: 50px; width: 50px;background: #eaeaea80;border:none;box-shadow: 0 0 3px gray;padding: 0;opacity: 1;display: none;" onclick="ui.unity()"><i class="fas fa-eye" style="font-size: 26px;color: #6564638a;"></i></button>
+    </div>
+
+    <button type="button" id="btnnextchapter" class="toolbar showname" style="border-radius: 50%;height: 50px; width: 50px;opacity: 0;bottom:20px;border:none;box-shadow: 0 0 3px gray;padding: 0;right: 75px;display: none" onclick="g('navnexttop').click()"><i class="fas fa-chevron-right" style="font-size: 26px;color: #6564638a;"></i></button>
+    <button type="button" id="btnprevchapter" class="toolbar showname" style="border-radius: 50%;height: 50px; width: 50px;opacity: 0;bottom:20px;border:none;box-shadow: 0 0 3px gray;padding: 0;right: 140px;display: none" onclick="g('navprevtop').click()"><i class="fas fa-chevron-left" style="font-size: 26px;color: #6564638a;"></i></button>
+
+    <script>
+        function online() {
+            //return;
+            var lastol = localStorage.getItem("lastonline");
+            if (lastol && lastol.length > 0) {
+                var ctime = new Date().getTime() / 1000;
+                if (ctime - parseInt(lastol) < 60) {
+                    setTimeout(online, 15000);
+                    return;
+                }
+            }
+            var params = "sajax=online&ngmar=ol";
+            var http = new XMLHttpRequest();
+            var url = '/index.php?ngmar=ol2&u=245279';
+            http.open('POST', url, true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function () {
+                if (http.readyState == 4 && http.status == 200) {
+                    if (http.responseText != "0") {
+                        if (http.responseText == "Bạn chưa đăng nhập!") {
+                            //location.reload();
+                        } else
+                            g("notifmarker").setAttribute("havenotif", http.responseText);
+                    } else {
+                        g("notifmarker").removeAttribute("havenotif");
+                    }
+                    setTimeout(online, 300000);
+                } else if (http.readyState == 4 && http.status != 502) {
+                    setTimeout(online, 300000);
+                }
+            }
+            http.send(params);
+            var ctime2 = new Date().getTime() / 1000;
+            localStorage.setItem("lastonline", "" + ctime2);
+        }
+        setTimeout(online, 15000);
+
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <scripts async="" src="https://www.googletagmanager.com/gtag/js?id=UA-145395004-1" onerror="this.src='/gtag.php'"></scripts>
+    <script async="" defer="" src="/gtag.php" onerror="this.src='/gtag.php'"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-145395004-1');
+
+        q("span[tag]").forEach(function (e) {
+            e.title = e.textContent;
+        });
+        if ($("#mainbar").height() > 150) {
+            g("notifmarker").innerHTML = "Thông báo";
+            g("menunavigator2").insertBefore(g("notifmarker"), g("menunavigator2").children[1]);
+        }
+        (function () {
+            var _open = window.open;
+            window.open = function () {
+                var blockedDomain = ["vjnycjpjg.com", "vgthxbor.com", "ascynbdhkpyci.com", "qmnemxade.com", "rwhhcwku.com", "oriwehdqf.com", "wgkisvpild.com", "gysloflobxsrti.com"
+                    , "ilrdvouqmynwt.com", "ruktosjegndci.com", "gletsokr.com", "uxvbofhyq.com"];
+                for (var i = 0; i < blockedDomain.length; i++) {
+                    if (arguments[0].indexOf(blockedDomain[i]) >= 0) {
+                        return false;
+                    }
+                }
+                console.log(arguments);
+                _open.apply(window, arguments);
+            }
+        })()
+    </script>
+    <div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div><iframe id="nr-ext-rsicon" style="position: absolute; display: none; width: 50px; height: 50px; z-index: 2147483647; border-style: none; background: transparent;"></iframe>
+</body>
+<div id="eJOY__extension_ai_adv_root" class="eJOY__extension_ai_adv_root_class"><div class="wrapperAiAssEjoy"><div class="containerSumEjoyIcon "><div class="viewIconEjoy gl-tooltip-ejoy gl-tooltip-ejoy-left" tooltip-data="eJOY AI Assistant"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><g opacity="0.8" clip-path="url(#clip0_3533_30133)"><path d="M16.4789 7.40589C16.6757 6.8147 16.744 6.18834 16.6792 5.56866C16.6143 4.94897 16.4179 4.3503 16.1029 3.8127C15.6361 2.99955 14.9229 2.35575 14.0664 1.97419C13.2099 1.59264 12.2543 1.49306 11.3375 1.68982C10.924 1.22381 10.4157 0.851494 9.84668 0.597808C9.27762 0.344124 8.66096 0.214917 8.03795 0.218837C7.10063 0.216574 6.1868 0.512032 5.42821 1.06262C4.66962 1.6132 4.10549 2.39045 3.81712 3.28233C3.2065 3.40732 2.62963 3.66132 2.12512 4.02731C1.62061 4.3933 1.20011 4.86284 0.891766 5.40451C0.421165 6.21543 0.220285 7.15481 0.318097 8.0873C0.415909 9.01974 0.807355 9.897 1.43599 10.5926C1.23915 11.1838 1.17087 11.8101 1.23571 12.4298C1.30055 13.0495 1.49701 13.6482 1.81195 14.1858C2.27887 14.9989 2.99202 15.6426 3.84852 16.0242C4.705 16.4058 5.66058 16.5054 6.57736 16.3086C6.99087 16.7747 7.49918 17.147 8.06819 17.4007C8.63726 17.6543 9.25391 17.7835 9.87693 17.7796C10.8147 17.7821 11.729 17.4865 12.4879 16.9356C13.2468 16.3846 13.811 15.6068 14.0992 14.7144C14.7098 14.5894 15.2866 14.3354 15.7912 13.9694C16.2956 13.6035 16.7161 13.1339 17.0245 12.5922C17.4945 11.7814 17.6949 10.8422 17.5969 9.91013C17.4988 8.97803 17.1074 8.10117 16.4789 7.40589ZM9.87834 16.6316C9.10851 16.6327 8.36287 16.3631 7.77172 15.87C7.79837 15.8555 7.84513 15.8298 7.8756 15.8112L11.3722 13.7915C11.4599 13.7415 11.5328 13.6691 11.5833 13.5817C11.6338 13.4942 11.6601 13.3949 11.6595 13.294V8.3645L13.1374 9.21787C13.1452 9.22174 13.1518 9.22744 13.1569 9.23451C13.1619 9.24158 13.165 9.24979 13.1661 9.25835V13.3407C13.165 14.2127 12.8184 15.0486 12.2021 15.6654C11.5859 16.2823 10.7502 16.6297 9.87834 16.6316ZM2.80762 13.6118C2.42202 12.9455 2.28305 12.1649 2.41503 11.4065C2.44099 11.4221 2.48634 11.4498 2.51889 11.4685L6.01545 13.4882C6.10259 13.5391 6.20173 13.566 6.30266 13.566C6.40355 13.566 6.50268 13.5391 6.58982 13.4882L10.8588 11.0233V12.73C10.8592 12.7387 10.8576 12.7475 10.8539 12.7554C10.8502 12.7633 10.8446 12.7702 10.8376 12.7754L7.30298 14.8162C6.54693 15.2516 5.64899 15.3693 4.80624 15.1436C3.96347 14.9178 3.2447 14.3669 2.80762 13.6118ZM1.88777 5.97849C2.27169 5.31135 2.87809 4.80058 3.60075 4.53555C3.60075 4.56566 3.59902 4.619 3.59902 4.65601V8.69543C3.5984 8.79632 3.62467 8.89554 3.67511 8.98295C3.72555 9.07032 3.79834 9.14267 3.88602 9.19258L8.15495 11.6572L6.67706 12.5105C6.66977 12.5153 6.66138 12.5182 6.65269 12.519C6.644 12.5198 6.63522 12.5185 6.62718 12.515L3.09219 10.4725C2.33746 10.0354 1.78684 9.31687 1.56106 8.47443C1.33528 7.63203 1.45277 6.73444 1.88777 5.97849ZM14.0303 8.80414L9.76129 6.33923L11.2392 5.48621C11.2465 5.48142 11.2549 5.47848 11.2636 5.47769C11.2723 5.4769 11.281 5.47831 11.2891 5.48173L14.8241 7.52254C15.3657 7.83538 15.8069 8.29601 16.0961 8.85054C16.3854 9.40507 16.5106 10.0305 16.4573 10.6537C16.4039 11.2768 16.1741 11.8719 15.7948 12.3691C15.4155 12.8664 14.9024 13.2454 14.3155 13.4615C14.3155 13.4311 14.3155 13.3778 14.3155 13.3407V9.30129C14.3163 9.20057 14.2904 9.10144 14.2402 9.01408C14.1901 8.92671 14.1176 8.85427 14.0303 8.80414ZM15.5012 6.59022C15.4753 6.57429 15.4299 6.54694 15.3974 6.52828L11.9008 4.50855C11.8136 4.45771 11.7146 4.43088 11.6136 4.43088C11.5127 4.43088 11.4136 4.45771 11.3265 4.50855L7.05752 6.97349V5.26674C7.05703 5.258 7.0587 5.24931 7.06239 5.24141C7.06608 5.23351 7.07165 5.22661 7.07863 5.22139L10.6133 3.18227C11.1548 2.87003 11.774 2.71845 12.3986 2.74526C13.0231 2.77207 13.627 2.97616 14.1398 3.33366C14.6525 3.69117 15.0529 4.18729 15.294 4.76401C15.5351 5.34072 15.607 5.97414 15.5012 6.59022ZM6.25401 9.63227L4.77573 8.77889C4.768 8.77503 4.76129 8.76932 4.75628 8.76225C4.75128 8.75518 4.74807 8.74697 4.74702 8.73837V4.65601C4.74741 4.03078 4.92592 3.41857 5.2616 2.89107C5.59732 2.36358 6.07634 1.94262 6.64259 1.67747C7.20885 1.41232 7.83889 1.31396 8.45901 1.39389C9.07918 1.47382 9.6637 1.72873 10.1442 2.1288C10.1176 2.14334 10.0712 2.16896 10.0403 2.18766L6.54377 4.20736C6.45601 4.25724 6.38318 4.32958 6.33264 4.41697C6.28216 4.50433 6.25586 4.60359 6.25643 4.70448L6.25401 9.63227ZM7.05681 7.90128L8.95814 6.80315L10.8594 7.90058V10.0961L8.95814 11.1936L7.05681 10.0961V7.90128Z" fill="#1DA1F2"></path></g><defs><clipPath id="clip0_3533_30133"><rect width="18" height="18" fill="white"></rect></clipPath></defs></svg><div class="viewCloseIconEjoy"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="black" fill-opacity="0.25"></circle><path fill-rule="evenodd" clip-rule="evenodd" d="M8.71289 3.58672C8.87135 3.74518 8.87135 4.00209 8.71289 4.16054L6.72363 6.14981L8.71289 8.13907C8.87135 8.29752 8.87135 8.55444 8.71289 8.71289C8.55444 8.87135 8.29752 8.87135 8.13907 8.71289L6.14981 6.72363L4.16054 8.71289C4.00209 8.87135 3.74518 8.87135 3.58672 8.71289C3.42826 8.55443 3.42826 8.29752 3.58672 8.13907L5.57598 6.14981L3.58672 4.16054C3.42826 4.00209 3.42826 3.74518 3.58672 3.58672C3.74518 3.42826 4.00209 3.42826 4.16054 3.58672L6.14981 5.57598L8.13907 3.58672C8.29752 3.42826 8.55444 3.42826 8.71289 3.58672Z" fill="white"></path></svg></div></div></div><div class="eJOY__container "><div class="btnReportClose"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0291 2.63758C14.3812 2.98971 14.3812 3.56062 14.0291 3.91275L9.6085 8.33333L14.0291 12.7539C14.3812 13.106 14.3812 13.677 14.0291 14.0291C13.677 14.3812 13.106 14.3812 12.7539 14.0291L8.33333 9.6085L3.91275 14.0291C3.56062 14.3812 2.98971 14.3812 2.63758 14.0291C2.28546 13.677 2.28546 13.106 2.63758 12.7539L7.05817 8.33333L2.63758 3.91275C2.28546 3.56062 2.28546 2.98971 2.63758 2.63758C2.98971 2.28546 3.56062 2.28546 3.91275 2.63758L8.33333 7.05817L12.7539 2.63758C13.106 2.28546 13.677 2.28546 14.0291 2.63758Z" fill="#B3B3B3"></path></svg></div></div></div></div>
+</html>
+
+
