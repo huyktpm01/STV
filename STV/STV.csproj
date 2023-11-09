@@ -2232,6 +2232,7 @@
     <Content Include="Image\exclamation-solid.svg" />
     <Content Include="Image\favicon.png" />
     <Content Include="Image\house-solid.svg" />
+    <Content Include="Image\pictureicon.png" />
     <Content Include="Image\rotate-right-solid.svg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -2338,6 +2339,7 @@
     <Content Include="Views\Home\NewBook.cshtml" />
     <Content Include="Views\Home\TopBook.cshtml" />
     <Content Include="Views\Home\NewUpdate.cshtml" />
+    <Content Include="Views\Member\Information.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

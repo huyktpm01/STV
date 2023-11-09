@@ -21,7 +21,7 @@ else
                 <ul style="list-style-type: none;padding: 6px;white-space: nowrap;display: block;">
                     <li style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</li>
                     <hr>
-                    <li><a onclick="ui.swiftload(this)" href="/user/0/">Thông tin cá nhân</a></li>
+                    <li><a href="@Url.Action("Information","Member",new { MemberID = Session["MemberID"] })">Thông tin cá nhân</a></li>
                     <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
                     <li><a onclick="ui.swiftload(this)" href="/the-luc/">Thế lực</a></li>
                     <li><a onclick="logout();">Đăng xuất</a></li>

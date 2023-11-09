@@ -13,7 +13,7 @@ namespace STV.Controllers
     public class MemberController : Controller
     {
         // GET: Member
-        dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
+        dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP010502\\SQLEXPRESS;Initial Catalog=Nhom6;Integrated Security=True");
         // GET: User
         [HttpGet]
         public ActionResult DangKy()
@@ -145,6 +145,11 @@ namespace STV.Controllers
             }
             return View();
 
+        }
+        public ActionResult Information(int MemberID)
+        {
+            var memberID = db.Members.SingleOrDefault(n => n.MemberID == MemberID);
+            return View(memberID);
         }
     }
 }
