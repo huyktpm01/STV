@@ -2344,6 +2344,7 @@
     <Content Include="Views\Member\truyenfollow.cshtml" />
     <Content Include="Views\Story\Search.cshtml" />
     <Content Include="Views\Member\Information.cshtml" />
+    <Content Include="Views\Story\DSComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

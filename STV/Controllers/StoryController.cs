@@ -144,6 +144,26 @@ namespace STV.Controllers
                 db.SubmitChanges();
             return null;
         }
+        [HttpPost]
+        public ActionResult Comment(FormCollection f,int StoryID)
+        {
+            var com = f["cmtx"];
+            var id = Session["MemberID"];
+            var readerid = db.Readers.FirstOrDefault(r => r.MemberID == Convert.ToInt16(id));
+            Comment n = new Comment();
+            n.Content = com;
+            n.StoryID = StoryID;
+            n.ReaderID = readerid.ReaderID;
+            n.PublishDate = DateTime.Now;
+            db.Comments.InsertOnSubmit(n);
+            db.SubmitChanges();
+            return RedirectToAction("Truyen","Story",StoryID);
+        }
+        public ActionResult DSComment(int StoryID)
+        {
+            var ds = db.Stories.Where(b => b.StoryID == StoryID).OrderBy(b => b.Publishdate).ToList();
+            return PartialView(ds);
+        }
         public ActionResult DSChap(int StoryID)
         {
             var ds = from s in db.Chapters where s.StoryID == StoryID  select s;
@@ -151,5 +171,6 @@ namespace STV.Controllers
             ViewBag.SC = ds.Count();
             return PartialView(ds);
         }
+
     }
 }

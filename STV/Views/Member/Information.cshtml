@@ -96,35 +96,6 @@
                 <span style="font-size:18px;color:gray;">
                     @Html.DisplayFor(model => model.Joindate)
                 </span><br>
-                <script>
-                    if (isMobile) {
-                        g("infobox").style.width = "100%";
-                        g("infobox").style.margin = "";
-                    }
-                    mergekhodo();
-                    sortkhodo();
-
-                    if (typeof vothan != "undefined") {
-                        vothan();
-                    }
-                    function fixactive() {
-                        if (confirm("Xác nhận fix lỗi? fix lỗi sẽ gỡ hết các vật phẩm khỏi đang kích hoạt, bao gồm cả đan được.")) {
-                            ajax("ajax=releaseall", function (down) { if (down == "success") alert("Fix thành công"); });
-                        }
-                    }
-                    var maxusable = 0;
-                    q(".timerdown").forEach(function (e) {
-                        if (maxusable > 1000) return;
-                        maxusable++;
-                        var t = parseInt(e.innerHTML.split(" ")[0]);
-                        setInterval(function () {
-                            t--;
-                            e.innerHTML = t + " phút";
-                            e.style.width = (t / 1.2) + "%";
-                        }, 60000);
-                    });
-                </script>
-                <script></script>
                 <br /><br />
             </div>
         </div>
