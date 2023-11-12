@@ -71,7 +71,6 @@ namespace STV.Controllers
                 sach.AuthorID = n.AuthorID;
                 sach.Description = collection["ip-description"];
                 sach.image = path;
-                sach.Status = 0;
                 sach.LastUpdate = DateTime.Now;     
                 db.SubmitChanges();
             }
@@ -131,10 +130,10 @@ namespace STV.Controllers
                     var n = db.Authors.SingleOrDefault(a => a.Pen_Name == ttg);
                     kh.AuthorID = n.AuthorID;
                     kh.Description = collection["ip-description"];
-                    kh.image = path;
+                    kh.image = sFileName;
                     kh.N_O_Chapter = 0;
                     kh.View = 0;
-                    kh.Rating = 10;
+                    kh.Rating = 0;
                     kh.Status = 0;
                     kh.Vip = false;
                     kh.hot = false;
@@ -147,12 +146,21 @@ namespace STV.Controllers
                 return View();
             }
         }
-        [HttpGet]
+
         public ActionResult addChapter(int id)
         {
             Session["StoryID"] = id;
             var sach = db.Stories.SingleOrDefault(n => n.StoryID == id);
-            ViewBag.Max = db.Chapters.Max(c => c.ChapterID) + 1 ;
+            var chap = db.Chapters.Where(n => n.StoryID == id).ToList();
+            if(chap.Max(c => c.Chapter_Number) == null)
+            {
+                ViewBag.Max = 1;
+            }
+            else
+            {
+                 ViewBag.Max = chap.Max(c => c.Chapter_Number) + 1 ;
+            }
+           
             ViewBag.TenSach = sach.Title;
             return View();
         }
@@ -166,7 +174,7 @@ namespace STV.Controllers
 
                 kh.Title = collection["ip-name"];
                 kh.StoryID = int.Parse(Session["StoryID"].ToString());
-                kh.Chapter_Number = int.Parse(collection["ip-altnum"]);
+                kh.Chapter_Number = int.Parse(collection["ip-num"]);
                 kh.Content = collection["ip-content"];
                 kh.N_O_W = collection["ip-content"].Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length.ToString();
                 kh.View = 0;

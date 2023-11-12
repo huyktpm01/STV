@@ -27,17 +27,7 @@
             <form id="formtmp">
                 <div class="form-group">
                     <label for="ip-num">Số chương</label>
-                    <input onchange="validatecnum(this.value)" type="number" class="form-control" id="ip-num" placeholder="Mã số chương" value="@ViewBag.MAX">
-                   
-                    <small id="duplicatenotify" style="display: none;" class="form-text text-muted">Mã số chương này đã tồn tại.</small>
-                </div>
-                <div class="form-group">
-                    <label for="ip-altnum">Số chương phụ</label>
-                    <input type="number" class="form-control" id="ip-altnum" placeholder="Mã số chương phụ" value="1" name="ip-altnum">
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="ip-issingle">
-                    <label class="form-check-label" for="ip-issingle">Chương lẻ (Cảm nghĩ, thông báo,...)</label>
+                    <input readonly="readonly" type="number" class="form-control" name="ip-num" id="ip-num" placeholder="Mã số chương" value="@ViewBag.MAX">
                 </div>
                 <div class="form-group">
                     <label for="ip-name">Tên chương</label>
@@ -53,75 +43,6 @@
             </form>
         </div>
         <div style="padding: 10px;">
-            Ghi chú: <br>
-            - Truyện dịch hỗ trợ nhập txt gốc vào, hệ thống tự động dịch nội dung. Thân là người đăng truyện có thể vào truyện editname chọn mục lưu lại.<br>
-            - Truyện sáng tác có thể dán link ảnh, sẽ tự động hiển thị ảnh khi đọc.<br>
         </div>
     </div>
 }
-<script type="text/javascript" src="/uploader/uploader.js?v21"></script>
-<script type="text/javascript">
-    function openTxtFile() {
-        //return;
-        window.wd = ui.win.create("Mở file txt");
-        window.wd.id = "wdaddtxt";
-        var bd = wd.body;
-        var r = bd.row();
-        r.addButton("Mở file", "loadTxtFile()", "primary");
-        r.style.display = "block";
-        r.style.textAlign = 'center';
-
-        var sel = document.createElement("select");
-        sel.id = "textencoding";
-        sel.innerHTML = `
-        <option value="utf-8">Chọn bảng mã</option>
-        <option value="utf-8">UTF-8</option>
-        <option value="gb18030">GBK</option>
-    `;
-        r.appendChild(sel);
-        r = bd.row();
-        r.addText("Phân tách: ");
-        var ip = r.addInput("spl", "Phân tách chương");
-        ip.style.height = "25px";
-        ip.value = "auto";
-        r.addButton("Có sẵn", "openSplitModeSelect()", "primary");
-        r = bd.row();
-        r.addText("Chương đã phát hiện: ");
-        r.addPadder();
-        var btn = r.addButton("Thêm tất cả", "addAllDetectedChapter(this)", "primary");
-        btn.id = "btnsaveall";
-        r = bd.row();
-        r.id = "found";
-        r.style.display = "block";
-        wd.show();
-    }
-    function validatecnum(num) {
-        ajax("ajax=bookmanager&action=checkexist&type=chapnum&ctx=" + num + "&pctx=" + @ViewBag., function (d) {
-            if (d == "true") {
-                g("duplicatenotify").style.display = "block";
-            } else {
-                g("duplicatenotify").style.display = "none";
-            }
-        });
-        var statusElement = document.getElementById("chapterCodeStatus");
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/Chapter/CheckChapterCode?code=" + num, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.exists) {
-                        statusElement.innerHTML = "Mã số chap đã tồn tại.";
-                    } else {
-                        statusElement.innerHTML = "Mã số chap không tồn tại.";
-                    }
-                } else {
-                    statusElement.innerHTML = "Lỗi khi kiểm tra mã số chap.";
-                }
-            }
-        };
-
-        xhr.send();
-    }
-</script>

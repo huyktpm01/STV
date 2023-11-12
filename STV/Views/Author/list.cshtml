@@ -1,4 +1,4 @@
-﻿ //Giao diện
+﻿
 @using STV.Models
 @using PagedList.Mvc
 @model PagedList.PagedList<STV.Models.Story>
@@ -40,7 +40,6 @@
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Truyen", "Story", new { StoryID = sach.StoryID})'"><i class="fa-solid fa-eye"></i></button>
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("listChap", "Author", new { StoryID = sach.StoryID})'"><i class="fa-solid fa-list"></i></button>
                                 <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditBook", "Author", new { StoryID = sach.StoryID})'"><i class="fa-solid fa-edit"></i></button>
-                                <button type="button" class="btn btn-info" onclick="showMenu(16953)"><i class="fa-solid fa-bars"></i></button>
                             </td>
                         </tr>
                     }
@@ -84,25 +83,7 @@ ViewBag.AuthorID,
     function editbook(id) {
         location.href = "/Author/EditBook/" + id;
     }
-    function exportbook(id) {
-        ajax("minrt=langer&ajax=extractbook&isexport=true&bid=" + id, function (down) {
-            if (down) {
-                alert(down);
-            } else {
-                alert("Xuất bản thành công.");
-            }
-        });
-    }
-    function downloadbook(id) {
-
-    }
-    function deletebook(id) {
-        if (confirm("Xóa truyện này? Thao tác này rất nguy hiểm? Truyện đã xuất bản sẽ không bị xóa? Hệ thống sẽ gỡ tài khoản của bạn khỏi truyện và vẫn giữ dữ liệu, bạn có thể yêu cầu lấy lại bất cứ lúc nào.")) {
-            ajax("minrt=writer&ajax=unownbook&bid=" + id, function () {
-                location.reload();
-            });
-        }
-    }
+    
 </script>
 
 <style>
