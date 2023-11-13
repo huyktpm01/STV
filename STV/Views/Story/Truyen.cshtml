@@ -260,17 +260,12 @@
 
                 <div class="w-100">
                     BÌNH LUẬN
-
-                    <span id="livecomment" style="float:right;padding:0 0 0 20px;" onclick="followPush();"><i class="fas fa-rss"></i></span>
-
-                    <span id="hideavatar" style="float: right; padding: 0px 20px; filter: none;" onclick="togglehideavatar(true);"><i class="fas fa-images"></i></span>
                 </div>
 
                 <br><hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
 
-                <div class="container">
-                    <div class="row">
-                        @using (Html.BeginForm("Comment", "Story",Model.StoryID, FormMethod.Post, new
+                    <div class="w-100">
+                        @using (Html.BeginForm("Comment", "Story", Model.StoryID, FormMethod.Post, new
                         {
                             @enctype =
                             "multipart/form-data"
@@ -287,12 +282,11 @@
                             </form>
                         }
                         </div>
-                </div>
-                <div id="replycmtwd" style="display:none">
-                    <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
-                </div>
+                        <div id="replycmtwd" style="display:none">
+                            <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
+                        </div>
 
-            </div>
+                    </div>
         </div>
     </div>
 </div>

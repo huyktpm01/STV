@@ -29,9 +29,19 @@
         </div>
     </div>
     <div id="content-container" class="container" style="min-height: 300px;padding: 0px;">
-        <div class="contentbox" style="font-family: stvarial; padding: 24px; font-size: 18px;" id="cld-1360742-1" cid="1" user="250"><span style="color:gray;font-size:12px;">
-            @Model.Content
-            </div>
+        <div class="contentbox"  style="display:flex; justify-content:center; align-items:center; font-family: stvarial; padding: 24px; font-size: 18px;" id="cld-1360742-1" cid="1" user="250">
+            <span style="color:gray;font-size:12px;">
+                @if (ViewBag.Duyet == true)
+                {
+                    <h1>Đây là chương vip mời vui lòng mua để được xem nội dung truyện</h1>
+                    <button name="mua" id="mua" onclick="muachuong()">Mua</button>
+                }
+                else
+                {
+                    @Model.Content
+                }
+            </span>
+        </div>
     </div>
     <div class="tm-reader-top-nav" style="background: #eeeeee;font-size: 16px;padding: 6px 0;font-weight: 500">
         <div class="container flex">
@@ -77,3 +87,28 @@
                 overflow: hidden;
             }
         </style>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function muachuong() {
+         $.ajax({
+                type: "POST", // Hoặc "GET" tùy theo action của bạn
+             url: "@Url.Action("Muachuong", "Story", new { chapterid = Model.ChapterID })",
+             success: function () {
+                 // Xử lý kết quả trả về (nếu cần)
+                 
+             }, success: function (data) {
+                 // Xử lý dữ liệu trả về khi action được gọi thành công
+                 if (data == "true") {
+                     alert("Mua Thành Công");
+                     location.reload(true);
+                 } else {
+                     return "Không thành công vui lòng kiểm tra tài khoảng và thử lại"
+                     ocation.reload(true);
+                 }
+             },
+    });
+ }
+
+</script>

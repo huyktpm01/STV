@@ -62,7 +62,7 @@
         <table class="table">
             <thead id="thead">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">VIP</th>
                     <th scope="col">Số phụ</th>
                     <th scope="col">Tên</th>
                     <th scope="col">Mở</th>
@@ -81,25 +81,37 @@
                 @foreach (var sach in Model)
                 {
 
+
+
                     <tr class="crow" id="1245311">
-                    <td><input type="checkbox" selector="" name=""></td>
-                    <td edit="altnum" contenteditable="true">@sach.Chapter_Number</td>
-                    <td edit="name" contenteditable="true">@sach.Title</td>
-                    <td><input edit="open" type="checkbox" name=""></td>
-                    <td><input edit="encrypt" type="checkbox" name=""></td>
-                    <td>@sach.N_O_W</td>
-                    <td>@sach.View</td>
-                    <td hidden=""><input edit="isvip" type="checkbox" name=""></td>
-                    <td hidden="" edit="price" contenteditable="true">@sach.sold</td>
-                    <td hidden="" edit="autounvip" contenteditable="true">0</td>
-                    <td hidden="">@sach.Pushlishdate</td>
-                    <td></td>
-                    <td>
-                        <button type="button" class="btn btn-primary" onclick="location.href='/truyen/sangtac/1/16979/1/'"><i class="fa-solid fa-eye"></i></button>
-                        <button type="button" class="btn btn-success" onclick="editChapter(1245311)"><i class="fa-solid fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" onclick="deletechapter(1245311)"><i class="fa-solid fa-trash-alt"></i></button>
-                    </td>
-            </tr>
+                        @if (sach.Vip == false)
+                        {
+
+
+                            <td><input type="checkbox" selector="" name="vip" id="vip" onclick="batvip(@sach.Chapter_Number,this.checked)" ></td>
+                        }
+                        else
+                        {
+                            <td><input type="checkbox" checked="checked" name="vip" id="vip" onclick="batvip(@sach.Chapter_Number,this.checked)" ></td>
+                        }
+
+                        <td edit="altnum" contenteditable="true">@sach.Chapter_Number</td>
+                        <td edit="name" contenteditable="true">@sach.Title</td>
+                        <td><input edit="open" type="checkbox" name=""></td>
+                        <td><input edit="encrypt" type="checkbox" name=""></td>
+                        <td>@sach.N_O_W</td>
+                        <td>@sach.View</td>
+                        <td hidden=""><input edit="isvip" type="checkbox" name=""></td>
+                        <td hidden="" edit="price" contenteditable="true">@sach.sold</td>
+                        <td hidden="" edit="autounvip" contenteditable="true">0</td>
+                        <td hidden="">@sach.Pushlishdate</td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="location.href='/truyen/sangtac/1/16979/1/'"><i class="fa-solid fa-eye"></i></button>
+                            <button type="button" class="btn btn-success" onclick="editChapter(1245311)"><i class="fa-solid fa-edit"></i></button>
+                            <button type="button" class="btn btn-danger" onclick="deletechapter(1245311)"><i class="fa-solid fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -129,46 +141,6 @@
         Để khôi phục các chương đã xóa: <a href="/uploader/list-chapter-deleted/16979">Bấm vào đây</a>...<br>
     </div>
 </div>
-<script type="text/javascript" src="/uploader/uploader.js?v21"></script>
-<script>
-    function showMenu(id) {
-        var sel = ui.select("Tùy chọn");
-        sel.proc = function (val) {
-            if (window[val + "book"]) {
-                window[val + "book"](id);
-            }
-            sel.hide();
-        }
-        sel.option("edit", "Sửa thông tin");
-        sel.option("export", "Xuất bản");
-        sel.option("listchap", "Danh sách chương");
-        //sel.option("download","Tải xuống");
-        sel.option("delete", "Xóa truyện");
-        sel.show();
-    }
-    function addChapter(id) {
-        location.href = "/Author/addChapter/" + id;
-    }
-    function exportbook(id) {
-        ajax("minrt=langer&ajax=extractbook&isexport=true&bid=" + id, function (down) {
-            if (down) {
-                alert(down);
-            } else {
-                alert("Xuất bản thành công.");
-            }
-        });
-    }
-    function downloadbook(id) {
-
-    }
-    function deletebook(id) {
-        if (confirm("Xóa truyện này? Thao tác này rất nguy hiểm? Truyện đã xuất bản sẽ không bị xóa? Hệ thống sẽ gỡ tài khoản của bạn khỏi truyện và vẫn giữ dữ liệu, bạn có thể yêu cầu lấy lại bất cứ lúc nào.")) {
-            ajax("minrt=writer&ajax=unownbook&bid=" + id, function () {
-                location.reload();
-            });
-        }
-    }
-</script>>
 <div class="MenuTrang">
     @Html.PagedListPager(Model, page => Url.Action("listChap", new
 {

@@ -90,5 +90,43 @@
 
 <body>
     @RenderBody()
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+
+        function batvip(id,check) {
+            // Kiểm tra và thực hiện hành động tùy thuộc vào trạng thái của checkbox
+
+            alert("abc");
+            if (check == true) {
+                $.ajax({
+                    url: '@Url.Action("BatVIP", "Author")' + "?chapternumber=" + id,
+                    type: 'POST',
+                    data: { chapternumber: id },
+                    success: function () {
+                        
+                        alert("Bật vip cho chương thành công");
+                    },
+                    
+                });
+
+            } else
+            {
+                $.ajax({
+                    url: '@Url.Action("TatVIP", "Author")' +"?chapternumber="+id,
+                type: 'POST',
+                data: { chapternumber: id },
+                success: function () {
+          
+                    alert("Xóa vip thành công");
+                },
+      
+                });
+            }
+
+
+
+        }
+    </script>
+
 </body>
 </html>

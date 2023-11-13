@@ -22,6 +22,25 @@ namespace STV.Controllers
                 var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
                 return View(sach);
         }
+        public ActionResult Muachuong(int chapterid)
+        {
+            var user = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString()));
+            var chap = db.Chapters.FirstOrDefault(r => r.ChapterID == chapterid);
+            if (user.Member.Money >= chap.Money)
+            {
+                HistoryBuy a = new HistoryBuy();
+                a.ChapterID = chapterid;
+                a.ReaderID = user.ReaderID;
+                a.BuyDay = DateTime.Now;
+                a.Money =chap.Money;
+                user.Member.Money =  user.Member.Money - Convert.ToInt16(chap.Money);
+                db.HistoryBuys.InsertOnSubmit(a);
+                db.SubmitChanges();
+                return Content("true");
+            }
+            return Content("false");
+
+        }
         [HttpPost]
         public ActionResult Follow(int storyId)
         {
@@ -57,8 +76,21 @@ namespace STV.Controllers
         public ActionResult Chapter(int ChapterID)
         {
             ViewBag.ChapterID = ChapterID;
+            
             var chap = db.Chapters.SingleOrDefault(n => n.ChapterID == ChapterID);
-            RecordReadingHistory(int.Parse(chap.StoryID.ToString()),chap.ChapterID);
+            RecordReadingHistory(int.Parse(chap.StoryID.ToString()), chap.ChapterID);
+            if (chap.Vip == true)
+            {
+                var duyet = db.HistoryBuys.SingleOrDefault(n => n.ChapterID == chap.ChapterID && n.Reader.MemberID == Convert.ToInt16(Session["MemberID"]));
+                if(duyet == null)
+                {
+                   ViewBag.Duyet = true;
+                }else
+                {
+                    ViewBag.Duyet = false;
+                }
+            }
+           
             return View(chap);
         }
         [Route("Story/Search")]
@@ -105,6 +137,10 @@ namespace STV.Controllers
         [HttpPost]
         private void RecordReadingHistory(int storyId, int chapterId)
         {
+            if(Session["MemberID"] == null)
+            {
+                Session["MemberID"] = 1;
+            }
             var userId = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString())) ; // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
 
             // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
@@ -171,6 +207,7 @@ namespace STV.Controllers
             ViewBag.SC = ds.Count();
             return PartialView(ds);
         }
+        
 
     }
 }

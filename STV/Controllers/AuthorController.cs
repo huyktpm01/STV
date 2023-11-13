@@ -83,6 +83,25 @@ namespace STV.Controllers
             ViewBag.CatID = new SelectList(db.categories.ToList().OrderBy(n => n.CatName), "CatID", "CatName");
             return View();
         }
+        public ActionResult BatVIP(int chapternumber)
+        {
+            var chap = db.Chapters.Where(n => n.StoryID == Convert.ToInt16( Session["StoryID"]) && n.Chapter_Number >= chapternumber ).ToList();
+            foreach(var i in chap)
+            {
+                i.Vip = true;
+            }
+            db.SubmitChanges();
+            return RedirectToAction("listChap");
+
+        }
+        public ActionResult TatVIP(int chapternumber)
+        {
+            var chap = db.Chapters.SingleOrDefault(n => n.StoryID == Convert.ToInt16(Session["StoryID"]) && n.Chapter_Number == chapternumber);
+            chap.Vip = false;
+            db.SubmitChanges();
+            return RedirectToAction("listChap");
+
+        }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult addBook(FormCollection collection, Story kh, HttpPostedFileBase fFileUpload)
