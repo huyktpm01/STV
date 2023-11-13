@@ -1,0 +1,22 @@
+﻿@model  STV.Models.Member
+@{
+    ViewBag.Title = "HisBuy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1> LS Mua Hàng</h1>
+    @Html.Action("BuyChap", "Member", Session["MemberID"])
+</div>
+<div>
+    <h1> LS Nạp Tiền</h1>
+    @Html.Action("Recharge", "Member", Session["MemberID"])
+</div>
+@if (Model.A_Level == 2)
+{
+ <div>
+        <h1> Tiền Bán Sách</h1>
+        @Html.Action("BanS", "Member", Session["MemberID"])
+ </div>
+}
+
+

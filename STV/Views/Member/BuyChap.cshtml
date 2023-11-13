@@ -1,0 +1,15 @@
+﻿@model IEnumerable<STV.Models.HistoryBuy>
+@foreach (var item in Model)
+{
+
+        <div class="row nowr" style="margin-left:0px;">
+            <div class="bkr">
+                <b>Người Mua: @item.Reader.Name</b><br>
+                Mua Chương: @item.Chapter.Title<br>
+                Giá mua:@item.Money <br>
+                Cập nhật: @item.BuyDay<br>
+             </div>
+        </div>
+
+}
+

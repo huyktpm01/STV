@@ -26,14 +26,21 @@ namespace STV.Controllers
         {
             var user = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString()));
             var chap = db.Chapters.FirstOrDefault(r => r.ChapterID == chapterid);
+            var author = db.Members.FirstOrDefault(r => r.MemberID == chap.Story.Author.MemberID);
+            float p = 0.9f;
             if (user.Member.Money >= chap.Money)
             {
                 HistoryBuy a = new HistoryBuy();
                 a.ChapterID = chapterid;
                 a.ReaderID = user.ReaderID;
                 a.BuyDay = DateTime.Now;
-                a.Money =chap.Money;
+                a.Money = chap.Money;
+                author.Money = Convert.ToInt16(chap.Money * p);
                 user.Member.Money =  user.Member.Money - Convert.ToInt16(chap.Money);
+                Withdraw b = new Withdraw();
+                b.AuthorID = author.MemberID;b.Money = Convert.ToInt16(chap.Money * p);
+                b.Withdrawaldate = DateTime.Now; b.contend = "Mua Chuong cua truyen" + chap.Story.Title.ToString();
+                db.Withdraws.InsertOnSubmit(b);
                 db.HistoryBuys.InsertOnSubmit(a);
                 db.SubmitChanges();
                 return Content("true");
@@ -202,7 +209,7 @@ namespace STV.Controllers
         }
         public ActionResult DSChap(int StoryID)
         {
-            var ds = from s in db.Chapters where s.StoryID == StoryID  select s;
+            var ds = from s in db.Chapters where s.StoryID == StoryID && s.status == 1  select s;
             Session["StoryID"] = StoryID;
             ViewBag.SC = ds.Count();
             return PartialView(ds);

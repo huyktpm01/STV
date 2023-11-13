@@ -163,5 +163,27 @@ namespace STV.Controllers
             var memberID = db.Members.SingleOrDefault(n => n.MemberID == MemberID);
             return View(memberID);
         }
+        public ActionResult HisBuy(int MemberID)
+        {
+            var member = db.Members.SingleOrDefault(n => n.MemberID == MemberID);
+            return View(member);
+        }
+        public ActionResult BuyChap(int MemberID)
+        {
+            var ds = db.HistoryBuys.Where(n => n.Reader.MemberID == MemberID).OrderBy(n => n.BuyDay).ToList();
+            return PartialView(ds);
+        }
+        public ActionResult BanS(int MemberID)
+        {
+            var member = db.Authors.SingleOrDefault(n => n.MemberID == MemberID);
+            var ds = db.Withdraws.Where(n => n.AuthorID == member.AuthorID).OrderBy(n => n.Withdrawaldate).ToList();
+            return PartialView(ds);
+        }
+        public ActionResult Recharge(int MemberID)
+        {
+            var member = db.Readers.SingleOrDefault(n => n.MemberID == MemberID);
+            var ds = db.Recharges.Where(n => n.ReaderID == member.ReaderID).OrderBy(n => n.Deposit_date).ToList();
+            return PartialView(ds);
+        }
     }
 }

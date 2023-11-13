@@ -47,7 +47,7 @@
             <button class="btn btn-primary" data-toggle="collapse" data-target=".collapse"><i class="fas fa-bars"></i></button>
         </span>
         <span style="float: right;flex-direction: column;" class="d-grid d-md-block">
-            <button class="btn btn-primary" onclick="addChapter(@ViewBag.s)">Thêm Chương</button>
+            <button class="btn btn-primary" onclick="addchap()">Thêm Chương</button>
             <button class="btn btn-primary" onclick="setChapEncrypt()">Bật/Tắt Mã hóa</button>
             <button class="btn btn-warning" onclick="setChapOpen()">Xuất bản</button>
             <button hidden class="btn btn-warning" onclick="openVipSetter()">Set vip</button>
@@ -88,16 +88,26 @@
                         {
 
 
-                            <td><input type="checkbox" selector="" name="vip" id="vip" onclick="batvip(@sach.Chapter_Number,this.checked)" ></td>
+                            <td><input type="checkbox" selector="" name="vip" id="vip" onclick="batvip(@sach.Chapter_Number,this.checked)"></td>
                         }
                         else
                         {
-                            <td><input type="checkbox" checked="checked" name="vip" id="vip" onclick="batvip(@sach.Chapter_Number,this.checked)" ></td>
+                            <td><input type="checkbox" checked="checked" name="vip" id="vip" onclick="batvip(@sach.Chapter_Number,this.checked)"></td>
                         }
 
                         <td edit="altnum" contenteditable="true">@sach.Chapter_Number</td>
                         <td edit="name" contenteditable="true">@sach.Title</td>
-                        <td><input edit="open" type="checkbox" name=""></td>
+                        @if (sach.status  == 0)
+                        {
+
+                            <td><input edit="open" type="checkbox" name="status" id="status" onclick="status(@sach.Chapter_Number,this.checked)"></td>
+                           
+                        }
+                        else
+                        {
+                            <td><input edit="open" checked="checked" type="checkbox" name="status" id="status" onclick="status(@sach.Chapter_Number,this.checked)"></td>
+                        }
+
                         <td><input edit="encrypt" type="checkbox" name=""></td>
                         <td>@sach.N_O_W</td>
                         <td>@sach.View</td>
@@ -118,7 +128,7 @@
     </div>
     <div class="menu bg-light p-1">
         <span style="float: right;flex-direction: column;" class="d-grid d-md-block">
-            <button class="btn btn-primary" onclick="addChapter(@ViewBag.s)">Thêm Chương</button>
+            <button class="btn btn-primary" onclick="addchap()">Thêm Chương</button>
             <button class="btn btn-primary" onclick="setChapEncrypt()">Bật/Tắt Mã hóa</button>
             <button class="btn btn-warning" onclick="setChapOpen()">Xuất bản</button>
             <button hidden class="btn btn-warning" onclick="openVipSetter()">Set vip</button>
@@ -154,3 +164,43 @@
         text-align: center;
     }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function addchap() {
+        // Kiểm tra và thực hiện hành động tùy thuộc vào trạng thái của checkbox
+        location.href = '@Url.Action("addChapter", "Author")' + "?id=" + @Session["StoryID"].ToString();
+}
+     function status(id,check) {
+         // Kiểm tra và thực hiện hành động tùy thuộc vào trạng thái của checkbox
+
+         if (check == true) {
+             $.ajax({
+                 url: '@Url.Action("Status", "Author")' + "?chapternumber=" + id,
+                 type: 'POST',
+                 data: { chapternumber: id },
+                 success: function () {
+
+                     alert("xuất bản cho chương thành công");
+                 },
+
+             });
+
+         }
+         else
+         {
+             $.ajax({
+                 url: '@Url.Action("Status", "Author")' +"?chapternumber="+id,
+             type: 'POST',
+             data: { chapternumber: id },
+             success: function () {
+
+                 alert("xuất bản chương thành công");
+             },
+
+             });
+         }
+
+
+
+     }
+</script>

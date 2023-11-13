@@ -102,6 +102,23 @@ namespace STV.Controllers
             return RedirectToAction("listChap");
 
         }
+        
+        public ActionResult Status(int chapternumber)
+        {
+            var chap = db.Chapters.SingleOrDefault(n => n.StoryID == Convert.ToInt16(Session["StoryID"]) && n.Chapter_Number == chapternumber);
+            if( chap.status == 1)
+            {
+                chap.status = 0;
+            }
+            else
+            {
+                chap.status = 1;
+            }
+            
+            db.SubmitChanges();
+            return RedirectToAction("listChap");
+
+        }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult addBook(FormCollection collection, Story kh, HttpPostedFileBase fFileUpload)
@@ -190,7 +207,8 @@ namespace STV.Controllers
 
             if (ModelState.IsValid)
             {
-
+                var sach = db.Stories.SingleOrDefault(n => n.StoryID == int.Parse(Session["StoryID"].ToString()));
+                sach.N_O_Chapter= sach.N_O_Chapter+1;
                 kh.Title = collection["ip-name"];
                 kh.StoryID = int.Parse(Session["StoryID"].ToString());
                 kh.Chapter_Number = int.Parse(collection["ip-num"]);

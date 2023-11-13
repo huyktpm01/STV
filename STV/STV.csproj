@@ -2345,6 +2345,10 @@
     <Content Include="Views\Story\Search.cshtml" />
     <Content Include="Views\Member\Information.cshtml" />
     <Content Include="Views\Story\DSComment.cshtml" />
+    <Content Include="Views\Member\HisBuy.cshtml" />
+    <Content Include="Views\Member\BuyChap.cshtml" />
+    <Content Include="Views\Member\Recharge.cshtml" />
+    <Content Include="Views\Member\BanS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
