@@ -164,6 +164,7 @@ namespace STV.Controllers
                     kh.Title = collection["ip-name"];
                     var ttg = collection["ip-author"];
                     var n = db.Authors.SingleOrDefault(a => a.Pen_Name == ttg);
+                    n.N_O_St++;
                     kh.AuthorID = n.AuthorID;
                     kh.Description = collection["ip-description"];
                     kh.image = sFileName;

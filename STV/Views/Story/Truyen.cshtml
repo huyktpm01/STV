@@ -126,7 +126,7 @@
                         <i class="fa-solid fa-user"></i><h2 style="display: inline-block;font-size: 16px;margin: 0 0 0 4px;font-weight: 400;">@Model.Author.Pen_Name</h2></i>
                     </center>
                 </div>
-            </div>
+            </div>s
         </div>
 
         <div class="blk" style="margin-top: 40px;">
@@ -196,7 +196,7 @@
                         <span class="blk-item" onclick="updateTusach()"><i class="fa-solid fa-bookmark"></i><br>Đánh dấu</span>
                     </div>
                     <div class="col-3 col-lg-2">
-                        <span class="blk-item" id="TheoDoi" ><i class="fa-solid fa-plus"></i><br>Theo dõi</span>
+                        <span class="blk-item" id="TheoDoi"><i class="fa-solid fa-plus"></i><br>Theo dõi</span>
                     </div>
 
                     <div class="col-3 col-lg-2">
@@ -264,32 +264,120 @@
 
                 <br><hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
 
-                    <div class="w-100">
-                        @using (Html.BeginForm("Comment", "Story", Model.StoryID, FormMethod.Post, new
-                        {
-                            @enctype =
-                            "multipart/form-data"
-                        }))
-                        {
-                            <form class="form-inline w-100 m-0">
-                                <div class="input-group w-100">
-                                    <textarea class="form-control" name="cmtx" id="cmtx" style="font-size:14px" placeholder="Nhập bình luận. Cảnh báo: nghiêm cấm vô não chửi bậy, chửi liên quan đến thể loại truyện, mô típ của truyện, bối cảnh của truyện. Nghiêm cấm bình luận chống lại nhà nước, danh nhân lịch sử, người vi phạm sẽ bị khóa tài khoản tùy mức độ."></textarea>
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-info" style="max-height:60px;font-size:16px;" onclick="sendcmt()">Gửi</button>
-                                    </div>
+                <div class="w-100">
+                    @using (Html.BeginForm("Comment", "Story", Model.StoryID, FormMethod.Post, new
+                    {
+                        @enctype =
+                        "multipart/form-data"
+                    }))
+                    {
+                        <form class="form-inline w-100 m-0">
+                            <div class="input-group w-100">
+                                <textarea class="form-control" name="cmtx" id="cmtx" style="font-size:14px" placeholder="Nhập bình luận. Cảnh báo: nghiêm cấm vô não chửi bậy, chửi liên quan đến thể loại truyện, mô típ của truyện, bối cảnh của truyện. Nghiêm cấm bình luận chống lại nhà nước, danh nhân lịch sử, người vi phạm sẽ bị khóa tài khoản tùy mức độ."></textarea>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-info" style="max-height:60px;font-size:16px;" onclick="sendcmt()">Gửi</button>
                                 </div>
+                            </div>
 
-                            </form>
-                        }
-                        </div>
-                        <div id="replycmtwd" style="display:none">
-                            <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
-                        </div>
+                        </form>
+                    }
+                </div>
+                <div id="replycmtwd" style="display:none">
+                    <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
+                </div>
 
-                    </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="btnshowns" aria-label="Nút mở cài đặt" class="toolbar showname" style="border-radius: 50%;height: 50px; width: 50px;background: #eaeaea80;bottom:20px;border:none;box-shadow: 0 0 3px gray;padding: 0" onclick="usermenu()"><i class="fa-cogs fa-solid" style="font-size: 26px;color: #6564638a;"></i></button>
+    <div style="position: fixed; bottom: 60px; right: 0px; ">
+        <div id="stylediv" style=" display:none;line-height:1.5;user-select: none;padding: 5px" onclick="event.stopPropagation();">
+            Màu nền: <input type="color" style="float: right;height: 20px;width:50px;" oninput="this.style.backgroundColor=this.value;changebg(this)">
+            <br>
+            <span class="cgcolor" style="background-color:#eae4d3" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#ffffff" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#000000" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#d0d0d0" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#a3e6a2" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#a7d4e8" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#d7ffff" onclick="changebg(this)">A</span><br>
+            <span class="cgcolor" style="background-color:#8a8a88" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#fbdada" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#6f3333" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#5cbd94" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#c492de" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#127743" onclick="changebg(this)">A</span>
+            <span class="cgcolor" style="background-color:#ececec" onclick="changebg(this)">A</span><br>
+            Màu chữ: <span style="float:right;padding-right:55px;height:20px;">
+                <span>Bóng:</span>
+                <input type="checkbox" style="height: 20px;-webkit-appearance: checkbox;" onchange="changetextshadow(this.checked,1)">
+                <input type="color" style="height: 20px;position:absolute;right:5px;width:50px;" oninput="changetextshadow(this.value,2)">
+
+            </span><br>
+            <span class="cgcolor" style="color:#eae4d3" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#ffffff" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#000000" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#d0d0d0" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#a3e6a2" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#a7d4e8" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#d7ffff" onclick="changebgx(this)">A</span><br>
+            <span class="cgcolor" style="color:#8a8a88" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#fbdada" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#6f3333" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#5cbd94" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#c492de" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#127743" onclick="changebgx(this)">A</span>
+            <span class="cgcolor" style="color:#ececec" onclick="changebgx(this)">A</span><br>
+            <center>
+                <span style="padding:6px;border-radius:6px;" onclick="decreaseFontsize()"><i class="fas fa-minus"></i> </span><span style="margin-right: -20px;position: relative;">
+                    <img loading="lazy" src="/asset/Aa.png" style="width: 18px;
+    height: 20px;">
+                </span><input id="changefs" style="max-width:45px;padding: 3px;padding-left:20px;" onchange="changefontsize(this);" value="24"><span style="padding:6px;border-radius:6px;" onclick="increaseFontsize()"><i class="fas fa-plus"></i></span>
+                <span style="padding:6px;border-radius:6px;" onclick="decreaseLineheight()"><i class="fas fa-minus"></i> </span><span style="margin-right: -15px;position: relative">
+                    <img loading="lazy" src="/asset/lh.png" style="    width: 12px;
+    height: 28px;">
+                </span><input id="changefs2" style="max-width:45px;padding: 3px;padding-left: 15px;" onchange="changelineheight(this);" value="1.2"><span style="padding:6px;border-radius:6px;" onclick="increaseLineheight()"><i class="fas fa-plus"></i></span>
+            </center>
+            <select id="selfont" value="arial" style="border-radius: 0;background: white;width: 100%;">
+                <option value="helvetica">Helvetica</option>
+                <option value="opensans">Open Sans</option>
+                <option value="stvverdana">Verdana</option>
+                <option value="roboto">Roboto</option>
+                <option value="stvarial">Arial</option>
+                <option value="stvtahoma">Tahoma</option>
+                <option value="palatinolinotype">Palatino linotype</option>
+                <option value="nunito">Nunito</option>
+                <option value="sourceserifpro">Source Serif Pro</option>
+                <option value="robotoslab">Roboto Slab</option>
+
+            </select>
+            <center style="font-size: 22px">
+                <span style="display: inline-block;border:1px solid gray;padding: 4px" onclick="decreasepadding()"><i class="fas fa-outdent"></i></span>
+                <span val="left" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-left"></i></span>
+                <span val="center" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-center"></i></span>
+                <span val="justify" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-justify"></i></span>
+                <span val="right" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fas fa-align-right"></i></span>
+                <span style="display: inline-block;border:1px solid gray;padding: 4px" onclick="increasepadding()"><i class="fas fa-indent"></i></span>
+            </center>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function config() {
+        document.getElementById("stylediv").style.display = "none";
+        ismenu2show = false;
+    }
+    var ismenu2show = false;
+    function usermenu() {
+        if (ismenu2show) {
+            document.getElementById("stylediv").style.display = "none";
+            ismenu2show = false;
+        } else {
+            document.getElementById("stylediv").style.display = "block";
+            ismenu2show = true;
+        }
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
