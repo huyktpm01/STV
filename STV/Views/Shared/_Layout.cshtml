@@ -180,7 +180,7 @@
                     </script>
                 </form>
             }
-            </div>
+        </div>
     </nav>
     <div id="tm-bot-nav" class="bg-dark">
         <div id="naviga" class="container">
@@ -214,8 +214,188 @@
             </div>
         </div>
     </div>
-   
+
     @RenderBody();
+    <button type="button" id="btnshowns" aria-label="Nút mở cài đặt" class="toolbar showname" style="border-radius: 50%;height: 50px; width: 50px;background: #eaeaea80;bottom:20px;border:none;box-shadow: 0 0 3px gray;padding: 0" onclick="usermenuc()"><i class="fa-cogs fa-solid" style="font-size: 26px;color: #6564638a;"></i></button>
+    <div style="position: fixed; bottom: 65px; right: 0px; ">
+        <div id="stylediv" style=" display:none;line-height:1.5;user-select: none;padding: 5px" onclick="event.stopPropagation();">
+            Màu nền: <input type="color" style="float: right;height: 20px;width:50px;" oninput="this.style.backgroundColor = this.value; changebg(this.value)">
+            <br>
+            <button class="cgcolor" style="background-color:#eae4d3" onclick="changebg('#eae4d3')">A</button>
+            <button class="cgcolor" style="background-color:#ffffff" onclick="changebg('#ffffff')">A</button>
+            <button class="cgcolor" style="background-color:#000000" onclick="changebg('#000000')">A</button>
+            <button class="cgcolor" style="background-color:#d0d0d0" onclick="changebg('#d0d0d0')">A</button>
+            <button class="cgcolor" style="background-color:#a3e6a2" onclick="changebg('#a3e6a2')">A</button>
+            <button class="cgcolor" style="background-color:#a7d4e8" onclick="changebg('#a7d4e8')">A</button>
+            <button class="cgcolor" style="background-color:#d7ffff" onclick="changebg('#d7ffff')">A</button><br>
+            <button class="cgcolor" style="background-color:#8a8a88" onclick="changebg('#8a8a88')">A</button>
+            <button class="cgcolor" style="background-color:#fbdada" onclick="changebg('#fbdada')">A</button>
+            <button class="cgcolor" style="background-color:#6f3333" onclick="changebg('#6f3333')">A</button>
+            <button class="cgcolor" style="background-color:#5cbd94" onclick="changebg('#5cbd94')">A</button>
+            <button class="cgcolor" style="background-color:#c492de" onclick="changebg('#c492de')">A</button>
+            <button class="cgcolor" style="background-color:#127743" onclick="changebg('#127743')">A</button>
+            <button class="cgcolor" style="background-color:#ececec" onclick="changebg('#ececec')">A</button><br>
+            Màu chữ: <span style="float:right;padding-right:55px;height:20px;">
+                <span>Bóng:</span>
+                <input type="color" style="height: 20px;position:absolute;right:5px;width:50px;" oninput="changebgx(this)">
+
+            </span><br>
+            <button class="cgcolor" style="color:#eae4d3" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#ffffff" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#000000" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#d0d0d0" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#a3e6a2" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#a7d4e8" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#d7ffff" onclick="changebgx(this.style.color)">A</button><br>
+            <button class="cgcolor" style="color:#8a8a88" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#fbdada" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#6f3333" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#5cbd94" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#c492de" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#127743" onclick="changebgx(this.style.color)">A</button>
+            <button class="cgcolor" style="color:#ececec" onclick="changebgx(this.style.color)">A</button><br>
+            <center>
+                <span style="padding:6px;border-radius:6px;" onclick="decreaseFontsize()"><i class="fa-solid fa-minus"></i> </span><span style="margin-right: -20px;position: relative;">
+                    <img loading="lazy" src="~/Image/Aa.png" style="width: 18px;height: 20px;">
+                </span><input id="changefs" style="max-width:45px;padding: 3px;padding-left:20px;" onchange="changefontsize(this.value);" value="20"><span style="padding:6px;border-radius:6px;" onclick="increaseFontsize()"><i class="fa-solid fa-plus"></i></span>
+                <span style="padding:6px;border-radius:6px;" onclick="decreaseLine()"><i class="fa-solid fa-minus"></i> </span><span style="margin-right: -15px;position: relative">
+                    <img loading="lazy" src="~/Image/lh.png" style="    width: 12px;height: 28px;">
+                </span><input id="changefs2" style="max-width:45px;padding: 3px;padding-left: 15px;" onchange="changeLine(this);" value="1.2"><span style="padding:6px;border-radius:6px;" onclick="increaseLine()"><i class="fa-solid fa-plus"></i></span>
+            </center>
+            <select id="selfont" value="arial" style="border-radius: 0;background: white;width: 100%;" onchange="Font(this.value)">
+                <option value="helvetica">Helvetica</option>
+                <option value="opensans">Open Sans</option>
+                <option value="stvverdana">Verdana</option>
+                <option value="roboto">Roboto</option>
+                <option value="stvarial">Arial</option>
+                <option value="stvtahoma">Tahoma</option>
+                <option value="palatinolinotype">Palatino linotype</option>
+                <option value="nunito">Nunito</option>
+                <option value="sourceserifpro">Source Serif Pro</option>
+                <option value="robotoslab">Roboto Slab</option>
+
+            </select>
+            <center style="font-size: 22px">
+                
+                <span val="left" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fa-solid fa-align-left"></i></span>
+                <span val="center" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fa-solid fa-align-center"></i></span>
+                <span val="justify" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fa-solid fa-align-justify"></i></span>
+                <span val="right" style="display: inline-block;border:1px solid gray;padding: 4px" onclick="changealign(this)"><i class="fa-solid fa-align-right"></i></span>
+
+            </center>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        function changealign(val) {
+            var myElement = document.getElementById("text-content");
+            myElement.style.alignContent = val
+        }
+        function Font(value) {
+            var myElement = document.getElementById("cld-1360742-1");
+            myElement.style.fontFamily = value;
+            sessionStorage.setItem('Font', value);
+
+        }
+        function increaseFontsize() {
+            var myElement = document.getElementById("text-content");
+            var size = document.getElementById("changefs");
+            size.value = ++size.value
+            myElement.style.fontSize = size.value + "px";
+        }
+        function decreaseFontsize() {
+            var myElement = document.getElementById("text-content");
+            var size = document.getElementById("changefs");
+            size.value = --size.value
+            myElement.style.fontSize = size.value + "px";
+        }
+        function changefontsize(size) {
+            var myElement = document.getElementById("text-content");
+            myElement.style.fontSize = size + "px";
+            sessionStorage.setItem('Size', size);
+        }
+        function increaseLine() {
+            var myElement = document.getElementById("text-content");
+            var size = document.getElementById("changefs2");
+            size.value = ++size.value
+            myElement.style.lineHeight = size.value;
+        }
+        function decreaseLine() {
+            var myElement = document.getElementById("text-content");
+            var size = document.getElementById("changefs2");
+            size.value = --size.value
+            myElement.style.lineHeight = size.value;
+        }
+        function changefontLine(size) {
+            var myElement = document.getElementById("text-content");
+            myElement.style.lineHeight = size;
+            sessionStorage.setItem('Line', size);
+        }
+        function changebgx(color)
+        {
+            var myElement = document.getElementById("text-content");
+            myElement.style.color = color;
+            sessionStorage.setItem('Mau', color);
+
+        }
+        function changebg(color) {
+            var myElement = document.getElementById("content-container");
+            myElement.style.backgroundColor = color;
+            sessionStorage.setItem('Nen', color);
+        }
+
+        var ismenu2show = false;
+        function usermenu() {
+            if (ismenu2show) {
+                document.getElementById("menunavigator2").style.display = "none";
+                ismenu2show = false;
+            } else {
+                document.getElementById("menunavigator2").style.display = "block";
+                ismenu2show = true;
+            }
+        }
+        var ismenu2show1 = false;
+        var n = '';
+        var m = '';
+        var f = '';
+        var s = 0;
+        var l = 0;
+
+        function usermenuc() {
+            if (ismenu2show1) {
+                document.getElementById("stylediv").style.display = "none";
+                var f = document.getElementById("cld-1360742-1").style.fontFamily;
+                var n = document.getElementById("content-container").style.backgroundColor;
+                var m = document.getElementById("text-content").style.color;
+                var s = document.getElementById("changefs").value;
+                var l = document.getElementById("changefs2").value;
+               
+                
+                $.ajax({
+                    url: '/Story/luuconfig' + '?Nen=' + n + '&&Mau=' + m + '&&Font=' + f + '&&size=' + s + '&&line=' + l,
+                    type: 'POST',
+                    data: { Nen: n, Mau: m,  Font: f, size: s, line: l }, 
+
+                    success: function (data) {
+                       
+                            alert(data)
+                       
+                       
+                    }
+                });
+                ismenu2show1 = false;
+            } else {
+
+                document.getElementById("stylediv").style.display = "block";
+
+                ismenu2show1 = true;
+
+            }
+        }
+
+
+
+    </script>
     <div id="tm-credit-section" class="container-fluid bg-dark">
         <div class="container">
             <div id="credit" class="row" style="font-size:12px;">

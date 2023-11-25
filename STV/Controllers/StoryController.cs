@@ -48,6 +48,37 @@ namespace STV.Controllers
             return Content("false");
 
         }
+    
+        public ActionResult luuconfig(String Nen, String Mau,String Font, String size, String line)
+        {
+            var Size = Convert.ToInt32(size);
+            var Line = float.Parse(line);
+            var user = db.Readers.FirstOrDefault(r => r.MemberID == Convert.ToInt32(Session["MemberID"]));
+            var conf = db.ReaderConfigs.FirstOrDefault(r => r.ReaderID == user.ReaderID);
+            if(conf == null)
+            {
+                ReaderConfig a = new ReaderConfig();
+                a.Color_Theme = Nen;
+                a.Color_Word = Mau;
+                a.Line = Line+'f';
+                a.Size_Word = Size;
+                a.Style_Word = Font;
+            }
+            else
+            {
+                ReaderConfig a = new ReaderConfig();
+                a.Color_Theme = Nen; 
+                a.Color_Word = Mau;
+                a.Line = Line+'f';
+                a.Size_Word = Size;
+                a.Style_Word = Font;
+                conf = a;
+                
+            }
+            db.SubmitChanges();
+            return Content(conf.Color_Theme + conf.Color_Word + conf.Line +conf.Style_Word+ conf.Size_Word);
+
+        }
         [HttpPost]
         public ActionResult Follow(int storyId)
         {

@@ -75,6 +75,9 @@ namespace STV.Models
     partial void InsertStory(Story instance);
     partial void UpdateStory(Story instance);
     partial void DeleteStory(Story instance);
+    partial void InsertReaderConfig(ReaderConfig instance);
+    partial void UpdateReaderConfig(ReaderConfig instance);
+    partial void DeleteReaderConfig(ReaderConfig instance);
     #endregion
 		
 		public dbSTVDataContext(string connection) : 
@@ -197,14 +200,6 @@ namespace STV.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ReaderConfig> ReaderConfigs
-		{
-			get
-			{
-				return this.GetTable<ReaderConfig>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Recharge> Recharges
 		{
 			get
@@ -250,6 +245,14 @@ namespace STV.Models
 			get
 			{
 				return this.GetTable<Withdraw>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ReaderConfig> ReaderConfigs
+		{
+			get
+			{
+				return this.GetTable<ReaderConfig>();
 			}
 		}
 	}
@@ -3176,6 +3179,8 @@ namespace STV.Models
 		
 		private EntitySet<Reply> _Replies;
 		
+		private EntitySet<ReaderConfig> _ReaderConfigs;
+		
 		private EntityRef<Member> _Member;
 		
 		private EntityRef<ReaderVIP> _ReaderVIP;
@@ -3205,6 +3210,7 @@ namespace STV.Models
 			this._Follows = new EntitySet<Follow>(new Action<Follow>(this.attach_Follows), new Action<Follow>(this.detach_Follows));
 			this._HistoryBuys = new EntitySet<HistoryBuy>(new Action<HistoryBuy>(this.attach_HistoryBuys), new Action<HistoryBuy>(this.detach_HistoryBuys));
 			this._Replies = new EntitySet<Reply>(new Action<Reply>(this.attach_Replies), new Action<Reply>(this.detach_Replies));
+			this._ReaderConfigs = new EntitySet<ReaderConfig>(new Action<ReaderConfig>(this.attach_ReaderConfigs), new Action<ReaderConfig>(this.detach_ReaderConfigs));
 			this._Member = default(EntityRef<Member>);
 			this._ReaderVIP = default(EntityRef<ReaderVIP>);
 			OnCreated();
@@ -3403,6 +3409,19 @@ namespace STV.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_ReaderConfig", Storage="_ReaderConfigs", ThisKey="ReaderID", OtherKey="ReaderID")]
+		public EntitySet<ReaderConfig> ReaderConfigs
+		{
+			get
+			{
+				return this._ReaderConfigs;
+			}
+			set
+			{
+				this._ReaderConfigs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Reader", Storage="_Member", ThisKey="MemberID", OtherKey="MemberID", IsForeignKey=true)]
 		public Member Member
 		{
@@ -3550,122 +3569,17 @@ namespace STV.Models
 			this.SendPropertyChanging();
 			entity.Reader = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ReaderConfig")]
-	public partial class ReaderConfig
-	{
 		
-		private System.Nullable<int> _ReaderID;
-		
-		private string _Color_Theme;
-		
-		private string _Color_Word;
-		
-		private string _Style_Word;
-		
-		private System.Nullable<int> _Size_Word;
-		
-		private System.Nullable<float> _Line;
-		
-		public ReaderConfig()
+		private void attach_ReaderConfigs(ReaderConfig entity)
 		{
+			this.SendPropertyChanging();
+			entity.Reader = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderID", DbType="Int")]
-		public System.Nullable<int> ReaderID
+		private void detach_ReaderConfigs(ReaderConfig entity)
 		{
-			get
-			{
-				return this._ReaderID;
-			}
-			set
-			{
-				if ((this._ReaderID != value))
-				{
-					this._ReaderID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color_Theme", DbType="VarChar(MAX)")]
-		public string Color_Theme
-		{
-			get
-			{
-				return this._Color_Theme;
-			}
-			set
-			{
-				if ((this._Color_Theme != value))
-				{
-					this._Color_Theme = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color_Word", DbType="VarChar(MAX)")]
-		public string Color_Word
-		{
-			get
-			{
-				return this._Color_Word;
-			}
-			set
-			{
-				if ((this._Color_Word != value))
-				{
-					this._Color_Word = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Style_Word", DbType="VarChar(MAX)")]
-		public string Style_Word
-		{
-			get
-			{
-				return this._Style_Word;
-			}
-			set
-			{
-				if ((this._Style_Word != value))
-				{
-					this._Style_Word = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size_Word", DbType="Int")]
-		public System.Nullable<int> Size_Word
-		{
-			get
-			{
-				return this._Size_Word;
-			}
-			set
-			{
-				if ((this._Size_Word != value))
-				{
-					this._Size_Word = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Line", DbType="Real")]
-		public System.Nullable<float> Line
-		{
-			get
-			{
-				return this._Line;
-			}
-			set
-			{
-				if ((this._Line != value))
-				{
-					this._Line = value;
-				}
-			}
+			this.SendPropertyChanging();
+			entity.Reader = null;
 		}
 	}
 	
@@ -4804,6 +4718,253 @@ namespace STV.Models
 				{
 					this._contend = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ReaderConfig")]
+	public partial class ReaderConfig : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _id;
+		
+		private System.Nullable<int> _ReaderID;
+		
+		private string _Color_Theme;
+		
+		private string _Color_Word;
+		
+		private string _Style_Word;
+		
+		private System.Nullable<int> _Size_Word;
+		
+		private System.Nullable<float> _Line;
+		
+		private EntityRef<Reader> _Reader;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(System.Guid value);
+    partial void OnidChanged();
+    partial void OnReaderIDChanging(System.Nullable<int> value);
+    partial void OnReaderIDChanged();
+    partial void OnColor_ThemeChanging(string value);
+    partial void OnColor_ThemeChanged();
+    partial void OnColor_WordChanging(string value);
+    partial void OnColor_WordChanged();
+    partial void OnStyle_WordChanging(string value);
+    partial void OnStyle_WordChanged();
+    partial void OnSize_WordChanging(System.Nullable<int> value);
+    partial void OnSize_WordChanged();
+    partial void OnLineChanging(System.Nullable<float> value);
+    partial void OnLineChanged();
+    #endregion
+		
+		public ReaderConfig()
+		{
+			this._Reader = default(EntityRef<Reader>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderID", DbType="Int")]
+		public System.Nullable<int> ReaderID
+		{
+			get
+			{
+				return this._ReaderID;
+			}
+			set
+			{
+				if ((this._ReaderID != value))
+				{
+					if (this._Reader.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReaderIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReaderID = value;
+					this.SendPropertyChanged("ReaderID");
+					this.OnReaderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color_Theme", DbType="VarChar(MAX)")]
+		public string Color_Theme
+		{
+			get
+			{
+				return this._Color_Theme;
+			}
+			set
+			{
+				if ((this._Color_Theme != value))
+				{
+					this.OnColor_ThemeChanging(value);
+					this.SendPropertyChanging();
+					this._Color_Theme = value;
+					this.SendPropertyChanged("Color_Theme");
+					this.OnColor_ThemeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color_Word", DbType="VarChar(MAX)")]
+		public string Color_Word
+		{
+			get
+			{
+				return this._Color_Word;
+			}
+			set
+			{
+				if ((this._Color_Word != value))
+				{
+					this.OnColor_WordChanging(value);
+					this.SendPropertyChanging();
+					this._Color_Word = value;
+					this.SendPropertyChanged("Color_Word");
+					this.OnColor_WordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Style_Word", DbType="VarChar(MAX)")]
+		public string Style_Word
+		{
+			get
+			{
+				return this._Style_Word;
+			}
+			set
+			{
+				if ((this._Style_Word != value))
+				{
+					this.OnStyle_WordChanging(value);
+					this.SendPropertyChanging();
+					this._Style_Word = value;
+					this.SendPropertyChanged("Style_Word");
+					this.OnStyle_WordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size_Word", DbType="Int")]
+		public System.Nullable<int> Size_Word
+		{
+			get
+			{
+				return this._Size_Word;
+			}
+			set
+			{
+				if ((this._Size_Word != value))
+				{
+					this.OnSize_WordChanging(value);
+					this.SendPropertyChanging();
+					this._Size_Word = value;
+					this.SendPropertyChanged("Size_Word");
+					this.OnSize_WordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Line", DbType="Real")]
+		public System.Nullable<float> Line
+		{
+			get
+			{
+				return this._Line;
+			}
+			set
+			{
+				if ((this._Line != value))
+				{
+					this.OnLineChanging(value);
+					this.SendPropertyChanging();
+					this._Line = value;
+					this.SendPropertyChanged("Line");
+					this.OnLineChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_ReaderConfig", Storage="_Reader", ThisKey="ReaderID", OtherKey="ReaderID", IsForeignKey=true)]
+		public Reader Reader
+		{
+			get
+			{
+				return this._Reader.Entity;
+			}
+			set
+			{
+				Reader previousValue = this._Reader.Entity;
+				if (((previousValue != value) 
+							|| (this._Reader.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Reader.Entity = null;
+						previousValue.ReaderConfigs.Remove(this);
+					}
+					this._Reader.Entity = value;
+					if ((value != null))
+					{
+						value.ReaderConfigs.Add(this);
+						this._ReaderID = value.ReaderID;
+					}
+					else
+					{
+						this._ReaderID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Reader");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

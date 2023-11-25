@@ -8,6 +8,8 @@ using System.IO;
 using System.Web.UI.WebControls;
 using System.Runtime.Serialization.Formatters.Binary;
 using Antlr.Runtime.Tree;
+using System.Drawing;
+using System.Xml;
 
 namespace STV.Controllers
 {
@@ -96,6 +98,14 @@ namespace STV.Controllers
                 kh.A_Level = int.Parse(A_Level);
                 kh.Status = 1;
                 kh.Money = Money;
+                ReaderConfig A = new ReaderConfig();
+                A.ReaderID = kh.MemberID;
+                
+                A.Color_Theme = "white";
+                A.Color_Word = "black";
+                A.Size_Word = 20;
+                A.Style_Word = "arial";
+                A.Line = 1.2f;
                 db.Members.InsertOnSubmit(kh);
                 db.SubmitChanges();
                 if(kh.A_Level == 1)
@@ -142,11 +152,21 @@ namespace STV.Controllers
             else
             {
                 Member kh = db.Members.SingleOrDefault(n => n.UserName == UserName && n.Password == Pass);
+                Reader a = db.Readers.SingleOrDefault(n => n.MemberID == kh.MemberID);
+                ReaderConfig config = db.ReaderConfigs.SingleOrDefault(n => n.ReaderID == a.ReaderID);
                 if (kh != null)
                 {
+                    
                     ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";
                     Session["TaiKhoan"] = kh;
                     Session["MemberID"] = kh.MemberID;
+                    Session["TaiKhoan"] = kh;
+
+                    Session["Nen"] = config.Color_Theme;
+                    Session["Mau"] = config.Color_Word;
+                    Session["Font"] = config.Style_Word;
+                    Session["Line"] = config.Line;
+                    Session["Size"] = config.Size_Word;
                     return Redirect(@Url.Action("Index", "Home"));
                 }
                 else

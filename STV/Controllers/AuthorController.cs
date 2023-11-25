@@ -22,7 +22,7 @@ namespace STV.Controllers
             
             ViewBag.AuthorID = MemberID;
             ViewBag.Page = page;
-            int iSize = 6;
+            int iSize = 10;
             int iPageNum = (page ?? 1);
             var sach = from s in db.Stories where s.Author.MemberID == MemberID select s;
             return View(sach.ToPagedList(MemberID,iSize));
@@ -164,7 +164,7 @@ namespace STV.Controllers
                     kh.Title = collection["ip-name"];
                     var ttg = collection["ip-author"];
                     var n = db.Authors.SingleOrDefault(a => a.Pen_Name == ttg);
-                    n.N_O_St++;
+       
                     kh.AuthorID = n.AuthorID;
                     kh.Description = collection["ip-description"];
                     kh.image = sFileName;

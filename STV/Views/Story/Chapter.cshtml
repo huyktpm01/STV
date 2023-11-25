@@ -8,7 +8,7 @@
     <style type="text/css">
         .contentbox img {
             display: block;
-            margin: 4 auto;
+            margin: 4, auto;
             max-width: 100%;
         }
     </style>
@@ -28,9 +28,9 @@
             <a onclick="blinkloadnextchap()" id="navnexttop" href="/truyen/faloo/1/1360742/2/" style="display: inline-block;float: right;">Chương sau <i class="fas fa-chevron-right"></i></a>
         </div>
     </div>
-    <div id="content-container" class="container" style="min-height: 300px;padding: 0px;">
-        <div class="contentbox"  style="display:flex; justify-content:center; align-items:center; font-family: stvarial; padding: 24px; font-size: 18px;" id="cld-1360742-1" cid="1" user="250">
-            <span style="color:gray;font-size:12px;">
+    <div id="content-container" class="container" style="min-height: 300px; padding: 0px; background-color:@(Session["Nen"] ?? "white");">
+        <div class="contentbox" style="display:flex; justify-content:center; align-items:center; font-family: @(Session["Font"] ?? "stvarial") ; padding: 24px; font-size: 18px;" id="cld-1360742-1" cid="1" user="250">
+            <span id="text-content" style="color:@(Session["Mau"] ?? "black");font-size:@(Session["Size"]+"px" ?? "20px"); line-height:@(Session["Line"]+"px" ?? "1.2px")">
                 @if (ViewBag.Duyet == true)
                 {
                     <h1>Đây là chương vip mời vui lòng mua để được xem nội dung truyện</h1>
@@ -109,6 +109,7 @@
                  }
              },
     });
- }
+    }
+   
 
 </script>
