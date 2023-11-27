@@ -153,15 +153,7 @@
                         }
 
                     </div>
-
-                    <div class="col-3 col-lg-2">
-                        <span class="blk-item"><i class="fa-solid fa-bookmark"></i><br>135 Tủ</span>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <span class="blk-item" onclick="followthisbook()"><i class="fa-solid fa-rss"></i><br>97 Theo dõi</span>
-                    </div>
-
-                </div>
+             </div>
             </div>
 
         </div>
@@ -219,7 +211,9 @@
         <div class="blk">
             <div id="author-block" class="blk-top"><i class="fa-solid fa-user"></i> Tác giả</div>
             <div class="blk-body">
-                <a href="/user/20670/"><img src="https://staticvn.sangtacvietcdn.xyz/img/useravatar120/user20670.jpg?t=1639473751" alt="Avatar 20670" onerror="this.src='/default.png'" style="border-radius: 50%;box-shadow: 0 0 16px gray;height:50px;width:50px;margin:6px;"><span style="font-size:16px;margin-left:8px;color:gray;font-weight:500">@Model.Author.Pen_Name</span></a>
+                <a href="/user/20670/">
+                <img src="https://staticvn.sangtacvietcdn.xyz/img/useravatar120/user20670.jpg?t=1639473751" alt="Avatar 20670" onerror="this.src='/default.png'" style="border-radius: 50%;box-shadow: 0 0 16px gray;height:50px;width:50px;margin:6px;">
+                <span style="font-size:16px;margin-left:8px;color:gray;font-weight:500">@Model.Author.Pen_Name</span></a>
             </div>
         </div>
         <div class="blk" id="chapterlist">
@@ -236,9 +230,9 @@
             </div>
             <div class="blk-body">
                 <div class="flex">
-                    <span>Nguồn:</span>
+                    <span>Chương:</span>
                     <div style="width: 100%;overflow-x: auto;overflow-y: hidden;white-space: nowrap">
-                        <span style="border-bottom: 2px solid green">sangtac <span id="noofchapter">33</span> chương</span>
+                        <span style="border-bottom: 2px solid green"><span id="noofchapter">@Model.N_O_Chapter</span> chương</span>
                     </div>
                 </div>
             </div>

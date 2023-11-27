@@ -14,12 +14,21 @@ namespace STV.Controllers
     {
         // GET: Story
         dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
+        int views = 0;
         [Route("Story/Truyen/{StoryID}")]
         public ActionResult Truyen(int StoryID)
         {
                 Session["StoryID"] = StoryID;
                 ViewBag.AuthorID = StoryID;
+
                 var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
+                var ds = from s in db.Chapters where s.StoryID == sach.StoryID select s;
+                
+                foreach(var i in ds)
+                {
+                   views = views + Convert.ToInt32(i.View);
+                }
+                sach.View = Convert.ToInt32(views);
                 return View(sach);
         }
         public ActionResult Muachuong(int chapterid)
@@ -116,6 +125,7 @@ namespace STV.Controllers
             ViewBag.ChapterID = ChapterID;
             
             var chap = db.Chapters.SingleOrDefault(n => n.ChapterID == ChapterID);
+            
             RecordReadingHistory(int.Parse(chap.StoryID.ToString()), chap.ChapterID);
             if (chap.Vip == true)
             {
@@ -126,6 +136,8 @@ namespace STV.Controllers
                 }else
                 {
                     ViewBag.Duyet = false;
+                    chap.View++;
+                    db.SubmitChanges();
                 }
             }
            
