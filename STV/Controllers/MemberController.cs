@@ -16,7 +16,7 @@ namespace STV.Controllers
     public class MemberController : Controller
     {
         // GET: Member
-        dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
+        dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP010502\\SQLEXPRESS;Initial Catalog=Nhom6;Integrated Security=True");
         // GET: User
         [HttpGet]
         public ActionResult DangKy()
@@ -152,8 +152,7 @@ namespace STV.Controllers
             else
             {
                 Member kh = db.Members.SingleOrDefault(n => n.UserName == UserName && n.Password == Pass);
-                Reader a = db.Readers.SingleOrDefault(n => n.MemberID == kh.MemberID);
-                ReaderConfig config = db.ReaderConfigs.SingleOrDefault(n => n.ReaderID == a.ReaderID);
+               
                 if (kh != null)
                 {
                     
@@ -161,7 +160,8 @@ namespace STV.Controllers
                     Session["TaiKhoan"] = kh;
                     Session["MemberID"] = kh.MemberID;
                     Session["TaiKhoan"] = kh;
-
+                    Reader a = db.Readers.SingleOrDefault(n => n.MemberID == kh.MemberID);
+                    ReaderConfig config = db.ReaderConfigs.SingleOrDefault(n => n.ReaderID == a.ReaderID);
                     Session["Nen"] = config.Color_Theme;
                     Session["Mau"] = config.Color_Word;
                     Session["Font"] = config.Style_Word;
