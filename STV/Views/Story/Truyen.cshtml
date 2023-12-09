@@ -111,12 +111,12 @@
     <br>
     <div class="container px-md-4 px-sm-0 px-0" style="background: #f2f2f2;">
         <div style="position: relative">
-            <div id="thumb-lay" style="background: url(@Model.image);background-size: cover;height: 450px;filter: blur(8px);position: absolute;width: 100%">
+            <div id="thumb-lay" style="background: url('../../Image/@Model.image');background-size: cover;height: 450px;filter: blur(8px);position: absolute;width: 100%">
             </div>
         </div>
         <div class="container" style="padding-top: 70px">
             <div class="row">
-                <div class="col" style="width: 100%;min-width: 240px;padding: 0"><center><img alt="@Model.Title" referrerpolicy="no-referrer" style="width:240px;height:360px;box-shadow: 0 0 24px grey;" src="@Model.image" onerror="coverrepair(this)"></center></div>
+                <div class="col" style="width: 100%;min-width: 240px;padding: 0"><center><img alt="@Model.Title" referrerpolicy="no-referrer" style="width:240px;height:360px;box-shadow: 0 0 24px grey;" src="~/Image/@Model.image" onerror="coverrepair(this)"></center></div>
                 <div class="col-xl-12" style="padding: 12px">
 
                     <br>
@@ -126,7 +126,7 @@
                         <i class="fa-solid fa-user"></i><h2 style="display: inline-block;font-size: 16px;margin: 0 0 0 4px;font-weight: 400;">@Model.Author.Pen_Name</h2></i>
                     </center>
                 </div>
-            </div>s
+            </div>
         </div>
 
         <div class="blk" style="margin-top: 40px;">
