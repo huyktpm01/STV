@@ -192,7 +192,7 @@
                     </div>
 
                     <div class="col-3 col-lg-2">
-                        <span class="blk-item" onclick="writetruyenngon()"><i class="fa-solid fa-edit"></i><br>Preview</span>
+                        <span class="blk-item" onclick="writetruyenngon()"><i class="fa-solid fa-edit"></i><br>Báo Cáo</span>
                     </div>
 
                     <div hidden="" class="col-3 col-lg-2">
@@ -212,8 +212,18 @@
             <div id="author-block" class="blk-top"><i class="fa-solid fa-user"></i> Tác giả</div>
             <div class="blk-body">
                 <a href="/user/20670/">
-                <img src="https://staticvn.sangtacvietcdn.xyz/img/useravatar120/user20670.jpg?t=1639473751" alt="Avatar 20670" onerror="this.src='/default.png'" style="border-radius: 50%;box-shadow: 0 0 16px gray;height:50px;width:50px;margin:6px;">
-                <span style="font-size:16px;margin-left:8px;color:gray;font-weight:500">@Model.Author.Pen_Name</span></a>
+                    @if (!string.IsNullOrEmpty(Model.image))
+                    {
+                        <img src="~/Image/@Model.Author.Member.Avatar" alt="Avatar 20670" style="border-radius: 50%;box-shadow: 0 0 16px gray;height:50px;width:50px;margin:6px;">
+                    }
+
+                    else
+                    {
+                        <img src="~/Image/favicon.png" alt="Avatar 20670" style="border-radius: 50%;box-shadow: 0 0 16px gray;height:50px;width:50px;margin:6px;">
+                    }
+
+                    <span style="font-size:16px;margin-left:8px;color:gray;font-weight:500">@Model.Author.Pen_Name</span>
+                </a>
             </div>
         </div>
         <div class="blk" id="chapterlist">
@@ -258,32 +268,29 @@
 
                 <br><hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
 
-                <div class="w-100">
-                    @using (Html.BeginForm("Comment", "Story", Model.StoryID, FormMethod.Post, new
-                    {
-                        @enctype =
-                        "multipart/form-data"
-                    }))
-                    {
-                        <form class="form-inline w-100 m-0">
-                            <div class="input-group w-100">
-                                <textarea class="form-control" name="cmtx" id="cmtx" style="font-size:14px" placeholder="Nhập bình luận. Cảnh báo: nghiêm cấm vô não chửi bậy, chửi liên quan đến thể loại truyện, mô típ của truyện, bối cảnh của truyện. Nghiêm cấm bình luận chống lại nhà nước, danh nhân lịch sử, người vi phạm sẽ bị khóa tài khoản tùy mức độ."></textarea>
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-info" style="max-height:60px;font-size:16px;" onclick="sendcmt()">Gửi</button>
-                                </div>
-                            </div>
+                    <div class="w-100">
 
-                        </form>
-                    }
-                </div>
+
+                        <div class="input-group w-100">
+                            <input type="text" id="url" style="display:none" />
+                            <textarea class="form-control" name="cmtx" id="cmtx" style="font-size:14px" placeholder="Nhập bình luận. Cảnh báo: nghiêm cấm vô não chửi bậy, chửi liên quan đến thể loại truyện, mô típ của truyện, bối cảnh của truyện. Nghiêm cấm bình luận chống lại nhà nước, danh nhân lịch sử, người vi phạm sẽ bị khóa tài khoản tùy mức độ."></textarea>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-info" style="max-height:60px;font-size:16px;" onclick="checkcm()">Gửi</button>
+                            </div>
+                        </div>
+                        @Html.Action("DSComment", "Story", new { StoryID = Model.StoryID })
+
+
+                    </div>
                 <div id="replycmtwd" style="display:none">
-                    <input id="replycmt"><button type="button" style="height:30px" onclick="sendreply()">Gửi</button>
+                    <input id="replycmt"><button type="button" style="height:30px" onclick="checkcm()">Gửi</button>
                 </div>
 
             </div>
         </div>
     </div>
    </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -301,5 +308,7 @@
             });
         });
     });
+   
+
 </script>
 

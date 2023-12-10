@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17, 23.125" name="dbSTV">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 23.125" name="dbSTV">
   <DataContextMoniker Name="/dbSTVDataContext" />
   <nestedChildShapes>
     <classShape Id="2b707fa0-ac03-4803-aea0-f62608c60e83" absoluteBounds="0.75, 9, 2, 1.5785953776041666">
@@ -159,7 +159,7 @@
         <classShapeMoniker Id="8911690c-414b-4d6f-95c5-b9ae54dca0d0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 15.8451386071214); (5.69107443490112 : 15.6540641722203 : JumpStart); (5.80892556509888 : 15.5362130420225 : JumpEnd); (6.0625 : 15.2826386071214); (6.0625 : 15.0785953776042); (14.375 : 15.0785953776042); (14.75 : 14.7035953776042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 15.8451386071214); (5.69107443490112 : 15.6540641722203 : JumpStart); (5.80892556509888 : 15.5362130420225 : JumpEnd); (6.0625 : 15.2826386071214); (6.0625 : 15.0785953776042); (12.9166666666667 : 15.0785953776042 : JumpStart); (13.0833333333333 : 15.0785953776042 : JumpEnd); (14.375 : 15.0785953776042); (14.75 : 14.7035953776042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_History" />
       <nodes>
         <classShapeMoniker Id="20cda36b-e5b8-4671-bab4-cd9f62c977ba" />
@@ -263,11 +263,24 @@
         <elementListCompartment Id="2c6b700f-4c4e-4420-a5c5-a65e21df5ddb" absoluteBounds="6.64, 21.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.0312525 : 17.7131982421875); (5.0312525 : 21.8277498372396); (6.625 : 21.8277498372396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.0312525 : 17.7131982421875); (5.0312525 : 21.8277498372396); (6.625 : 21.8277498372396)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbSTVDataContext/Reader/Reader_ReaderConfig" />
       <nodes>
         <classShapeMoniker Id="20cda36b-e5b8-4671-bab4-cd9f62c977ba" />
         <classShapeMoniker Id="8a08e855-a4ad-4c85-b1e2-860ea265f650" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="1a53c688-bf73-4740-a249-275ae1eb2461" absoluteBounds="15.375, 10.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/dbSTVDataContext/RutTien" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2e63aca1-af47-404b-9091-fedc809c11d5" absoluteBounds="15.39, 11.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 14.9223453776042); (5.79166666666667 : 14.9223453776042 : JumpStart); (5.95833333333333 : 14.9223453776042 : JumpEnd); (12.9166666666667 : 14.9223453776042 : JumpStart); (13.0833333333333 : 14.9223453776042 : JumpEnd); (14.4479166666667 : 14.9223453776042 : JumpStart); (14.6145833333334 : 14.9223453776042 : JumpEnd); (17.09375 : 14.9223453776042); (17.09375 : 12.3958968098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbSTVDataContext/Member/Member_RutTien" />
+      <nodes>
+        <classShapeMoniker Id="edfcc250-c0e8-4a5a-97d1-fdec6b9b5047" />
+        <classShapeMoniker Id="1a53c688-bf73-4740-a249-275ae1eb2461" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

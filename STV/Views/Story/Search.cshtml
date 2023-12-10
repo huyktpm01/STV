@@ -170,7 +170,7 @@
     var minc = "0";
     var sort = "no";
     var category = "all";
-    var find = " ";
+    var find = "%20"
     var bstep = "0";
     function changeQuery(e) {
         var m = e.parentElement.id;
@@ -198,7 +198,11 @@
         }
     }
     function timnc() {
-        find = document.getElementById("findinname").value;
+        if (document.getElementById("findinname").value != null && document.getElementById("findinname").value !="") {
+            find = document.getElementById("findinname").value;
+        }
+       
+       
         var url = '@Url.Action("Search", "Story")' + "/find=" + find + "/minc=" + minc + "/cat=" + category + "/sort=" + sort + "/status=" + bstep
         window.location.href = url
     }

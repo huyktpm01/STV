@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using System.Runtime.Serialization.Formatters.Binary;
 using PagedList;
 using Microsoft.Ajax.Utilities;
+using System.Xml.Xsl;
+using System.Web.UI;
 
 namespace STV.Controllers
 {
@@ -16,7 +18,7 @@ namespace STV.Controllers
     {
         dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
         // GET: Author
-        public ActionResult list(int MemberID, int ? page)
+        public ActionResult list(int ? page,int MemberID)
         {
             
             
@@ -25,7 +27,7 @@ namespace STV.Controllers
             int iSize = 10;
             int iPageNum = (page ?? 1);
             var sach = from s in db.Stories where s.Author.MemberID == MemberID select s;
-            return View(sach.ToPagedList(MemberID,iSize));
+            return View(sach.ToPagedList(iPageNum, iSize));
         }
         public ActionResult listChap(int StoryID, int? page)
         {
@@ -85,7 +87,7 @@ namespace STV.Controllers
         }
         public ActionResult BatVIP(int chapternumber)
         {
-            var chap = db.Chapters.Where(n => n.StoryID == Convert.ToInt16( Session["StoryID"]) && n.Chapter_Number >= chapternumber ).ToList();
+            var chap = db.Chapters.Where(n => n.StoryID == Convert.ToInt16( Session["StoryID"]) && n.Chapter_Number >= chapternumber && n.status !=0 && n.status != 4).ToList();
             foreach(var i in chap)
             {
                 i.Vip = true;
@@ -96,7 +98,7 @@ namespace STV.Controllers
         }
         public ActionResult TatVIP(int chapternumber)
         {
-            var chap = db.Chapters.SingleOrDefault(n => n.StoryID == Convert.ToInt16(Session["StoryID"]) && n.Chapter_Number == chapternumber);
+            var chap = db.Chapters.SingleOrDefault(n => n.StoryID == Convert.ToInt16(Session["StoryID"]) && n.Chapter_Number == chapternumber && n.status != 0 && n.status != 4);
             chap.Vip = false;
             db.SubmitChanges();
             return RedirectToAction("listChap");
@@ -229,6 +231,78 @@ namespace STV.Controllers
                 }
                 return View();
             
+        }
+        public ActionResult XoaS(int StoryID,String url)
+        {
+            var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
+            var chuong = db.Chapters.Where(n => n.StoryID == StoryID).ToList();
+            var fl = db.Follows.Where(n => n.StoryID == StoryID).ToList();
+            var cm = db.Comments.Where(n => n.StoryID == StoryID).ToList();
+            if(cm != null)
+            {
+                foreach (var rl in cm)
+                {
+                    var crl = db.Replies.Where(n => n.CommentID == rl.CommentID).ToList();
+                    db.Replies.DeleteAllOnSubmit(crl);
+                    db.Comments.DeleteAllOnSubmit(cm);
+                }
+            }
+            if (chuong != null)
+            {
+               
+                foreach(var ch in chuong)
+                {
+                    var his = db.Histories.Where(n => n.ChapterID == ch.ChapterID).ToList();
+                    db.Histories.DeleteAllOnSubmit(his);
+                    db.Chapters.DeleteAllOnSubmit(chuong);
+                }
+            }
+            db.Follows.DeleteAllOnSubmit(fl);
+            db.Stories.DeleteOnSubmit(sach);
+            db.SubmitChanges();
+            return Redirect(url);
+
+        }
+        public ActionResult XinDuyet(int StoryID,String url)
+        {
+            var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
+            sach.Status =0;
+            db.SubmitChanges();
+            return Redirect(url);
+        }
+        [HttpGet]
+        public ActionResult EditChap(int ChapterID)
+        {
+            var sach = db.Chapters.SingleOrDefault(n => n.ChapterID == ChapterID);
+            Session["Chap"] = ChapterID;
+            if (sach == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            
+
+            return View(sach);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditChap(FormCollection collection)
+        {
+            if (ModelState.IsValid)
+            {
+                var c = db.Chapters.SingleOrDefault(n => n.StoryID == int.Parse(Session["Chap"].ToString()));
+                c.Title = collection["ip-name"];
+                c.Content = collection["ip-content"];
+                c.N_O_W = collection["ip-content"].Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length.ToString();
+                c.status = 0;
+                c.LastUpdate = DateTime.Now;
+                c.Vip = bool.Parse("False");
+                c.Money = 1000;
+                c.sold = 0;
+                db.SubmitChanges();
+                return RedirectToAction("listChap", "Author", new { StoryID = Session["StoryID"] });
+            }
+            return View();
         }
     }
 }

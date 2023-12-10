@@ -1,0 +1,10 @@
+﻿@model STV.Models.Story
+<div class="modal-body" style="max-height: 325px;  padding: 0px;">
+    <a href="@Url.Action("Truyen", "Story", new { StoryID = Model.StoryID})">
+        <div class="noti">
+    
+            <h6>Hệ Thống<span style="font-size:12;color:gray;float:right;">@Model.LastUpdate</span></h6>
+            Truyện <b class="cap"> @Model.Title </b> đã có <b></b> chương mới.
+        </div>
+    </a>
+</div>

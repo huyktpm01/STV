@@ -25,7 +25,7 @@
                             <a onclick="ui.swiftload(this)" name="lstruyen" class="col-lg-2 col-md-3 col-sm-3 col-4 cap" style=" width: 50%; flex: 0 0 100%; max-width: 85%; line-height: 40px;" href="@Url.Action("Truyen", "Story", new { StoryID = s.Chapter.StoryID})">
                                 @s.Chapter.Story.Title
                                 @s.Chapter.Title
-                            </a><div class="btngroup"  ><button class="btn" onclick="document.location='@Url.Action("Truyen", "Story", new { StoryID = s.Chapter.StoryID})/@s.ChapterID'">…</button><button class="btn" id="btn">✕</button></div>
+                            </a><div class="btngroup"  ><button class="btn" onclick="document.location='@Url.Action("Truyen", "Story", new { StoryID = s.Chapter.StoryID})/@s.ChapterID'">…</button><button class="btn" id="btn" onclick="Xoacm(@s.HistoryID)">✕</button></div>
                         </div>
                     }
 
@@ -34,20 +34,17 @@
             }
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-    $(document).ready(function () {
-        $("#bth").click(function () {
-
-            $.ajax({
-                type: "POST", // Hoặc "GET" tùy theo action của bạn
-                url: "@Url.Action("XoaLS", "Story", new { chapterID = Convert.ToInt32(ViewBag.HisID) })",
-                success: function (data) {
-                    // Xử lý kết quả trả về (nếu cần)
-                    alert("ls đã xóa");
-                },
-                error: function () {
-                    alert("ko");
+                function Xoacm(id) {
+                    $.ajax({
+                        type: "POST", // Hoặc "GET" tùy theo action của bạn
+                        url: "@Url.Action("XoaLS", "Story")" + "?HisID=" + id ,
+                        success: function (data) {
+                            if (data == "True") {
+                                var i = window.location.href
+                                window.location.href = i
+                            }
+                        },
+                    })
                 }
-            });
-        });
-    });
+ 
             </script>

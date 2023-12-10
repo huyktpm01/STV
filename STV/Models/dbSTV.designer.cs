@@ -78,6 +78,9 @@ namespace STV.Models
     partial void InsertReaderConfig(ReaderConfig instance);
     partial void UpdateReaderConfig(ReaderConfig instance);
     partial void DeleteReaderConfig(ReaderConfig instance);
+    partial void InsertRutTien(RutTien instance);
+    partial void UpdateRutTien(RutTien instance);
+    partial void DeleteRutTien(RutTien instance);
     #endregion
 		
 		public dbSTVDataContext(string connection) : 
@@ -253,6 +256,14 @@ namespace STV.Models
 			get
 			{
 				return this.GetTable<ReaderConfig>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RutTien> RutTiens
+		{
+			get
+			{
+				return this.GetTable<RutTien>();
 			}
 		}
 	}
@@ -2799,6 +2810,8 @@ namespace STV.Models
 		
 		private EntitySet<Reader> _Readers;
 		
+		private EntitySet<RutTien> _RutTiens;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2832,6 +2845,7 @@ namespace STV.Models
 			this._Admins = new EntitySet<Admin>(new Action<Admin>(this.attach_Admins), new Action<Admin>(this.detach_Admins));
 			this._Authors = new EntitySet<Author>(new Action<Author>(this.attach_Authors), new Action<Author>(this.detach_Authors));
 			this._Readers = new EntitySet<Reader>(new Action<Reader>(this.attach_Readers), new Action<Reader>(this.detach_Readers));
+			this._RutTiens = new EntitySet<RutTien>(new Action<RutTien>(this.attach_RutTiens), new Action<RutTien>(this.detach_RutTiens));
 			OnCreated();
 		}
 		
@@ -3094,6 +3108,19 @@ namespace STV.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_RutTien", Storage="_RutTiens", ThisKey="MemberID", OtherKey="MemberID")]
+		public EntitySet<RutTien> RutTiens
+		{
+			get
+			{
+				return this._RutTiens;
+			}
+			set
+			{
+				this._RutTiens.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3145,6 +3172,18 @@ namespace STV.Models
 		}
 		
 		private void detach_Readers(Reader entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+		
+		private void attach_RutTiens(RutTien entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_RutTiens(RutTien entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;
@@ -4944,6 +4983,205 @@ namespace STV.Models
 						this._ReaderID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Reader");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RutTien")]
+	public partial class RutTien : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RutTienID;
+		
+		private System.Nullable<int> _MemberID;
+		
+		private System.Nullable<int> _SoTien;
+		
+		private string _Contend;
+		
+		private System.Nullable<int> _status;
+		
+		private EntityRef<Member> _Member;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRutTienIDChanging(int value);
+    partial void OnRutTienIDChanged();
+    partial void OnMemberIDChanging(System.Nullable<int> value);
+    partial void OnMemberIDChanged();
+    partial void OnSoTienChanging(System.Nullable<int> value);
+    partial void OnSoTienChanged();
+    partial void OnContendChanging(string value);
+    partial void OnContendChanged();
+    partial void OnstatusChanging(System.Nullable<int> value);
+    partial void OnstatusChanged();
+    #endregion
+		
+		public RutTien()
+		{
+			this._Member = default(EntityRef<Member>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RutTienID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RutTienID
+		{
+			get
+			{
+				return this._RutTienID;
+			}
+			set
+			{
+				if ((this._RutTienID != value))
+				{
+					this.OnRutTienIDChanging(value);
+					this.SendPropertyChanging();
+					this._RutTienID = value;
+					this.SendPropertyChanged("RutTienID");
+					this.OnRutTienIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", DbType="Int")]
+		public System.Nullable<int> MemberID
+		{
+			get
+			{
+				return this._MemberID;
+			}
+			set
+			{
+				if ((this._MemberID != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberIDChanging(value);
+					this.SendPropertyChanging();
+					this._MemberID = value;
+					this.SendPropertyChanged("MemberID");
+					this.OnMemberIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoTien", DbType="Int")]
+		public System.Nullable<int> SoTien
+		{
+			get
+			{
+				return this._SoTien;
+			}
+			set
+			{
+				if ((this._SoTien != value))
+				{
+					this.OnSoTienChanging(value);
+					this.SendPropertyChanging();
+					this._SoTien = value;
+					this.SendPropertyChanged("SoTien");
+					this.OnSoTienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contend", DbType="VarChar(MAX)")]
+		public string Contend
+		{
+			get
+			{
+				return this._Contend;
+			}
+			set
+			{
+				if ((this._Contend != value))
+				{
+					this.OnContendChanging(value);
+					this.SendPropertyChanging();
+					this._Contend = value;
+					this.SendPropertyChanged("Contend");
+					this.OnContendChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
+		public System.Nullable<int> status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_RutTien", Storage="_Member", ThisKey="MemberID", OtherKey="MemberID", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.RutTiens.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.RutTiens.Add(this);
+						this._MemberID = value.MemberID;
+					}
+					else
+					{
+						this._MemberID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Member");
 				}
 			}
 		}

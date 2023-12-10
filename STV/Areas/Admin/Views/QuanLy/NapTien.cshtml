@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "NapTien";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    tr {
+        height: 40px;
+    }
+
+    Gender {
+        width: 70px;
+    }
+</style>
+<table align="center">
+    <h2 style="text-align:center">ĐĂNG KÝ THÀNH VIÊN</h2>
+    @using (Html.BeginForm("NapTien", "QuanLy", FormMethod.Post, new
+    {
+        @enctype =
+"multipart/form-data"
+    }))
+    {
+        @Html.AntiForgeryToken()
+        <tr>
+            <td>user tài khoảng cần nạp:</td>
+            <td>@Html.TextBox("UserName") @ViewData["err1"]</td>
+        </tr>
+        <tr>
+            <td>Số Tiền Nạp:</td>
+            <td>@Html.TextBox("Num") @ViewData["err2"]</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Nạp" /> <input type="reset" value="Xóa Thông Tin" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+

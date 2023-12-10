@@ -20,13 +20,12 @@
          $.ajax({
      type: "POST", // Hoặc "GET" tùy theo action của bạn
      url: "@Url.Action("Follow", "Story", new { storyId = Model.StoryID })",
-     success: function (data) {
-         // Xử lý kết quả trả về (nếu cần)
-         alert("Truyện bo theo dõi!");
-     },
-     error: function () {
-         alert("Có lỗi xảy ra khi theo dõi truyện.");
+             success: function (data) {
+                 // Xử lý kết quả trả về (nếu cần)
+                 var url = window.location.href;
+                 window.location.href = url;
      }
+     
  });
     }
 

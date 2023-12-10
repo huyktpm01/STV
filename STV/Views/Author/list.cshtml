@@ -24,6 +24,7 @@
                         <th hidden="" scope="col">Vip</th>
                         <th hidden="" scope="col">Đã bán</th>
                         <th scope="col">Thao tác</th>
+                        <th scope="col">Xét Duyệt</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +41,22 @@
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Truyen", "Story", new { StoryID = sach.StoryID})'"><i class="fa-solid fa-eye"></i></button>
                                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("listChap", "Author", new { StoryID = sach.StoryID})'"><i class="fa-solid fa-list"></i></button>
                                 <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditBook", "Author", new { StoryID = sach.StoryID})'"><i class="fa-solid fa-edit"></i></button>
+                                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("XoaS", "Author", new { StoryID = sach.StoryID, url = Request.Url.ToString()})'"><i class="fa-solid fa-delete-left"></i></button>
                             </td>
+                            @if(sach.Status != 0 && sach.Status != 4)
+                            {
+
+
+                                        <td>Đã Duyệt</td>
+                             }
+                              @if(sach.Status == 0)
+                                {
+                                        <td>Đang Duyệt</td>
+                                }
+                              @if(sach.Status == 4)
+                                {
+                                            <td><a href="@Url.Action("XinDuyet", "Author", new { StoryID = sach.StoryID, url = Request.Url.ToString()})">Không Qua Duyệt</a></td>
+                                }
                         </tr>
                     }
                 </tbody>
@@ -61,36 +77,3 @@ ViewBag.AuthorID,
             </div>
         </div>
     </div>
-
-<script type="text/javascript" src="/Author/uploader.js"></script>
-<scripts type="text/javascript" src="/Author/uploader-man.js"></scripts>
-<script>
-    function showMenu(id) {
-        var sel = ui.select("Tùy chọn");
-        sel.proc = function (val) {
-            if (window[val + "book"]) {
-                window[val + "book"](id);
-            }
-            sel.hide();
-        }
-        sel.option("edit", "Sửa thông tin");
-        sel.option("export", "Xuất bản");
-        sel.option("listchap", "Danh sách chương");
-        //sel.option("download","Tải xuống");
-        sel.option("delete", "Xóa truyện");
-        sel.show();
-    }
-    function editbook(id) {
-        location.href = "/Author/EditBook/" + id;
-    }
-    
-</script>
-
-<style>
-    .MenuTrang {
-        display: inline;
-        text-align: center;
-    }
-</style>
-
-

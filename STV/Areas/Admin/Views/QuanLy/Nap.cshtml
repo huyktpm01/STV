@@ -1,0 +1,42 @@
+﻿@using STV.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<STV.Models.Recharge>
+<div class="container shadow p-2 bg-light">
+    <div class="main">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Tài Khoảng Nạp</th>
+
+                    <td scope="col"> Số tiền Nạp </td>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sach in Model)
+                {
+
+                    <tr>
+                        <td>@sach.ReaderID</td>
+                        <td>@sach.Money</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div style="width:100%;text-align:center;">
+            <nav style="display:inline-block;">
+                <ul class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("Nap", "QuanLy", new
+{
+page = page
+}))
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+

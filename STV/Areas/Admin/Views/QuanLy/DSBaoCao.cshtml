@@ -1,0 +1,46 @@
+﻿@using STV.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<STV.Models.Chapter>
+@{
+    ViewBag.Title = "DSBaoCao";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container shadow p-2 bg-light">
+    <div class="main">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Tên Truyện</th>
+                    <th scope="col">Số chương</th>
+                    <td scope="col"> Duyệt Chương</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sach in Model)
+                {
+
+                    <tr>
+                        <td>@sach.Story.Title</td>
+                        <td>@sach.Chapter_Number</td>               
+                        <td><a href="@Url.Action("BaoCao", "QuanLy", new { StoryID = sach.StoryID})"><button type="button" class="btn btn-primary"><i class="fa-solid fa-list"></i></button></a></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div style="width:100%;text-align:center;">
+            <nav style="display:inline-block;">
+                <ul class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("DSBaoCao", "QuanLy", new
+{
+page = page
+}))
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+

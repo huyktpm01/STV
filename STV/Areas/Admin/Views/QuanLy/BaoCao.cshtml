@@ -1,0 +1,28 @@
+﻿@model IEnumerable<STV.Models.Chapter>
+@{
+    ViewBag.Title = "BaoCao";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="modal-content" id="ds">
+    <div class="modal-header" style="text-align:center">
+        <h6 class="modal-title">Chương Cần Kiểm Tra Lại</h6><a href="@Url.Action("Index","QuanLy")" style="text-align:right"><button type="button" class="close">×</button></a>
+    </div>
+
+    
+    @foreach (var s in Model)
+    {
+        <div class="Main">
+            <div style="clear: both;">Truyện @s.Story.Title</div>
+            <div style="clear: both;">Chương @s.Chapter_Number : @s.Title</div>
+        </div>
+        <div class="cont">
+            @s.Content
+        </div>
+        <hr />
+    }
+
+<div class="menu bg-light p-1" style=" display: flex; justify-content: center;">
+    <a href="@Url.Action("DuyetBC", "QuanLy")"><button class="btn btn-primary">Duyệt </button></a>
+    <a href="@Url.Action("KhongDuyet", "QuanLy", new {StoryID = ViewBag.st})"><button class="btn btn-primary">Không Duyệt </button></a>
+</div>
+</div>

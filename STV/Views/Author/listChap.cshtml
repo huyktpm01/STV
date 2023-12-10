@@ -48,12 +48,6 @@
         </span>
         <span style="float: right;flex-direction: column;" class="d-grid d-md-block">
             <button class="btn btn-primary" onclick="addchap()">Thêm Chương</button>
-            <button class="btn btn-primary" onclick="setChapEncrypt()">Bật/Tắt Mã hóa</button>
-            <button class="btn btn-warning" onclick="setChapOpen()">Xuất bản</button>
-            <button hidden class="btn btn-warning" onclick="openVipSetter()">Set vip</button>
-            <button hidden class="btn btn-warning" onclick="setChapUnVip()">Bỏ vip</button>
-            <button class="btn btn-danger" onclick="deleteChapter()">Xóa chương</button>
-            <button class="btn btn-info" onclick="rebuildchaplist()">Lưu Danh sách chương</button>
         </span>
 
         <div style="clear: both;"></div>
@@ -117,9 +111,8 @@
                         <td hidden="">@sach.Pushlishdate</td>
                         <td></td>
                         <td>
-                            <button type="button" class="btn btn-primary" onclick="location.href='/truyen/sangtac/1/16979/1/'"><i class="fa-solid fa-eye"></i></button>
-                            <button type="button" class="btn btn-success" onclick="editChapter(1245311)"><i class="fa-solid fa-edit"></i></button>
-                            <button type="button" class="btn btn-danger" onclick="deletechapter(1245311)"><i class="fa-solid fa-trash-alt"></i></button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='/Story/Truyen/@sach.StoryID/@sach.ChapterID'"><i class="fa-solid fa-eye"></i></button>
+                            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("EditChap","Author",new { ChapterID = @sach.ChapterID })'"><i class="fa-solid fa-edit"></i></button>       
                         </td>
                     </tr>
                 }
@@ -129,12 +122,7 @@
     <div class="menu bg-light p-1">
         <span style="float: right;flex-direction: column;" class="d-grid d-md-block">
             <button class="btn btn-primary" onclick="addchap()">Thêm Chương</button>
-            <button class="btn btn-primary" onclick="setChapEncrypt()">Bật/Tắt Mã hóa</button>
-            <button class="btn btn-warning" onclick="setChapOpen()">Xuất bản</button>
-            <button hidden class="btn btn-warning" onclick="openVipSetter()">Set vip</button>
-            <button hidden class="btn btn-warning" onclick="setChapUnVip()">Bỏ vip</button>
-            <button class="btn btn-danger" onclick="deleteChapter()">Xóa chương</button>
-            <button class="btn btn-info" onclick="rebuildchaplist()">Lưu Danh sách chương</button>
+           
         </span>
 
         <div style="clear: both;"></div>

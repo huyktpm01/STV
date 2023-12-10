@@ -31,6 +31,7 @@ namespace STV.Controllers
                 sach.View = Convert.ToInt32(views);
                 return View(sach);
         }
+        
         public ActionResult Muachuong(int chapterid)
         {
             var user = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString()));
@@ -57,7 +58,13 @@ namespace STV.Controllers
             return Content("false");
 
         }
-    
+        public ActionResult BaoCao(int chapterid)
+        {
+            var chap = db.Chapters.SingleOrDefault(n => n.ChapterID == chapterid);
+            chap.status = 3;
+            db.SubmitChanges();
+            return RedirectToAction("Truyen", "Story", new { StoryID = chap.StoryID });
+        }
         public ActionResult luuconfig(String Nen, String Mau,String Font, String size, String line)
         {
             var Size = Convert.ToInt32(size);
@@ -114,7 +121,6 @@ namespace STV.Controllers
                 // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
                 db.Follows.DeleteOnSubmit(existingRecord);
             }
-
             db.SubmitChanges();
             return null;
         }
@@ -125,7 +131,7 @@ namespace STV.Controllers
             ViewBag.ChapterID = ChapterID;
             
             var chap = db.Chapters.SingleOrDefault(n => n.ChapterID == ChapterID);
-            
+            Session["StoryID"] = chap.StoryID;
             RecordReadingHistory(int.Parse(chap.StoryID.ToString()), chap.ChapterID);
             if (chap.Vip == true)
             {
@@ -147,18 +153,18 @@ namespace STV.Controllers
         public ActionResult Search(FormCollection f)
         {
             String key = f["id"];
-            var ds = db.Stories.Where(b => b.Title.Contains(key) || b.Author.Pen_Name.Contains(key)).ToList();
+            var ds = db.Stories.Where(b => (b.Title.Contains(key) || b.Author.Pen_Name.Contains(key)) && b.Status != 4 && b.Status != 0).ToList();
             return View(ds);
         }
         [Route("Story/Search/find={key}/minc={minc}/cat={cat}/sort={sort}/status={status}")]
         public ActionResult Search(string key,int minc, string cat, string sort,int status)
         {
-            var ds = db.Stories.Where(b => (b.Title.Contains(key) || b.Author.Pen_Name.Contains(key))&& b.N_O_Chapter >= minc).ToList();
+            var ds = db.Stories.Where(b => (b.Title.Contains(key) || b.Author.Pen_Name.Contains(key))&& b.N_O_Chapter >= minc && b.Status != 4 && b.Status != 0).ToList();
             if(cat != "all")
             {
                 ds = db.Stories.Where(b => b.category.CatName.Contains(cat)).ToList();
             }
-            if(status != 0)
+            if(status != 0 && status != 4)
             {
                 ds = ds.Where(b => b.Status == status).ToList();
             }
@@ -195,7 +201,7 @@ namespace STV.Controllers
 
             // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
             var existingRecord = db.Histories
-                .FirstOrDefault(r => r.ReaderID == userId.ReaderID && r.Chapter.StoryID == storyId && r.ChapterID == chapterId);
+                .FirstOrDefault(r => r.ReaderID == userId.ReaderID && r.Chapter.StoryID == storyId);
 
             if (existingRecord == null)
             {
@@ -219,35 +225,40 @@ namespace STV.Controllers
             db.SubmitChanges();
         }
         [HttpPost]
-        public ActionResult XoaLS(int hisID)
+        public ActionResult XoaLS(int HisID)
         {
-            var his = db.Histories.FirstOrDefault(r => r.HistoryID == hisID); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
+            var his = db.Histories.FirstOrDefault(r => r.HistoryID == HisID); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
 
             // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
            
                 // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
-                db.Histories.DeleteOnSubmit(his);
+                if(his != null)
+                {
+                    db.Histories.DeleteOnSubmit(his);
+                }
+                
                 db.SubmitChanges();
-            return null;
+                return Content("True");
         }
-        [HttpPost]
-        public ActionResult Comment(FormCollection f,int StoryID)
+
+        public ActionResult Comment(String cm)
         {
-            var com = f["cmtx"];
+            var com = cm;
             var id = Session["MemberID"];
             var readerid = db.Readers.FirstOrDefault(r => r.MemberID == Convert.ToInt16(id));
             Comment n = new Comment();
             n.Content = com;
-            n.StoryID = StoryID;
+            n.StoryID = Convert.ToInt32( Session["StoryID"]);
             n.ReaderID = readerid.ReaderID;
             n.PublishDate = DateTime.Now;
             db.Comments.InsertOnSubmit(n);
             db.SubmitChanges();
-            return RedirectToAction("Truyen","Story",StoryID);
+            return Content("True"); 
         }
         public ActionResult DSComment(int StoryID)
         {
-            var ds = db.Stories.Where(b => b.StoryID == StoryID).OrderBy(b => b.Publishdate).ToList();
+            StoryID = (int)Session["StoryID"];
+            var ds = from s in db.Comments where s.StoryID == StoryID orderby s.PublishDate select s;
             return PartialView(ds);
         }
         public ActionResult DSChap(int StoryID)
@@ -257,7 +268,11 @@ namespace STV.Controllers
             ViewBag.SC = ds.Count();
             return PartialView(ds);
         }
-        
+        public ActionResult DongThongBao(int StoryID)
+        {
+            var s = db.Stories.FirstOrDefault(r => r.StoryID == StoryID);
+            return PartialView(s);
+        }
 
     }
 }

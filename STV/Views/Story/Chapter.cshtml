@@ -55,10 +55,7 @@
 
         <div class="w-100">
             BÌNH LUẬN
-
-            <span id="livecomment" style="float:right;padding:0 0 0 20px;" onclick="followPush();"><i class="fas fa-rss"></i></span>
-
-            <span id="hideavatar" style="float: right; padding: 0px 20px; filter: none;" onclick="togglehideavatar(true);"><i class="fas fa-images"></i></span>
+            <a href="@Url.Action("BaoCao","Story",new { chapterID = Model.ChapterID })"><span id="hideavatar" style="float: right; padding: 0px 20px; filter: none;"><i class="fa-solid fa-bug"></i></span></a>
         </div>
 
         <br><hr style="margin:0px 0 4px 0;border-top:2px solid #eee">

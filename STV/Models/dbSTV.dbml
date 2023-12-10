@@ -135,6 +135,7 @@
       <Association Name="Member_Admin" Member="Admins" ThisKey="MemberID" OtherKey="MemberID" Type="Admin" />
       <Association Name="Member_Author" Member="Authors" ThisKey="MemberID" OtherKey="MemberID" Type="Author" />
       <Association Name="Member_Reader" Member="Readers" ThisKey="MemberID" OtherKey="MemberID" Type="Reader" />
+      <Association Name="Member_RutTien" Member="RutTiens" ThisKey="MemberID" OtherKey="MemberID" Type="RutTien" />
     </Type>
   </Table>
   <Table Name="dbo.Reader" Member="Readers">
@@ -235,6 +236,16 @@
       <Column Name="Size_Word" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Line" Type="System.Single" DbType="Real" CanBeNull="true" />
       <Association Name="Reader_ReaderConfig" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RutTien" Member="RutTiens">
+    <Type Name="RutTien">
+      <Column Name="RutTienID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SoTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Contend" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Member_RutTien" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

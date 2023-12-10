@@ -13,23 +13,34 @@
             <br>
             <script type="text/javascript" src="/game.js?v=21"></script>
             <div style="width:240px;height:240px;margin:120px auto 10px auto;align-content:center;position:relative" class="">
-                <img id="avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/default.png" style="width:240px;height:240px;border:none" class="">
-                <button style="position:absolute;right:0;bottom:0;opacity:0.5;transform:scale(0.75)" onclick="changeavatar()" class="__web-inspector-hide-shortcut__">Đổi</button>
-                <input type="file" style="display:none" hidden="" id="newavatar" onchange="uploadavatar(this);">
+                <img id="avatar" src="~/Image/@Model.Avatar" style="width:240px;height:240px;border:none" class="">
+                @using (Html.BeginForm("Edit", "Member", FormMethod.Post, new
+                {
+                    @enctype =
+"multipart/form-data"
+                }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="file" name="avatar" id="avatar" style="position:absolute;right:0;bottom:0;opacity:0.5;transform:scale(0.75)" onclick="avatar()" class="__web-inspector-hide-shortcut__">
+                    <input type="submit" name="avatar" id="avatar" style="position:absolute;right:0;bottom:0;opacity:0.5;transform:scale(0.75)" onclick="avatar()" class="__web-inspector-hide-shortcut__">
+
+                }
+
             </div>
             <style type="text/css">
                 .item[n]:after {
-                    content: attr(n);
-                    position: absolute;
-                    right: 1px;
+                content: attr(n);
+                position: absolute;
+                right: 1px;
                     font-size: 12px;
-                    bottom: -2px;
+                bottom: -2px;
                     text-shadow: 2px 2px 2px black;
-                    color: white;
+                color: white;
                 }
 
                 .item[hide] {
-                    display: none;
+                display: none;
                 }
 
                 .item[style] {
@@ -40,17 +51,17 @@
 
                 .item[b="3000000"] {
                     background-image: url(/game/asset/item/thu-hon-dan.png);
-                    border: 2px solid red;
+                border: 2px solid red;
                 }
 
                 .item[b="10000"] {
                     background-image: url(/game/asset/item/tu-linh-tran.jpg);
-                    border: 2px solid red;
+                border: 2px solid red;
                 }
 
                 .item[tag="3"][l="50"] {
                     background-image: url(/game/asset/item/thon-thien-ma-cong-than-quyen.png);
-                    border: 2px solid red;
+                border: 2px solid red;
                 }
             </style>
             <center>
@@ -64,8 +75,8 @@
             </center>
             <div id="infobox" style="background-color: white; border-radius: 12px; width: 100%;">
                 <div style="margin: 4px 0;padding: 0;border: 1px solid #cecece;border-width: 1px 0 1px 0;display: flex;flex-wrap: nowrap;line-height: 2">
-                    <a href="/comment/245279" style="width: 50%;display: block;text-align: center;height: ">Xem bình luận</a>
-                    <a href="/nhunger/0" style="width: 50%;display: block;text-align: center;">Xem truyện nhúng</a>
+                    <a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })" style="width: 50%;display: block;text-align: center;height: ">Xem bình luận</a>
+                    <a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })" style="width: 50%;display: block;text-align: center;">Truyện đã đăng</a>
                 </div>
                 <br>
                 TIỂU SỬ<button style="float:right;font-size:16px;display:inline-block" onclick="saveinfo()">Lưu</button>
@@ -73,12 +84,11 @@
 <textarea id="tainfo" style="resize:vertical;min-height:120px;width:90%;margin-left:5%;border-radius:8px;background-color:#f9f9f9"> </textarea>
                 <br />
                 Lịch Sử<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
-                <div class="d91" style="font-size:16px;">
-                    <span style="color:#d4ac2a">Đã đọc</span><span style="color:#d14bc6;float:right">0 Chương truyện</span>
-                    <hr style="margin:0 0 4px 0;border-top:2px solid #eee">
-                    <span style="color:#d4ac2a">Đã bình luận</span><span style="color:#d14bc6;float:right">0 lần</span>
-                    <hr style="margin:0 0 4px 0;border-top:2px solid #eee">
-                </div>
+                       <div class="d91" style="font-size:16px;">
+                           @Html.Action("DaD", "Member",new { id = Session["MemberID"] })
+                           @Html.Action("DaB", "Member",new { id = Session["MemberID"] })
+
+                       </div>
                 <br>
                 <span style="font-size: 20px; "</span>Email<hr style="margin:0px 0 4px 0;border-top:2px solid #eee">
                 <span style="font-size:18px;color:gray;">
@@ -311,33 +321,24 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <scripts async="" src="https://www.googletagmanager.com/gtag/js?id=UA-145395004-1" onerror="this.src='/gtag.php'"></scripts>
     <script async="" defer="" src="/gtag.php" onerror="this.src='/gtag.php'"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-145395004-1');
+    <script type="text/javascript">
+        function avata() {
+             
+            var file = document.getElementById("avata").files[0].name;
+            $.ajax({
+            type: "POST", // Hoặc "GET" tùy theo action của bạn
+            url: "@Url.Action("Comment", "Story")"+"?avata="+file,
+            success: function (data) {
+             if (data = "True") {
+                 var url = window.location.href;
+                 window.location.href = url;
+             }
 
-        q("span[tag]").forEach(function (e) {
-            e.title = e.textContent;
-        });
-        if ($("#mainbar").height() > 150) {
-            g("notifmarker").innerHTML = "Thông báo";
-            g("menunavigator2").insertBefore(g("notifmarker"), g("menunavigator2").children[1]);
+         }
+
+     });
+ }
         }
-        (function () {
-            var _open = window.open;
-            window.open = function () {
-                var blockedDomain = ["vjnycjpjg.com", "vgthxbor.com", "ascynbdhkpyci.com", "qmnemxade.com", "rwhhcwku.com", "oriwehdqf.com", "wgkisvpild.com", "gysloflobxsrti.com"
-                    , "ilrdvouqmynwt.com", "ruktosjegndci.com", "gletsokr.com", "uxvbofhyq.com"];
-                for (var i = 0; i < blockedDomain.length; i++) {
-                    if (arguments[0].indexOf(blockedDomain[i]) >= 0) {
-                        return false;
-                    }
-                }
-                console.log(arguments);
-                _open.apply(window, arguments);
-            }
-        })()
     </script>
     <div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div><iframe id="nr-ext-rsicon" style="position: absolute; display: none; width: 50px; height: 50px; z-index: 2147483647; border-style: none; background: transparent;"></iframe>
 </body>

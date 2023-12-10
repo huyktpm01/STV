@@ -1,6 +1,6 @@
-﻿@model IEnumerable<STV.Models.Chapter>
+﻿@model STV.Models.Chapter
 @{
-    ViewBag.Title = "addChapter";
+    ViewBag.Title = "EditChapter";
     Layout = "~/Views/Shared/LoginLogout.cshtml";
 
 }
@@ -14,24 +14,25 @@
     @Html.AntiForgeryToken()
     <div class="container shadow p-2 bg-light">
         <div class="breadcum p-1">
-            <a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })">Danh sách</a> / <a href=@Url.Action("listChap","Author",new { StoryID = Session["StoryID"] })>@ViewBag.TenSach</a>
+            <a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })">Danh sách</a> / <a href=@Url.Action("listChap","Author",new { StoryID = Session["StoryID"] })>@Model.Story.Title</a>
         </div>
         <div class="menu bg-light p-1">
+            <div style="clear: both;"></div>
         </div>
         <div class="main" id="formaddchap">
             <form id="formtmp">
                 <div class="form-group">
                     <label for="ip-num">Số chương</label>
-                    <input readonly="readonly" type="number" class="form-control" name="ip-num" id="ip-num" placeholder="Mã số chương" value="@ViewBag.MAX">
+                    <input readonly="readonly" type="number" class="form-control" name="ip-num" id="ip-num" placeholder="Mã số chương" value="@Model.Chapter_Number">
                 </div>
                 <div class="form-group">
                     <label for="ip-name">Tên chương</label>
-                    <input type="text" class="form-control" id="ip-name" name="ip-name" placeholder="Tên chương">
+                    <input type="text" class="form-control" id="ip-name" name="ip-name" placeholder="@Model.Title">
                     <small class="form-text text-muted">Tự động nhận diện khi sửa nội dung.</small>
                 </div>
                 <div class="form-group">
                     <label for="ip-content">Nội dung chương</label>
-                    <textarea onchange="contentChange(this.value)" style="min-height: 400px" class="form-control" id="ip-content" name="ip-content" placeholder="Nội dung chương"></textarea>
+                    <textarea onchange="contentChange(this.value)" style="min-height: 400px" class="form-control" id="ip-content" name="ip-content" placeholder="Nội dung chương">@Model.Content</textarea>
                 </div>
                 <div class="text-center"><button type="submit" class="btn btn-primary">Đăng tải</button></div>
 

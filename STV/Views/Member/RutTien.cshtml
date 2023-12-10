@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "RutTien";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    td {
+        height: 40px;
+    }
+</style>
+<h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
+<h2 style="text-align:center;">Rút Tiền</h2>
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr>
+            <td>Số Tài Khoảng của Bạn: </td>
+            <td>
+                @Html.TextBox("stk")
+                @ViewData["Err1"]
+            </td>
+        </tr>
+        <tr>
+            <td>Tên Tài Khoảng: </td>
+            <td>
+                @Html.TextBox("tk")
+                @ViewData["Err2"]
+            </td>
+        </tr>
+        <tr>
+            <td>Số Tiền Cần Rút: </td>
+            <td>
+                @Html.Password("tien")
+                @ViewData["Err3"]
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Rút" />
+            </td>
+        </tr>
+
+    }
+</table>
