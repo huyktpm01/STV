@@ -5,39 +5,39 @@
 }
 
 @*<style type="text/css">
-    td {
-        height: 40px;
-    }
-</style>
-<h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
-<h2 style="text-align:center;">ĐĂNG NHẬP</h2>
-<table align="center">
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
-        <tr>
-            <td>UserName: </td>
-            <td>
-                @Html.TextBox("UserName")
-                @ViewData["Err1"]
-            </td>
-        </tr>
-        <tr>
-            <td>Pass: </td>
-            <td>
-                @Html.Password("Pass")
-                @ViewBag.Err2
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="Đăng nhập" />
-                <a href="@Url.Action("DangKy","Member", new { url = Request.Url.AbsolutePath.ToString()})">DangKy</a>
-            </td>
-        </tr>
-    }
-</table>*@
+        td {
+            height: 40px;
+        }
+    </style>
+    <h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
+    <h2 style="text-align:center;">ĐĂNG NHẬP</h2>
+    <table align="center">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <tr>
+                <td>UserName: </td>
+                <td>
+                    @Html.TextBox("UserName")
+                    @ViewData["Err1"]
+                </td>
+            </tr>
+            <tr>
+                <td>Pass: </td>
+                <td>
+                    @Html.Password("Pass")
+                    @ViewBag.Err2
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Đăng nhập" />
+                    <a href="@Url.Action("DangKy","Member", new { url = Request.Url.AbsolutePath.ToString()})">DangKy</a>
+                </td>
+            </tr>
+        }
+    </table>*@
 
 <!DOCTYPE HTML>
 <html>
@@ -45,7 +45,7 @@
     <title>Classy Login form Widget Flat Responsive Widget Template :: w3layouts</title>
     <script src="~/Scripts/jquery.min.js"></script>
     <!-- Custom Theme files -->
-    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/style1.css" rel="stylesheet" type="text/css" media="all" />
     <!-- for-mobile-apps -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -59,7 +59,7 @@
     <!--header start here-->
     <div class="header">
         <div class="header-main">
-            <h1>Classy Login Form</h1>
+            <h1>Login Account</h1>
             <div class="header-bottom">
                 <div class="header-right w3agile">
 
@@ -68,7 +68,7 @@
                         {
                             @Html.ValidationSummary(true)
                             <form action="#" method="post">
-                                <input type="text" value="User name" name="UserName" id="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}" />
+                                <input type="text" style="background-image:url(../../Image/m.png)" value="User name" name="UserName" id="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}" />
                                 <input type="password" value="Password" name="Pass" id="Pass" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}" />
                                 <div class="remember">
                                     <span class="checkbox1">
@@ -83,26 +83,12 @@
                                 <input type="submit" value="Login">
                             </form>
                         }
-                            <div class="header-left-top">
-                                <div class="sign-up"> <h2>or</h2> </div>
-
-                            </div>
-                            <div class="header-social wthree">
-                                <a href="#" class="face"><h5>Facebook</h5></a>
-                                <a href="#" class="twitt"><h5>Twitter</h5></a>
-                            </div>
-
-                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
-    <!--header end here-->
-    <div class="copyright">
-        <p>© 2016 Classy Login Form. All rights reserved | Design by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
-    </div>
-    <!--footer end here-->
 </body>
 </html>
 

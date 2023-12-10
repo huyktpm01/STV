@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<STV.Models.Recharge>
-@foreach (var item in Model)
-{
-
-    <div class="row nowr" style="margin-left:0px;">
-        <div class="bkr">
-            Số Tiền Nạp:@item.Money <br>
-            Ngày Nạp: @item.Deposit_date<br>
-        </div>
-    </div>
-
+<p>
+    @{
+        ViewBag.Title = "Recharge";
+        Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br>
+<div style="position: relative; text-align: center;">
+    <img alt="" src="~/Image/QR.jpg" style="height: 438px; width: 350px;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+        <p style="margin-top: -30px; font-size: 20px; color: black;"><b>Quét mã để nạp tiền</b></p>
+    </div>
+</div>
+</p>
