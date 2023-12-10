@@ -27,7 +27,7 @@ else
                     <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
                     <li><a onclick="logout();">Đăng xuất</a></li>
                     <hr hidden="">
-                    <li><a href="/donate/" style="color: #DD0000">Donate</a></li>
+                    <li><a onclick="ui.swiftload(this)" href="@Url.Action("Recharge","Member",new { MemberID = Session["MemberID"] })" style="color: #DD0000">Nạp tiền</a></li>
                     <hr>
                     <li><a onclick="ui.swiftload(this,'inner')" href="/readed/">Truyện đã đọc</a></li>
                     <li><a onclick="ui.swiftload(this,'inner')" href="@Url.Action("Follow","Member",new { id = Session["MemberID"] })">Truyện theo dõi</a></li>

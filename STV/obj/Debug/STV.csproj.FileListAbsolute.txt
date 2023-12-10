@@ -159,8 +159,12 @@ C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\System.Web.WebPages.Raz
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\Newtonsoft.Json.xml
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\Antlr3.Runtime.pdb
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\obj\Debug\STV.csproj.AssemblyReference.cache
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\obj\Debug\STV.csproj.CoreCompileInputs.cache
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\obj\Debug\STV.csproj.CopyComplete
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\obj\Debug\STV.dll
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\obj\Debug\STV.pdb
+C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\obj\Debug\STV.csproj.AssemblyReference.cache
+C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.dll
+C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.presentation.dll
+C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.xml
+C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.presentation.xml

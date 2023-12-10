@@ -117,6 +117,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.9\lib\net48\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.9\lib\net48\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -145,6 +151,7 @@
   <ItemGroup>
     <Content Include="Content\min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\style1.css" />
     <Content Include="Content\Vip.css" />
     <Content Include="Content\all.css" />
     <Content Include="Content\Main.css" />
@@ -166,6 +173,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Image\banner1.jpg" />
+    <Content Include="Image\calendar.png" />
     <Content Include="Image\fac.png" />
     <Content Include="Image\fontawesome-free-6.4.2-web\css\all.css" />
     <Content Include="Image\fontawesome-free-6.4.2-web\css\all.min.css" />
@@ -2234,9 +2242,14 @@
     <Content Include="Image\exclamation-solid.svg" />
     <Content Include="Image\favicon.png" />
     <Content Include="Image\house-solid.svg" />
+    <Content Include="Image\key.png" />
     <Content Include="Image\l.png" />
     <Content Include="Image\m.png" />
+    <Content Include="Image\mail.png" />
+    <Content Include="Image\picture.png" />
+    <Content Include="Image\QR.jpg" />
     <Content Include="Image\rotate-right-solid.svg" />
+    <Content Include="Image\sex.png" />
     <Content Include="Image\tick.png" />
     <Content Include="Image\twitter.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -2308,6 +2321,7 @@
       <DependentUpon>dbSTV.dbml</DependentUpon>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\date.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -2362,6 +2376,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Chapter\" />
+    <Folder Include="Views\QRCode\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
