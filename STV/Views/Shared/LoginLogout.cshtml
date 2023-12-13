@@ -96,17 +96,17 @@
         function batvip(id,check) {
             // Kiểm tra và thực hiện hành động tùy thuộc vào trạng thái của checkbox
 
-      
+
             if (check == true) {
                 $.ajax({
                     url: '@Url.Action("BatVIP", "Author")' + "?chapternumber=" + id,
                     type: 'POST',
                     data: { chapternumber: id },
                     success: function () {
-                        
+
                         alert("Bật vip cho chương thành công");
                     },
-                    
+
                 });
 
             }
@@ -117,17 +117,34 @@
                 type: 'POST',
                 data: { chapternumber: id },
                 success: function () {
-          
+
                     alert("Xóa vip thành công");
                 },
-      
+
                 });
             }
 
 
 
         }
+        function checkrl() {
+            var cm = document.getElementById("reply").value;
+            $.ajax({
+                type: "POST", // Hoặc "GET" tùy theo action của bạn
+                url: "@Url.Action("ThemReply", "Story")" + "?cm=" + cm,
+                success: function (data) {
+                    
+                        
+                    window.location.href = data;
+                    
+
+                }
+
+            });
+        }
     </script>
+
+
 
 </body>
 </html>

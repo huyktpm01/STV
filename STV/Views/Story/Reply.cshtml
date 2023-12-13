@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Reply";
+    Layout = "~/Views/Shared/LoginLogout.cshtml";
+}
+<div class="modal-content">
+    <div class="modal-header">
+    <h6 class="modal-title">Trả lời bình luận</h6><button type="button" class="close">×</button></div>
+    <div class="modal-body"><textarea onfocus="followPush()" id="reply" name="reply" style="min-height:160px;width:100%;font-size:16px;" placeholder="Nhập nội dung."></textarea></div>
+    <div class="modal-footer"><button onclick="checkrl()" class="btn btn-primary">Gửi bình luận</button></div></div>

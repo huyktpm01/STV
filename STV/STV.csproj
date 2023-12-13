@@ -133,6 +133,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2317,6 +2319,18 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Image\Thumbs.db" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\LoginLogout.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\BaoCao.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\DSBaoCao.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\DSChap.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\RT.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\NapTien.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\DoanhThu.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\Rut.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLy\Nap.cshtml" />
     <None Include="Models\dbSTV.dbml.layout">
       <DependentUpon>dbSTV.dbml</DependentUpon>
     </None>
@@ -2372,11 +2386,21 @@
     <Content Include="Views\Member\BuyChap.cshtml" />
     <Content Include="Views\Member\Recharge.cshtml" />
     <Content Include="Views\Member\BanS.cshtml" />
+    <Content Include="Views\Author\EditChap.cshtml" />
+    <Content Include="Views\Home\FollowTr.cshtml" />
+    <Content Include="Views\Story\DongThongBao.cshtml" />
+    <Content Include="Views\Member\RutTien.cshtml" />
+    <Content Include="Views\Member\LSNap.cshtml" />
+    <Content Include="Views\Member\LSRut.cshtml" />
+    <Content Include="Views\Story\DSReply.cshtml" />
+    <Content Include="Views\Story\Reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Views\Chapter\" />
     <Folder Include="Views\QRCode\" />
+    <Folder Include="Views\QuanLy\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

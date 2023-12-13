@@ -168,7 +168,7 @@
             {
                 <a href="/Admin/QuanLy/Index"><img alt="Logo sangtacviet" id="tm-nav-search-logo" src="~/Image/favicon.png"></a>
             }
-            @Html.Action("User", "Home")
+            @Html.Action("User","Home")
 
             @using (Html.BeginForm("Search", "Story", FormMethod.Post, new
             {
@@ -310,7 +310,8 @@
             }
 
         });
-    }
+     }
+     
     </script>
     <script type="text/javascript">
         function changealign(val) {
@@ -399,8 +400,7 @@
                 $.ajax({
                     url: '/Story/luuconfig' + '?Nen=' + n + '&&Mau=' + m + '&&Font=' + f + '&&size=' + s + '&&line=' + l,
                     type: 'POST',
-                    data: { Nen: n, Mau: m, Font: f, size: s, line: l },
-
+                    data: { Nen: n, Mau: m, Font: f, size: s, line: l }
 
                 });
                 ismenu2show1 = false;

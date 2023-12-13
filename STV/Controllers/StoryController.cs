@@ -13,7 +13,8 @@ namespace STV.Controllers
     public class StoryController : Controller
     {
         // GET: Story
-        dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP010502\\SQLEXPRESS;Initial Catalog=Nhom6;Integrated Security=True");
+        //dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP010502\\SQLEXPRESS;Initial Catalog=Nhom6;Integrated Security=True");
+        dbSTVDataContext db = new dbSTVDataContext("Data Source=LAPTOP-4PHTMN7E;Initial Catalog=Nhom6;Integrated Security=True");
         int views = 0;
         [Route("Story/Truyen/{StoryID}")]
         public ActionResult Truyen(int StoryID)
@@ -36,6 +37,7 @@ namespace STV.Controllers
         {
             var user = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString()));
             var chap = db.Chapters.FirstOrDefault(r => r.ChapterID == chapterid);
+            var mau = db.Authors.FirstOrDefault(r => r.MemberID == chap.Story.Author.MemberID);
             var author = db.Members.FirstOrDefault(r => r.MemberID == chap.Story.Author.MemberID);
             float p = 0.9f;
             if (user.Member.Money >= chap.Money)
@@ -45,10 +47,11 @@ namespace STV.Controllers
                 a.ReaderID = user.ReaderID;
                 a.BuyDay = DateTime.Now;
                 a.Money = chap.Money;
-                author.Money = Convert.ToInt16(chap.Money * p);
                 user.Member.Money =  user.Member.Money - Convert.ToInt16(chap.Money);
                 Withdraw b = new Withdraw();
-                b.AuthorID = author.MemberID;b.Money = Convert.ToInt16(chap.Money * p);
+                b.AuthorID = mau.AuthorID;
+                b.Money = Convert.ToInt16(chap.Money * p);
+                author.Money += Convert.ToInt32(b.Money);
                 b.Withdrawaldate = DateTime.Now; b.contend = "Mua Chuong cua truyen" + chap.Story.Title.ToString();
                 db.Withdraws.InsertOnSubmit(b);
                 db.HistoryBuys.InsertOnSubmit(a);
@@ -74,11 +77,19 @@ namespace STV.Controllers
             if(conf == null)
             {
                 ReaderConfig a = new ReaderConfig();
+                a.ReaderID = user.ReaderID;
+                a.Reader = user;
                 a.Color_Theme = Nen;
                 a.Color_Word = Mau;
                 a.Line = Line+'f';
                 a.Size_Word = Size;
                 a.Style_Word = Font;
+                Session["Nen"] = a.Color_Theme;
+                Session["Mau"] = a.Color_Word;
+                Session["Font"] = a.Style_Word;
+                Session["Line"] = a.Line;
+                Session["Size"] = a.Size_Word;
+                db.ReaderConfigs.InsertOnSubmit(a);
             }
             else
             {
@@ -89,39 +100,51 @@ namespace STV.Controllers
                 a.Size_Word = Size;
                 a.Style_Word = Font;
                 conf = a;
-                
+                Session["Nen"] = a.Color_Theme;
+                Session["Mau"] = a.Color_Word;
+                Session["Font"] = a.Style_Word;
+                Session["Line"] = a.Line;
+                Session["Size"] = a.Size_Word;
+
             }
             db.SubmitChanges();
-            return Content(conf.Color_Theme + conf.Color_Word + conf.Line +conf.Style_Word+ conf.Size_Word);
+            return null;
 
         }
         [HttpPost]
         public ActionResult Follow(int storyId)
         {
-            var userId = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString())); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
-
-            // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
-            var existingRecord = db.Follows
-                .FirstOrDefault(r => r.ReaderID == userId.ReaderID && r.StoryID == storyId);
-
-            if (existingRecord == null)
+            if (Session["TaiKhoan"] == null)
             {
+                return Redirect(Url.Action("Login", "Member", new { url = Request.Url.AbsolutePath.ToString() }));
+            }
+            else {
+                var userId = db.Readers.FirstOrDefault(r => r.MemberID == int.Parse(Session["MemberID"].ToString())); // Lấy định danh của người dùng từ hệ thống xác thực (hoặc sử dụng cookie).
 
-                // Nếu chưa có lịch sử đọc cho chapter này, thêm một bản ghi mới.
-                db.Follows.InsertOnSubmit(new Follow
+                // Kiểm tra xem đã có lịch sử đọc cho chapter này chưa.
+                var existingRecord = db.Follows
+                    .FirstOrDefault(r => r.ReaderID == userId.ReaderID && r.StoryID == storyId);
+
+                if (existingRecord == null)
                 {
-                    ReaderID = userId.ReaderID,
-                    StoryID = storyId,
-                    FollowDate = DateTime.Now
-   
-                });
-            }
-            else
-            {
-                // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
-                db.Follows.DeleteOnSubmit(existingRecord);
-            }
-            db.SubmitChanges();
+
+                    // Nếu chưa có lịch sử đọc cho chapter này, thêm một bản ghi mới.
+                    db.Follows.InsertOnSubmit(new Follow
+                    {
+                        ReaderID = userId.ReaderID,
+                        StoryID = storyId,
+                        FollowDate = DateTime.Now
+
+                    });
+                }
+                else
+                {
+                    // Nếu đã có lịch sử đọc cho chapter này, cập nhật thời gian đọc gần đây.
+                    db.Follows.DeleteOnSubmit(existingRecord);
+                }
+                db.SubmitChanges();
+            }  
+            
             return null;
         }
         [Route("Story/Truyen/{StoryID}/{ChapterID}")]
@@ -260,6 +283,50 @@ namespace STV.Controllers
             StoryID = (int)Session["StoryID"];
             var ds = from s in db.Comments where s.StoryID == StoryID orderby s.PublishDate select s;
             return PartialView(ds);
+        }
+        [HttpGet]
+        public ActionResult Reply(int CMID)
+        {
+            Session["CMID"] = CMID;
+            
+            return View();
+        }
+       
+        public ActionResult ThemReply(String cm)
+        {
+            var com = cm;
+            var id = Session["MemberID"];
+            var readerid = db.Readers.FirstOrDefault(r => r.MemberID == Convert.ToInt16(id));
+            Reply n = new Reply();
+            n.Content = com;
+            n.CommentID = Convert.ToInt32(Session["CMID"]);
+            n.ReaderID = readerid.ReaderID;
+            n.PublishDate = DateTime.Now;
+            db.Replies.InsertOnSubmit(n);
+            db.SubmitChanges();
+            var a = Url.Action("Truyen", "Story", new { StoryID = Session["StoryID"] });
+            return Content(a);
+        }
+        public ActionResult DSReply(int CommentID)
+        {
+            
+            var ds = from s in db.Replies where s.CommentID == CommentID orderby s.PublishDate select s;
+            
+                return PartialView(ds);
+            
+           
+           
+        }
+        public ActionResult like(int StoryID)
+        {
+
+            var s = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
+            s.Rating++;
+            db.SubmitChanges();
+            return Redirect(Url.Action("Truyen", "Story", new { StoryID = Session["StoryID"] }));
+
+
+
         }
         public ActionResult DSChap(int StoryID)
         {

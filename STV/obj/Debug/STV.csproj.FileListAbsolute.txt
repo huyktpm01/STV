@@ -168,3 +168,7 @@ C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.dll
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.presentation.dll
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.xml
 C:\Users\NGUYEN BUI NGOC LE\Documents\GitHub\STV\STV\bin\zxing.presentation.xml
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\zxing.dll
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\zxing.presentation.dll
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\zxing.xml
+C:\Users\anhhu\OneDrive\Desktop\BT\stv\STV\bin\zxing.presentation.xml

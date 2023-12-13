@@ -9,14 +9,16 @@
 </div>
 <div>
     <h1> LS Nạp Tiền</h1>
-    @Html.Action("Recharge", "Member", Session["MemberID"])
+    @Html.Action("LSNap", "Member", Session["MemberID"])
 </div>
-@if (Model.A_Level == 2)
-{
+<div>
+    <h1> LS Rút Tiền</h1>
+    @Html.Action("LSRut", "Member", Session["MemberID"])
+</div>
  <div>
-        <h1> Tiền Bán Sách</h1>
-        @Html.Action("BanS", "Member", Session["MemberID"])
+ <h1> Tiền Bán Sách</h1>
+     @Html.Action("BanS", "Member", Session["MemberID"])
  </div>
-}
+
 
 

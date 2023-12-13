@@ -1,0 +1,13 @@
+﻿@model IEnumerable<STV.Models.Recharge>
+@foreach (var item in Model)
+{
+
+    <div class="row nowr" style="margin-left:0px;">
+        <div class="bkr">
+            Số Nhận:@item.Money <br>
+            Ngày Nhận: @item.Deposit_date<br>
+        </div>
+    </div>
+
+}
+

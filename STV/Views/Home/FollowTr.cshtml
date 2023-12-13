@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<STV.Models.Follow>
-<div class="modal fade show" style="list-style-type: none;padding: 6px;white-space: nowrap; display:block;">
-    <div class="modal-dialog modal-dialog-centered modal-md" onclick="event.stopPropagation()">
-        <div class="modal-content" style="overflow: hidden; overflow-y: auto; ">
-            <div class="modal-header">
-                <h6 class="modal-title">Thông báo</h6><button class="close" onclick="fl()">×</button>
-            </div>
-            @foreach (var i in Model)
-            {
+    <div class="modal fade show" style="list-style-type: none;padding: 6px;white-space: nowrap; display:block;">
+        <div class="modal-dialog modal-dialog-centered modal-md" onclick="event.stopPropagation()">
+            <div class="modal-content" style="overflow: hidden; overflow-y: auto; ">
+                <div class="modal-header">
+                    <h6 class="modal-title">Thông báo</h6><button class="close" onclick="fl()">×</button>
+                </div>
+                @foreach (var i in Model)
+                {
                 @Html.Action("DongThongBao", "Story", new { StoryID = i.StoryID })
-            }
+                }
 
+            </div>
         </div>
     </div>
-</div>
 

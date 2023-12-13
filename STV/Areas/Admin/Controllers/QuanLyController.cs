@@ -24,13 +24,13 @@ namespace STV.Areas.Admin.Controllers
             int iPageNum = (page ?? 1);
             var sach = from s in db.Stories where s.Status == 0 select s;
             return View(sach.ToPagedList(iPageNum, iSize));
-            
+
         }
         public ActionResult BaoCao(int StoryID)
         {
-           
+
             var ds = from s in db.Chapters where s.status == 3 select s;
-           
+
             return View(ds);
         }
         public ActionResult DSBaoCao(int? page)
@@ -39,7 +39,7 @@ namespace STV.Areas.Admin.Controllers
             int iSize = 10;
             int iPageNum = (page ?? 1);
             var ds = from s in db.Chapters where s.status == 3 select s;
-  
+
             return View(ds.ToPagedList(iPageNum, iSize));
         }
         public ActionResult DuyetBC()
@@ -52,7 +52,7 @@ namespace STV.Areas.Admin.Controllers
             db.SubmitChanges();
             return RedirectToAction("DSBaoCao");
         }
-        public  ActionResult Duyet(int StoryID)
+        public ActionResult Duyet(int StoryID)
         {
             var sach = db.Stories.SingleOrDefault(n => n.StoryID == StoryID);
             sach.Status = 1;
@@ -73,10 +73,11 @@ namespace STV.Areas.Admin.Controllers
             ViewBag.st = StoryID;
             return View(dsc);
         }
-        public ActionResult RutTien(int MemberID)
+        public ActionResult RutTien(int RutTienID)
         {
-            var dsc = db.RutTiens.SingleOrDefault(n => n.MemberID == MemberID);
+            var dsc = db.RutTiens.SingleOrDefault(n => n.RutTienID == RutTienID);
             dsc.status = 1;
+            dsc.Date = DateTime.Now;
             db.SubmitChanges();
             return RedirectToAction("RT");
         }
@@ -105,6 +106,7 @@ namespace STV.Areas.Admin.Controllers
             a.contend = UserName;
             a.Money = Convert.ToInt32(Num);
             mem.Money += Convert.ToInt32(Num);
+            db.Recharges.InsertOnSubmit(a);
             db.SubmitChanges();
             return View();
         }
@@ -114,11 +116,12 @@ namespace STV.Areas.Admin.Controllers
         }
         public ActionResult Rut(int? page)
         {
-                    ViewBag.Page = page;
-                    int iSize = 10;
-                    int iPageNum = (page ?? 1);
-                    var sach = from s in db.RutTiens where s.status == 1 select s;
-                    return PartialView(sach.ToPagedList(iPageNum, iSize));
+            ViewBag.Page = page;
+            int iSize = 10;
+            int iPageNum = (page ?? 1);
+            var sach = from s in db.RutTiens where s.status == 1 select s;
+            Session["TongRut"]  = sach.Sum(n=>n.SoTien);
+            return PartialView(sach.ToPagedList(iPageNum, iSize));
 
         }
         public ActionResult Nap(int? page)
@@ -127,6 +130,7 @@ namespace STV.Areas.Admin.Controllers
             int iSize = 10;
             int iPageNum = (page ?? 1);
             var sach = from s in db.Recharges select s;
+            Session["TongNap"] = sach.Sum(n => n.Money);
             return PartialView(sach.ToPagedList(iPageNum, iSize));
 
         }

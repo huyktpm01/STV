@@ -3,24 +3,24 @@
     ViewBag.Title = "DSChap";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-<div class="modal-content" id="ds" >
+<div class="modal-content" id="ds">
     <div class="modal-header" style="text-align:center">
         <h6 class="modal-title">Danh Sách Chương Cần Duyệt</h6><a href="@Url.Action("Index","QuanLy")" style="text-align:right"><button type="button" class="close">×</button></a>
     </div>
-    
 
-        @foreach (var s in Model)
-        {
-           <div class="Main">
-               <div style="clear: both;">Chương @s.Chapter_Number : @s.Title</div>
-           </div>
-           <div class="cont">
-               @s.Content
-           </div>
-           <hr />
-        }
-  
-    <div class="menu bg-light p-1"  style=" display: flex; justify-content: center;" >
+
+    @foreach (var s in Model)
+    {
+        <div class="Main">
+            <div style="clear: both;">Chương @s.Chapter_Number : @s.Title</div>
+        </div>
+        <div class="cont">
+            @s.Content
+        </div>
+        <hr />
+    }
+
+    <div class="menu bg-light p-1" style=" display: flex; justify-content: center;">
         <a href="@Url.Action("Duyet", "QuanLy", new {StoryID = ViewBag.st})"><button class="btn btn-primary">Duyệt </button></a>
         <a href="@Url.Action("KhongDuyet", "QuanLy", new {StoryID = ViewBag.st})"><button class="btn btn-primary">Không Duyệt </button></a>
     </div>

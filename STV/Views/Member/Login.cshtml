@@ -33,7 +33,7 @@
                 <td></td>
                 <td>
                     <input type="submit" value="Đăng nhập" />
-                    <a href="@Url.Action("DangKy","Member", new { url = Request.Url.AbsolutePath.ToString()})">DangKy</a>
+                    <a href="">DangKy</a>
                 </td>
             </tr>
         }
@@ -71,11 +71,9 @@
                                 <input type="text" style="background-image:url(../../Image/m.png)" value="User name" name="UserName" id="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}" />
                                 <input type="password" value="Password" name="Pass" id="Pass" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}" />
                                 <div class="remember">
-                                    <span class="checkbox1">
-                                        <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
-                                    </span>
+                                    
                                     <div class="forgot">
-                                        <h6><a href="#">Forgot Password?</a></h6>
+                                        <h6><a href="@Url.Action("DangKy","Member", new { url = Request.Url.AbsolutePath.ToString()})">Tạo Tài Khoảng Mới</a></h6>
                                     </div>
                                     <div class="clear"> </div>
                                 </div>

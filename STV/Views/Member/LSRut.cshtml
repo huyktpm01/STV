@@ -1,0 +1,15 @@
+﻿@model IEnumerable<STV.Models.RutTien>
+@foreach (var item in Model)
+{
+
+    <div class="row nowr" style="margin-left:0px;">
+        <div class="bkr">
+            Số Tiền rút:@item.SoTien <br>
+            Ngày Rút: @item.Date<br>
+            Tài Khoảng Nhận: @item.Contend<br>
+        </div>
+    </div>
+
+}
+
+

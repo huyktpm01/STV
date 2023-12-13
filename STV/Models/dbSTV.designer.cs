@@ -75,12 +75,18 @@ namespace STV.Models
     partial void InsertStory(Story instance);
     partial void UpdateStory(Story instance);
     partial void DeleteStory(Story instance);
-    partial void InsertReaderConfig(ReaderConfig instance);
-    partial void UpdateReaderConfig(ReaderConfig instance);
-    partial void DeleteReaderConfig(ReaderConfig instance);
+    partial void InsertWithdraw(Withdraw instance);
+    partial void UpdateWithdraw(Withdraw instance);
+    partial void DeleteWithdraw(Withdraw instance);
+    partial void InsertRecharge(Recharge instance);
+    partial void UpdateRecharge(Recharge instance);
+    partial void DeleteRecharge(Recharge instance);
     partial void InsertRutTien(RutTien instance);
     partial void UpdateRutTien(RutTien instance);
     partial void DeleteRutTien(RutTien instance);
+    partial void InsertReaderConfig(ReaderConfig instance);
+    partial void UpdateReaderConfig(ReaderConfig instance);
+    partial void DeleteReaderConfig(ReaderConfig instance);
     #endregion
 		
 		public dbSTVDataContext(string connection) : 
@@ -203,14 +209,6 @@ namespace STV.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Recharge> Recharges
-		{
-			get
-			{
-				return this.GetTable<Recharge>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ReaderVIP> ReaderVIPs
 		{
 			get
@@ -251,11 +249,11 @@ namespace STV.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ReaderConfig> ReaderConfigs
+		public System.Data.Linq.Table<Recharge> Recharges
 		{
 			get
 			{
-				return this.GetTable<ReaderConfig>();
+				return this.GetTable<Recharge>();
 			}
 		}
 		
@@ -264,6 +262,14 @@ namespace STV.Models
 			get
 			{
 				return this.GetTable<RutTien>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ReaderConfig> ReaderConfigs
+		{
+			get
+			{
+				return this.GetTable<ReaderConfig>();
 			}
 		}
 	}
@@ -891,6 +897,8 @@ namespace STV.Models
 		
 		private EntitySet<Story> _Stories;
 		
+		private EntitySet<Withdraw> _Withdraws;
+		
 		private EntityRef<AuthorVIP> _AuthorVIP;
 		
 		private EntityRef<Member> _Member;
@@ -917,6 +925,7 @@ namespace STV.Models
 		{
 			this._AuthorRs = new EntitySet<AuthorR>(new Action<AuthorR>(this.attach_AuthorRs), new Action<AuthorR>(this.detach_AuthorRs));
 			this._Stories = new EntitySet<Story>(new Action<Story>(this.attach_Stories), new Action<Story>(this.detach_Stories));
+			this._Withdraws = new EntitySet<Withdraw>(new Action<Withdraw>(this.attach_Withdraws), new Action<Withdraw>(this.detach_Withdraws));
 			this._AuthorVIP = default(EntityRef<AuthorVIP>);
 			this._Member = default(EntityRef<Member>);
 			OnCreated();
@@ -1076,6 +1085,19 @@ namespace STV.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Author_Withdraw", Storage="_Withdraws", ThisKey="AuthorID", OtherKey="AuthorID")]
+		public EntitySet<Withdraw> Withdraws
+		{
+			get
+			{
+				return this._Withdraws;
+			}
+			set
+			{
+				this._Withdraws.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AuthorVIP_Author", Storage="_AuthorVIP", ThisKey="VIPID", OtherKey="VIPID", IsForeignKey=true)]
 		public AuthorVIP AuthorVIP
 		{
@@ -1183,6 +1205,18 @@ namespace STV.Models
 		}
 		
 		private void detach_Stories(Story entity)
+		{
+			this.SendPropertyChanging();
+			entity.Author = null;
+		}
+		
+		private void attach_Withdraws(Withdraw entity)
+		{
+			this.SendPropertyChanging();
+			entity.Author = this;
+		}
+		
+		private void detach_Withdraws(Withdraw entity)
 		{
 			this.SendPropertyChanging();
 			entity.Author = null;
@@ -3218,6 +3252,8 @@ namespace STV.Models
 		
 		private EntitySet<Reply> _Replies;
 		
+		private EntitySet<Recharge> _Recharges;
+		
 		private EntitySet<ReaderConfig> _ReaderConfigs;
 		
 		private EntityRef<Member> _Member;
@@ -3249,6 +3285,7 @@ namespace STV.Models
 			this._Follows = new EntitySet<Follow>(new Action<Follow>(this.attach_Follows), new Action<Follow>(this.detach_Follows));
 			this._HistoryBuys = new EntitySet<HistoryBuy>(new Action<HistoryBuy>(this.attach_HistoryBuys), new Action<HistoryBuy>(this.detach_HistoryBuys));
 			this._Replies = new EntitySet<Reply>(new Action<Reply>(this.attach_Replies), new Action<Reply>(this.detach_Replies));
+			this._Recharges = new EntitySet<Recharge>(new Action<Recharge>(this.attach_Recharges), new Action<Recharge>(this.detach_Recharges));
 			this._ReaderConfigs = new EntitySet<ReaderConfig>(new Action<ReaderConfig>(this.attach_ReaderConfigs), new Action<ReaderConfig>(this.detach_ReaderConfigs));
 			this._Member = default(EntityRef<Member>);
 			this._ReaderVIP = default(EntityRef<ReaderVIP>);
@@ -3448,6 +3485,19 @@ namespace STV.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_Recharge", Storage="_Recharges", ThisKey="ReaderID", OtherKey="ReaderID")]
+		public EntitySet<Recharge> Recharges
+		{
+			get
+			{
+				return this._Recharges;
+			}
+			set
+			{
+				this._Recharges.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_ReaderConfig", Storage="_ReaderConfigs", ThisKey="ReaderID", OtherKey="ReaderID")]
 		public EntitySet<ReaderConfig> ReaderConfigs
 		{
@@ -3609,6 +3659,18 @@ namespace STV.Models
 			entity.Reader = null;
 		}
 		
+		private void attach_Recharges(Recharge entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reader = this;
+		}
+		
+		private void detach_Recharges(Recharge entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reader = null;
+		}
+		
 		private void attach_ReaderConfigs(ReaderConfig entity)
 		{
 			this.SendPropertyChanging();
@@ -3619,87 +3681,6 @@ namespace STV.Models
 		{
 			this.SendPropertyChanging();
 			entity.Reader = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recharge")]
-	public partial class Recharge
-	{
-		
-		private System.Nullable<int> _ReaderID;
-		
-		private System.Nullable<int> _Money;
-		
-		private System.Nullable<System.DateTime> _Deposit_date;
-		
-		private string _contend;
-		
-		public Recharge()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderID", DbType="Int")]
-		public System.Nullable<int> ReaderID
-		{
-			get
-			{
-				return this._ReaderID;
-			}
-			set
-			{
-				if ((this._ReaderID != value))
-				{
-					this._ReaderID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Money", DbType="Int")]
-		public System.Nullable<int> Money
-		{
-			get
-			{
-				return this._Money;
-			}
-			set
-			{
-				if ((this._Money != value))
-				{
-					this._Money = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deposit_date", DbType="Date")]
-		public System.Nullable<System.DateTime> Deposit_date
-		{
-			get
-			{
-				return this._Deposit_date;
-			}
-			set
-			{
-				if ((this._Deposit_date != value))
-				{
-					this._Deposit_date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contend", DbType="NVarChar(MAX)")]
-		public string contend
-		{
-			get
-			{
-				return this._contend;
-			}
-			set
-			{
-				if ((this._contend != value))
-				{
-					this._contend = value;
-				}
-			}
 		}
 	}
 	
@@ -4681,8 +4662,10 @@ namespace STV.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Withdraw")]
-	public partial class Withdraw
+	public partial class Withdraw : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Nullable<int> _AuthorID;
 		
@@ -4692,8 +4675,30 @@ namespace STV.Models
 		
 		private string _contend;
 		
+		private int _WID;
+		
+		private EntityRef<Author> _Author;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAuthorIDChanging(System.Nullable<int> value);
+    partial void OnAuthorIDChanged();
+    partial void OnMoneyChanging(System.Nullable<float> value);
+    partial void OnMoneyChanged();
+    partial void OnWithdrawaldateChanging(System.Nullable<System.DateTime> value);
+    partial void OnWithdrawaldateChanged();
+    partial void OncontendChanging(string value);
+    partial void OncontendChanged();
+    partial void OnWIDChanging(int value);
+    partial void OnWIDChanged();
+    #endregion
+		
 		public Withdraw()
 		{
+			this._Author = default(EntityRef<Author>);
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuthorID", DbType="Int")]
@@ -4707,7 +4712,15 @@ namespace STV.Models
 			{
 				if ((this._AuthorID != value))
 				{
+					if (this._Author.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuthorIDChanging(value);
+					this.SendPropertyChanging();
 					this._AuthorID = value;
+					this.SendPropertyChanged("AuthorID");
+					this.OnAuthorIDChanged();
 				}
 			}
 		}
@@ -4723,7 +4736,11 @@ namespace STV.Models
 			{
 				if ((this._Money != value))
 				{
+					this.OnMoneyChanging(value);
+					this.SendPropertyChanging();
 					this._Money = value;
+					this.SendPropertyChanged("Money");
+					this.OnMoneyChanged();
 				}
 			}
 		}
@@ -4739,7 +4756,11 @@ namespace STV.Models
 			{
 				if ((this._Withdrawaldate != value))
 				{
+					this.OnWithdrawaldateChanging(value);
+					this.SendPropertyChanging();
 					this._Withdrawaldate = value;
+					this.SendPropertyChanged("Withdrawaldate");
+					this.OnWithdrawaldateChanged();
 				}
 			}
 		}
@@ -4755,8 +4776,508 @@ namespace STV.Models
 			{
 				if ((this._contend != value))
 				{
+					this.OncontendChanging(value);
+					this.SendPropertyChanging();
 					this._contend = value;
+					this.SendPropertyChanged("contend");
+					this.OncontendChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int WID
+		{
+			get
+			{
+				return this._WID;
+			}
+			set
+			{
+				if ((this._WID != value))
+				{
+					this.OnWIDChanging(value);
+					this.SendPropertyChanging();
+					this._WID = value;
+					this.SendPropertyChanged("WID");
+					this.OnWIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Author_Withdraw", Storage="_Author", ThisKey="AuthorID", OtherKey="AuthorID", IsForeignKey=true)]
+		public Author Author
+		{
+			get
+			{
+				return this._Author.Entity;
+			}
+			set
+			{
+				Author previousValue = this._Author.Entity;
+				if (((previousValue != value) 
+							|| (this._Author.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Author.Entity = null;
+						previousValue.Withdraws.Remove(this);
+					}
+					this._Author.Entity = value;
+					if ((value != null))
+					{
+						value.Withdraws.Add(this);
+						this._AuthorID = value.AuthorID;
+					}
+					else
+					{
+						this._AuthorID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Author");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recharge")]
+	public partial class Recharge : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Nullable<int> _ReaderID;
+		
+		private System.Nullable<int> _Money;
+		
+		private System.Nullable<System.DateTime> _Deposit_date;
+		
+		private string _contend;
+		
+		private int _RID;
+		
+		private EntityRef<Reader> _Reader;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnReaderIDChanging(System.Nullable<int> value);
+    partial void OnReaderIDChanged();
+    partial void OnMoneyChanging(System.Nullable<int> value);
+    partial void OnMoneyChanged();
+    partial void OnDeposit_dateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDeposit_dateChanged();
+    partial void OncontendChanging(string value);
+    partial void OncontendChanged();
+    partial void OnRIDChanging(int value);
+    partial void OnRIDChanged();
+    #endregion
+		
+		public Recharge()
+		{
+			this._Reader = default(EntityRef<Reader>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderID", DbType="Int")]
+		public System.Nullable<int> ReaderID
+		{
+			get
+			{
+				return this._ReaderID;
+			}
+			set
+			{
+				if ((this._ReaderID != value))
+				{
+					if (this._Reader.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReaderIDChanging(value);
+					this.SendPropertyChanging();
+					this._ReaderID = value;
+					this.SendPropertyChanged("ReaderID");
+					this.OnReaderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Money", DbType="Int")]
+		public System.Nullable<int> Money
+		{
+			get
+			{
+				return this._Money;
+			}
+			set
+			{
+				if ((this._Money != value))
+				{
+					this.OnMoneyChanging(value);
+					this.SendPropertyChanging();
+					this._Money = value;
+					this.SendPropertyChanged("Money");
+					this.OnMoneyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deposit_date", DbType="Date")]
+		public System.Nullable<System.DateTime> Deposit_date
+		{
+			get
+			{
+				return this._Deposit_date;
+			}
+			set
+			{
+				if ((this._Deposit_date != value))
+				{
+					this.OnDeposit_dateChanging(value);
+					this.SendPropertyChanging();
+					this._Deposit_date = value;
+					this.SendPropertyChanged("Deposit_date");
+					this.OnDeposit_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contend", DbType="NVarChar(MAX)")]
+		public string contend
+		{
+			get
+			{
+				return this._contend;
+			}
+			set
+			{
+				if ((this._contend != value))
+				{
+					this.OncontendChanging(value);
+					this.SendPropertyChanging();
+					this._contend = value;
+					this.SendPropertyChanged("contend");
+					this.OncontendChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RID
+		{
+			get
+			{
+				return this._RID;
+			}
+			set
+			{
+				if ((this._RID != value))
+				{
+					this.OnRIDChanging(value);
+					this.SendPropertyChanging();
+					this._RID = value;
+					this.SendPropertyChanged("RID");
+					this.OnRIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_Recharge", Storage="_Reader", ThisKey="ReaderID", OtherKey="ReaderID", IsForeignKey=true)]
+		public Reader Reader
+		{
+			get
+			{
+				return this._Reader.Entity;
+			}
+			set
+			{
+				Reader previousValue = this._Reader.Entity;
+				if (((previousValue != value) 
+							|| (this._Reader.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Reader.Entity = null;
+						previousValue.Recharges.Remove(this);
+					}
+					this._Reader.Entity = value;
+					if ((value != null))
+					{
+						value.Recharges.Add(this);
+						this._ReaderID = value.ReaderID;
+					}
+					else
+					{
+						this._ReaderID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Reader");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RutTien")]
+	public partial class RutTien : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RutTienID;
+		
+		private System.Nullable<int> _MemberID;
+		
+		private System.Nullable<int> _SoTien;
+		
+		private string _Contend;
+		
+		private System.Nullable<int> _status;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private EntityRef<Member> _Member;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRutTienIDChanging(int value);
+    partial void OnRutTienIDChanged();
+    partial void OnMemberIDChanging(System.Nullable<int> value);
+    partial void OnMemberIDChanged();
+    partial void OnSoTienChanging(System.Nullable<int> value);
+    partial void OnSoTienChanged();
+    partial void OnContendChanging(string value);
+    partial void OnContendChanged();
+    partial void OnstatusChanging(System.Nullable<int> value);
+    partial void OnstatusChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    #endregion
+		
+		public RutTien()
+		{
+			this._Member = default(EntityRef<Member>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RutTienID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RutTienID
+		{
+			get
+			{
+				return this._RutTienID;
+			}
+			set
+			{
+				if ((this._RutTienID != value))
+				{
+					this.OnRutTienIDChanging(value);
+					this.SendPropertyChanging();
+					this._RutTienID = value;
+					this.SendPropertyChanged("RutTienID");
+					this.OnRutTienIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", DbType="Int")]
+		public System.Nullable<int> MemberID
+		{
+			get
+			{
+				return this._MemberID;
+			}
+			set
+			{
+				if ((this._MemberID != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberIDChanging(value);
+					this.SendPropertyChanging();
+					this._MemberID = value;
+					this.SendPropertyChanged("MemberID");
+					this.OnMemberIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoTien", DbType="Int")]
+		public System.Nullable<int> SoTien
+		{
+			get
+			{
+				return this._SoTien;
+			}
+			set
+			{
+				if ((this._SoTien != value))
+				{
+					this.OnSoTienChanging(value);
+					this.SendPropertyChanging();
+					this._SoTien = value;
+					this.SendPropertyChanged("SoTien");
+					this.OnSoTienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contend", DbType="VarChar(MAX)")]
+		public string Contend
+		{
+			get
+			{
+				return this._Contend;
+			}
+			set
+			{
+				if ((this._Contend != value))
+				{
+					this.OnContendChanging(value);
+					this.SendPropertyChanging();
+					this._Contend = value;
+					this.SendPropertyChanged("Contend");
+					this.OnContendChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
+		public System.Nullable<int> status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_RutTien", Storage="_Member", ThisKey="MemberID", OtherKey="MemberID", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.RutTiens.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.RutTiens.Add(this);
+						this._MemberID = value.MemberID;
+					}
+					else
+					{
+						this._MemberID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -4766,8 +5287,6 @@ namespace STV.Models
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _id;
 		
 		private System.Nullable<int> _ReaderID;
 		
@@ -4781,14 +5300,14 @@ namespace STV.Models
 		
 		private System.Nullable<float> _Line;
 		
+		private int _id;
+		
 		private EntityRef<Reader> _Reader;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidChanging(System.Guid value);
-    partial void OnidChanged();
     partial void OnReaderIDChanging(System.Nullable<int> value);
     partial void OnReaderIDChanged();
     partial void OnColor_ThemeChanging(string value);
@@ -4801,32 +5320,14 @@ namespace STV.Models
     partial void OnSize_WordChanged();
     partial void OnLineChanging(System.Nullable<float> value);
     partial void OnLineChanged();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
     #endregion
 		
 		public ReaderConfig()
 		{
 			this._Reader = default(EntityRef<Reader>);
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderID", DbType="Int")]
@@ -4953,6 +5454,26 @@ namespace STV.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_ReaderConfig", Storage="_Reader", ThisKey="ReaderID", OtherKey="ReaderID", IsForeignKey=true)]
 		public Reader Reader
 		{
@@ -4983,205 +5504,6 @@ namespace STV.Models
 						this._ReaderID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Reader");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RutTien")]
-	public partial class RutTien : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RutTienID;
-		
-		private System.Nullable<int> _MemberID;
-		
-		private System.Nullable<int> _SoTien;
-		
-		private string _Contend;
-		
-		private System.Nullable<int> _status;
-		
-		private EntityRef<Member> _Member;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRutTienIDChanging(int value);
-    partial void OnRutTienIDChanged();
-    partial void OnMemberIDChanging(System.Nullable<int> value);
-    partial void OnMemberIDChanged();
-    partial void OnSoTienChanging(System.Nullable<int> value);
-    partial void OnSoTienChanged();
-    partial void OnContendChanging(string value);
-    partial void OnContendChanged();
-    partial void OnstatusChanging(System.Nullable<int> value);
-    partial void OnstatusChanged();
-    #endregion
-		
-		public RutTien()
-		{
-			this._Member = default(EntityRef<Member>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RutTienID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RutTienID
-		{
-			get
-			{
-				return this._RutTienID;
-			}
-			set
-			{
-				if ((this._RutTienID != value))
-				{
-					this.OnRutTienIDChanging(value);
-					this.SendPropertyChanging();
-					this._RutTienID = value;
-					this.SendPropertyChanged("RutTienID");
-					this.OnRutTienIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID", DbType="Int")]
-		public System.Nullable<int> MemberID
-		{
-			get
-			{
-				return this._MemberID;
-			}
-			set
-			{
-				if ((this._MemberID != value))
-				{
-					if (this._Member.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMemberIDChanging(value);
-					this.SendPropertyChanging();
-					this._MemberID = value;
-					this.SendPropertyChanged("MemberID");
-					this.OnMemberIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoTien", DbType="Int")]
-		public System.Nullable<int> SoTien
-		{
-			get
-			{
-				return this._SoTien;
-			}
-			set
-			{
-				if ((this._SoTien != value))
-				{
-					this.OnSoTienChanging(value);
-					this.SendPropertyChanging();
-					this._SoTien = value;
-					this.SendPropertyChanged("SoTien");
-					this.OnSoTienChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contend", DbType="VarChar(MAX)")]
-		public string Contend
-		{
-			get
-			{
-				return this._Contend;
-			}
-			set
-			{
-				if ((this._Contend != value))
-				{
-					this.OnContendChanging(value);
-					this.SendPropertyChanging();
-					this._Contend = value;
-					this.SendPropertyChanged("Contend");
-					this.OnContendChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int")]
-		public System.Nullable<int> status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_RutTien", Storage="_Member", ThisKey="MemberID", OtherKey="MemberID", IsForeignKey=true)]
-		public Member Member
-		{
-			get
-			{
-				return this._Member.Entity;
-			}
-			set
-			{
-				Member previousValue = this._Member.Entity;
-				if (((previousValue != value) 
-							|| (this._Member.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Member.Entity = null;
-						previousValue.RutTiens.Remove(this);
-					}
-					this._Member.Entity = value;
-					if ((value != null))
-					{
-						value.RutTiens.Add(this);
-						this._MemberID = value.MemberID;
-					}
-					else
-					{
-						this._MemberID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Member");
 				}
 			}
 		}

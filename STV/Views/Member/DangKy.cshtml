@@ -107,6 +107,7 @@
 <html>
 <head>
     <title>Register</title>
+    <h4>@ViewBag.ThongBao</h4>
     <script src="~/Scripts/jquery.min.js"></script>
     <!-- Custom Theme files -->
     <link href="~/Content/style1.css" rel="stylesheet" type="text/css" media="all" />
@@ -124,14 +125,19 @@
     <div class="header">
         <div class="header-main">
             <h1>Register Account</h1>
+            <h4>@ViewBag.ThongBao</h4>
             <div class="header-bottom">
                 <div class="header-right w3agile">
 
                     <div class="header-left-bottom agileinfo">
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("DangKy", "Member", FormMethod.Post, new
+                        {
+                            @enctype =
+"multipart/form-data"
+                        }))
                         {
                             @Html.ValidationSummary(true)
-                        <form action="#" method="post">
+
                             <input type="text" style="background-image: url(../../Image/m.png)" value="User name" name="UserName" id="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}" />
                             <input type="password" value="Password" name="Pass" id="Pass" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}" />
                             <input type="password" value="Confirm" name="PassNL" id="PassNL" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comfirm';}" />
@@ -146,7 +152,7 @@
                             <input type="date" style="background-image: url(../../Image/calendar.png)" value="Birth" name="Birth" id="Birth" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Birth';}" />
                             <input type="text" style="background-image: url(../../Image/sex.png)" value="Gender" name="Gender" id="Gender" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Gender';}" />
                             <input type="submit" value="Create Account">
-                        </form>
+
                         }
                     </div>
                 </div>

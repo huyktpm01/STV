@@ -11,31 +11,7 @@
 }
 else
 {
-<<<<<<< Updated upstream
-    <div id="tm-nav-search-top-right" style="float: right;">
-        <button type="button" class="btn" id="notifmarker" onclick="notification()" havenotif="2">
-            <i class="fa-solid fa-exclamation"></i>
-        </button>
-        <img id="tm-user-avatar" src="https://staticvn.sangtacvietcdn.xyz/img/useravatar/user250.jpeg?t=1630150096" onclick="usermenu()">
-        <span id="usermenupos" style="position: relative;height: 30px;display: inline-block;">
-            <div id="menunavigator2" style="display:none;">
-                <ul style="list-style-type: none;padding: 6px;white-space: nowrap;display: block;">
-                    <li style="margin: 8px;text-align: center;padding: 6px;">¯\_ಠ_ಠ_/¯</li>
-                    <hr>
-                    <li><a onclick="ui.swiftload(this)" href="@Url.Action("Information","Member",new { MemberID = Session["MemberID"] })">Thông tin cá nhân</a></li>
-                    <li><a onclick="ui.swiftload(this)" href="@Url.Action("HisBuy","Member",new { MemberID = Session["MemberID"] })">Lịch Sử Giao Dịch</a></li>
-                    <li><a onclick="ui.swiftload(this)" href="/setting/">Cài đặt</a></li>
-                    <li><a onclick="logout();">Đăng xuất</a></li>
-                    <hr hidden="">
-                    <li><a onclick="ui.swiftload(this)" href="@Url.Action("Recharge","Member",new { MemberID = Session["MemberID"] })" style="color: #DD0000">Nạp tiền</a></li>
-                    <hr>
-                    <li><a onclick="ui.swiftload(this,'inner')" href="/readed/">Truyện đã đọc</a></li>
-                    <li><a onclick="ui.swiftload(this,'inner')" href="@Url.Action("Follow","Member",new { id = Session["MemberID"] })">Truyện theo dõi</a></li>
-                    <hr>
-                    <li><a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })" style="color: #DD0000">Đăng truyện</a></li>
-                    <li><a href="/writer.php">Khu tác giả</a></li>
-                    <li><a href="/langer.php">[PC-Only]Khu dịch giả</a></li>
-=======
+
     var a = (STV.Models.Member)Session["TaiKhoan"];
 <div id="tm-nav-search-top-right" style="float: right;">
     <button type="button" class="btn" id="notifmarker" onclick="fl()" havenotif="@Session["SLF"]">
@@ -51,6 +27,8 @@ else
                 <li style="margin: 8px;text-align: center;padding: 6px;">@a.UserName</li>
                 <hr>
                 <li><a onclick="ui.swiftload(this)" href="@Url.Action("Information","Member",new { MemberID = Session["MemberID"] })">Thông tin cá nhân</a></li>
+                <li><a onclick="ui.swiftload(this)" href="@Url.Action("RutTien","Member")">Rút Tiền</a></li>
+                <li><a onclick="ui.swiftload(this)" href="@Url.Action("Recharge","Member")">Nạp Tiền</a></li>
                 <li><a onclick="ui.swiftload(this)" href="@Url.Action("HisBuy","Member",new { MemberID = Session["MemberID"] })">Lịch Sử Giao Dịch</a></li>
                 <li><a href="@Url.Action("DangXuat","Member", new { url = Request.Url.ToString() })">Đăng xuất</a></li>
                 <hr hidden="">
@@ -59,7 +37,6 @@ else
                 <li><a onclick="ui.swiftload(this,'inner')" href="@Url.Action("Follow","Member",new { id = Session["MemberID"] })">Truyện theo dõi</a></li>
                 <hr>
                 <li><a href="@Url.Action("list","Author",new { MemberID = Session["MemberID"] })" style="color: #DD0000">Đăng truyện</a></li>
->>>>>>> Stashed changes
 
             </ul>
         </div>
@@ -93,6 +70,7 @@ else
             }
 
         </script>
+
     </span>
 </div>
 }

@@ -150,20 +150,11 @@
       <Association Name="Reader_History" Member="Histories" ThisKey="ReaderID" OtherKey="ReaderID" Type="History" />
       <Association Name="Reader_Follow" Member="Follows" ThisKey="ReaderID" OtherKey="ReaderID" Type="Follow" />
       <Association Name="Reader_HistoryBuy" Member="HistoryBuys" ThisKey="ReaderID" OtherKey="ReaderID" Type="HistoryBuy" />
-      <Association Name="Reader_Recharge" Member="Recharges" ThisKey="ReaderID" OtherKey="ReaderID" Type="Recharge" />
       <Association Name="Reader_Reply" Member="Replies" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reply" />
+      <Association Name="Reader_Recharge" Member="Recharges" ThisKey="ReaderID" OtherKey="ReaderID" Type="Recharge" />
       <Association Name="Reader_ReaderConfig" Member="ReaderConfigs" ThisKey="ReaderID" OtherKey="ReaderID" Type="ReaderConfig" />
       <Association Name="Member_Reader" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
       <Association Name="ReaderVIP_Reader" Member="ReaderVIP" ThisKey="VIPID" OtherKey="VIPID" Type="ReaderVIP" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Recharge" Member="Recharges">
-    <Type Name="Recharge">
-      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Money" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Deposit_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="contend" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Reader_Recharge" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ReaderVIP" Member="ReaderVIPs">
@@ -223,19 +214,18 @@
       <Column Name="Money" Type="System.Single" DbType="Real" CanBeNull="true" />
       <Column Name="Withdrawaldate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="contend" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="Author_Withdraw" Member="Author" ThisKey="AuthorID" OtherKey="AuthorID" Type="Author" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ReaderConfig" Member="ReaderConfigs">
-    <Type Name="ReaderConfig">
-      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.Recharge" Member="Recharges">
+    <Type Name="Recharge">
       <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Color_Theme" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Color_Word" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Style_Word" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Size_Word" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Line" Type="System.Single" DbType="Real" CanBeNull="true" />
-      <Association Name="Reader_ReaderConfig" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
+      <Column Name="Money" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deposit_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contend" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Reader_Recharge" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.RutTien" Member="RutTiens">
@@ -245,7 +235,20 @@
       <Column Name="SoTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Contend" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="Member_RutTien" Member="Member" ThisKey="MemberID" OtherKey="MemberID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ReaderConfig" Member="ReaderConfigs">
+    <Type Name="ReaderConfig">
+      <Column Name="ReaderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color_Theme" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Color_Word" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Style_Word" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Size_Word" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Line" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Reader_ReaderConfig" Member="Reader" ThisKey="ReaderID" OtherKey="ReaderID" Type="Reader" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

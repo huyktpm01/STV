@@ -8,7 +8,7 @@
         <h6 class="modal-title">Chương Cần Kiểm Tra Lại</h6><a href="@Url.Action("Index","QuanLy")" style="text-align:right"><button type="button" class="close">×</button></a>
     </div>
 
-    
+
     @foreach (var s in Model)
     {
         <div class="Main">
@@ -21,8 +21,8 @@
         <hr />
     }
 
-<div class="menu bg-light p-1" style=" display: flex; justify-content: center;">
-    <a href="@Url.Action("DuyetBC", "QuanLy")"><button class="btn btn-primary">Duyệt </button></a>
-    <a href="@Url.Action("KhongDuyet", "QuanLy", new {StoryID = ViewBag.st})"><button class="btn btn-primary">Không Duyệt </button></a>
-</div>
+    <div class="menu bg-light p-1" style=" display: flex; justify-content: center;">
+        <a href="@Url.Action("DuyetBC", "QuanLy")"><button class="btn btn-primary">Duyệt </button></a>
+        <a href="@Url.Action("KhongDuyet", "QuanLy", new {StoryID = ViewBag.st})"><button class="btn btn-primary">Không Duyệt </button></a>
+    </div>
 </div>

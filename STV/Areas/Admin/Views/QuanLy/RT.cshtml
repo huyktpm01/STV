@@ -1,8 +1,9 @@
-﻿@using STV.Models
+﻿
+@using STV.Models
 @using PagedList.Mvc
 @model PagedList.PagedList<STV.Models.RutTien>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "RutTien";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="container shadow p-2 bg-light">
@@ -11,7 +12,7 @@
             <thead>
                 <tr>
                     <th scope="col">STK Và tên TK</th>
-                    
+
                     <td scope="col"> Số tiền Rút</td>
                     <td scope="col"> Rút tiền </td>
                 </tr>
@@ -23,7 +24,7 @@
                     <tr>
                         <td>@sach.Contend</td>
                         <td>@sach.SoTien</td>
-                        <td><a href="@Url.Action("RutTien", "QuanLy",new {MemberID = sach.MemberID})"><button type="button" class="btn btn-primary"><i class="fa-solid fa-list"></i></button></a></td>
+                        <td><a href="@Url.Action("RutTien", "QuanLy",new {RutTienID = sach.RutTienID})"><button type="button" class="btn btn-primary"><i class="fa-solid fa-list"></i></button></a></td>
                     </tr>
 
                 }
@@ -44,5 +45,3 @@ page = page
         </div>
     </div>
 </div>
-
-
